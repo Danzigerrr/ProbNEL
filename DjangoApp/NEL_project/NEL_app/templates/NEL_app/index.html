@@ -106,7 +106,8 @@
                         const entityTag = entity.entity_type;
                         const uri = entity.uri;
 
-                        textWithEntities = textWithEntities.replace(regex, `<span class="entity" onclick="showEntityDetails('${entityText}', '${entityTag}', ${JSON.stringify(probabilities)}, '${uri}')">${entityText}</span>`);
+                        textWithEntities = textWithEntities.replace(regex,
+                            `<a href="${uri}" class="entity" target="_blank">${entityText}</a>`);
 
                         // Show entity details directly
                         showEntityDetails(entityText, entityTag, probabilities, uri);
