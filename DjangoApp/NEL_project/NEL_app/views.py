@@ -1,11 +1,8 @@
-import requests
 from django.shortcuts import render
-import time
-import os
-from dotenv import load_dotenv
 from django.http import JsonResponse
 from flair.data import Sentence
 from flair.models import SequenceTagger
+from django.shortcuts import redirect
 
 # Load the Flair NER model once (using the 'fast' version)
 print("Loading model...")

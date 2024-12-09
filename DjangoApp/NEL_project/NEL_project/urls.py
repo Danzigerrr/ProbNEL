@@ -16,8 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.shortcuts import redirect
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('NEL_app/', include('NEL_app.urls')),
+    path('', lambda request: redirect('NEL_app/')),  # Redirect the root URL to 'NEL_app/'
+    path('NEL_app/', include('NEL_app.urls')),  # Include the app's URL patterns
 ]
