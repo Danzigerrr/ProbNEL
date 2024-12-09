@@ -3,68 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NER Demo</title>
+    <title>NER and NED Demo</title>
     <style>
-        /* Some basic styling */
+        /* Basic styling for the page */
         .result {
             border: 1px solid #ccc;
             padding: 10px;
             margin-top: 20px;
         }
-        /* Context box for showing entity details */
+        /* Highlighting clickable entities */
+        .entity {
+            color: blue;
+        }
         #context-box {
             border: 1px solid #ccc;
             padding: 10px;
-            margin-left: 20px;
-            display: inline-block;
+            margin-top: 20px;
             width: 300px;
-            height: 150px;
         }
     </style>
-    <script>
-        // This function will display the entity details in the context box
-        function showEntityDetails(entityText, entityTag, probabilities) {
-            const contextBox = document.getElementById("context-box");
-            contextBox.innerHTML = `<h4>Entity: ${entityText}</h4>
-                                    <p><strong>Class:</strong> ${entityTag}</p>
-                                    <strong>Top 3 Probabilities:</strong>
-                                    ${probabilities}`;
-        }
-
-        function submitInput(event) {
-            event.preventDefault(); // Prevent form submission
-
-            const userInput = document.getElementById("user_input").value; // Get user input
-            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value; // Get CSRF token
-
-            fetch("", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                    "X-Requested-With": "XMLHttpRequest",
-                    "X-CSRFToken": csrfToken
-                },
-                body: new URLSearchParams({
-                    user_input: userInput
-                })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    const resultDiv = document.getElementById("result");
-                    if (data.error) {
-                        resultDiv.innerHTML = `<p style="color: red;">Error: ${data.error}</p>`;
-                    } else {
-                        resultDiv.innerHTML = data.output_html;
-                    }
-                })
-                .catch(error => {
-                    console.error("Error:", error);
-                });
-        }
-    </script>
 </head>
 <body>
-<h1>Named Entity Recognition</h1>
+<h1>Named Entity Recognition and Disambiguation</h1>
 <form onsubmit="submitInput(event);">
     {% csrf_token %}
     <textarea id="user_input" rows="5" cols="50" placeholder="Enter text here"></textarea>
@@ -72,11 +32,83 @@
     <button type="submit">Process</button>
 </form>
 
-<div id="result" class="result"></div>
-
-<!-- Context box for showing entity details -->
-<div id="context-box">
-    <h4>Select an entity to view details</h4>
+<div id="result" class="result">
+    <h3>Processed Text:</h3>
+    <p id="text-with-entities"></p>
 </div>
+
+<div id="context-box">
+    <h4>Entity Details</h4>
+    <div id="entity-details"></div>
+</div>
+
+<script>
+    function showEntityDetails(entityText, entityTag, probabilities, dbpediaUri) {
+        const entityDetails = document.getElementById("entity-details");
+        entityDetails.innerHTML += `
+            <h5>Entity: ${entityText}</h5>
+            <p><strong>Class:</strong> ${entityTag}</p>
+            <p><strong>DBpedia URI:</strong> <a href="${dbpediaUri}" target="_blank">${dbpediaUri}</a></p>
+            <p><strong>Top Probabilities:</strong></p>
+            <ul>
+                ${probabilities.map(prob => `<li>${prob[0]}: ${prob[1].toFixed(2)}</li>`).join("")}
+            </ul>
+            <hr>
+        `;
+    }
+
+    function submitInput(event) {
+        event.preventDefault(); // Prevent form submission
+
+        const userInput = document.getElementById("user_input").value; // Get user input
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value; // Get CSRF token
+
+        fetch("", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "X-Requested-With": "XMLHttpRequest",
+                "X-CSRFToken": csrfToken
+            },
+            body: new URLSearchParams({
+                user_input: userInput
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                const resultDiv = document.getElementById("result");
+                const entityDetailsDiv = document.getElementById("entity-details");
+                entityDetailsDiv.innerHTML = ''; // Clear any previous details
+
+                if (data.error) {
+                    resultDiv.innerHTML = `<p style="color: red;">Error: ${data.error}</p>`;
+                } else {
+                    // Highlight entities in the text
+                    let textWithEntities = data.text;
+
+                    // Replace entities with clickable spans (skipped for now)
+                    data.entities.forEach(entity => {
+                        const entityText = entity.entity_text;
+                        const regex = new RegExp(`\\b${entityText}\\b`, 'g'); // Match whole word
+                        const probabilities = entity.probabilities;
+                        const entityTag = entity.entity_type;
+                        const dbpediaUri = entity.dbpedia_uri;
+
+                        textWithEntities = textWithEntities.replace(regex, `<span class="entity">${entityText}</span>`);
+
+                        // Show entity details directly
+                        showEntityDetails(entityText, entityTag, probabilities, dbpediaUri);
+                    });
+
+                    document.getElementById("text-with-entities").innerHTML = textWithEntities;
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                const resultDiv = document.getElementById("result");
+                resultDiv.innerHTML = `<p style="color: red;">An error occurred while processing your request.</p>`;
+            });
+    }
+</script>
 </body>
 </html>
