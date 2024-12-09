@@ -12,7 +12,7 @@ class Entity(models.Model):
     entity_type = models.CharField(max_length=100)
     start_position = models.IntegerField()
     end_position = models.IntegerField()
-    dbpedia_uri = models.URLField(null=True, blank=True)
+    uri = models.URLField(null=True, blank=True)
     probabilities = models.JSONField(default=list)  # Store probabilities as JSON
 
     def __str__(self):

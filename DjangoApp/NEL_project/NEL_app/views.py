@@ -57,7 +57,7 @@ def get_entities_and_links(sentence, text_obj):
             "start": entity.start_position,
             "end": entity.end_position,
             "entity_group": entity_type,
-            "dbpedia_uri": best_result["URI"] if best_result else "",
+            "uri": best_result["URI"] if best_result else "",
         })
 
         # Save the entity to the database, associating it with the text_obj
@@ -67,7 +67,7 @@ def get_entities_and_links(sentence, text_obj):
             entity_type=entity_type,
             start_position=entity.start_position,
             end_position=entity.end_position,
-            dbpedia_uri=best_result["URI"] if best_result else "",
+            uri=best_result["URI"] if best_result else "",
             probabilities=extract_entity_probabilities(entity)  # Get probabilities
         )
 
@@ -93,7 +93,7 @@ def index(request):
             ner_results = get_entities_and_links(sentence, text_obj)
 
             # Collect the entities associated with the text
-            entities = Entity.objects.filter(text=text_obj).values('entity_text', 'entity_type', 'start_position', 'end_position', 'dbpedia_uri', 'probabilities')
+            entities = Entity.objects.filter(text=text_obj).values('entity_text', 'entity_type', 'start_position', 'end_position', 'uri', 'probabilities')
 
             # Return both text and entities as a response
             return JsonResponse({
