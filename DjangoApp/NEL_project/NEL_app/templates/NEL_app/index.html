@@ -49,6 +49,14 @@
         <h4>Entity Details</h4>
         <div id="entity-details"></div>
     </div>
+
+    <br>
+
+    <div class="mb-4">
+        <h4>Upload Dataset (JSON):</h4>
+        <input type="file" id="dataset-input" class="form-control" accept=".json">
+        <button class="btn btn-info mt-2" onclick="uploadDataset()">Upload Dataset</button>
+    </div>
 </div>
 
 <!-- Bootstrap JS (optional, for extra functionality like tooltips, popovers) -->
@@ -123,15 +131,7 @@
                 resultDiv.innerHTML = `<p class="text-danger">An error occurred while processing your request.</p>`;
             });
     }
-</script>
 
-<div class="mb-4">
-    <h4>Upload Dataset (JSON):</h4>
-    <input type="file" id="dataset-input" class="form-control" accept=".json">
-    <button class="btn btn-info mt-2" onclick="uploadDataset()">Upload Dataset</button>
-</div>
-
-<script>
     function uploadDataset() {
         const input = document.getElementById("dataset-input");
         const file = input.files[0];
