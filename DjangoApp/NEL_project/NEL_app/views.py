@@ -5,7 +5,7 @@ from flair.models import SequenceTagger
 from .Database.utils import *
 
 print("Loading model...")
-tagger = SequenceTagger.load("flair/ner-english-ontonotes-fast")
+# tagger = SequenceTagger.load("flair/ner-english-ontonotes-fast")
 print("Model loaded.")
 
 
