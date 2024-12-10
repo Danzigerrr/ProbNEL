@@ -32,12 +32,12 @@
 <div class="container mt-5">
     <h1 class="text-center">Named Entity Recognition and Disambiguation</h1>
 
-    <form onsubmit="submitInput(event);" class="mb-4">
+    <form id="process-form" class="mb-4">
         {% csrf_token %}
-        <div class="mb-3">
-            <textarea id="user_input" class="form-control" rows="5" placeholder="Enter text here"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Process</button>
+        <textarea id="user_input" name="user_input" class="form-control" rows="5" cols="40" placeholder="Enter text here"></textarea><br>
+
+        <button type="button" class="btn btn-primary" onclick="submitInput(event, 'dbpedia')">Process with DBpedia</button>
+        <button type="button" class="btn btn-secondary" onclick="submitInput(event, 'wikidata')">Process with Wikidata</button>
     </form>
 
     <div id="result" class="result">
@@ -69,7 +69,7 @@
             `;
     }
 
-    function submitInput(event) {
+    function submitInput(event, source) {
         event.preventDefault(); // Prevent form submission
 
         const userInput = document.getElementById("user_input").value; // Get user input
@@ -83,7 +83,8 @@
                 "X-CSRFToken": csrfToken
             },
             body: new URLSearchParams({
-                user_input: userInput
+                user_input: userInput,
+                source: source // Pass the process type to the backend
             })
         })
             .then(response => response.json())
@@ -100,7 +101,7 @@
 
                     // Replace entities with clickable spans
                     data.entities.forEach(entity => {
-                        const entityText = entity.entity_text;
+                        const entityText = entity.entity_label;
                         const regex = new RegExp(`\\b${entityText}\\b`, 'g'); // Match whole word
                         const probabilities = entity.probabilities;
                         const entityTag = entity.entity_type;
@@ -122,6 +123,7 @@
                 resultDiv.innerHTML = `<p class="text-danger">An error occurred while processing your request.</p>`;
             });
     }
+
 </script>
 </body>
 </html>
