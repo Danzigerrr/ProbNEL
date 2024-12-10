@@ -141,14 +141,22 @@
             const formData = new FormData();
             formData.append("dataset", file);
 
+            // Create an AbortController for the timeout mechanism
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 300000); // 300000ms = 5 minutes
+
             fetch("upload-dataset/", {
                 method: "POST",
                 headers: {
                     "X-CSRFToken": csrfToken
                 },
-                body: formData
+                body: formData,
+                signal: controller.signal // Attach the AbortController signal
             })
-                .then(response => response.json())
+                .then(response => {
+                    clearTimeout(timeout); // Clear the timeout if request completes
+                    return response.json();
+                })
                 .then(data => {
                     if (data.success) {
                         alert("Dataset uploaded successfully!");
@@ -158,13 +166,19 @@
                     }
                 })
                 .catch(error => {
-                    console.error("Error:", error);
-                    alert("An error occurred during upload.");
+                    clearTimeout(timeout); // Clear the timeout in case of an error
+                    if (error.name === "AbortError") {
+                        alert("The request took too long and was aborted.");
+                    } else {
+                        console.error("Error:", error);
+                        alert("An error occurred during upload.");
+                    }
                 });
         } else {
             alert("Please select a file to upload.");
         }
     }
+
 </script>
 
 

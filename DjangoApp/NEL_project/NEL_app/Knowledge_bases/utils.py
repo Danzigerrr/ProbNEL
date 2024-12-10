@@ -17,6 +17,7 @@ def search_entities(sentence, text_obj, knowledge_base):
 
         if knowledge_base == "dbpedia":
             best_result = search_dbpedia(entity_label)
+            print(f"best_result: {best_result}")
             ner_results.append({
                 "label": entity_label,
                 "start": entity.start_position,
