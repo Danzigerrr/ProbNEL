@@ -17,17 +17,27 @@ def search_entities(sentence, text_obj, knowledge_base):
 
         if knowledge_base == "dbpedia":
             best_result = search_dbpedia(entity_label)
+            ner_results.append({
+                "label": entity_label,
+                "start": entity.start_position,
+                "end": entity.end_position,
+                "entity_type": entity_type,
+                "uri": best_result["URI"] if best_result else "",
+                "probabilities": entity_probabilities
+            })
+
         else:
             best_result = search_wikidata(entity_label)
+            take_only_first_result = best_result[0]
+            ner_results.append({
+                "label": entity_label,
+                "start": entity.start_position,
+                "end": entity.end_position,
+                "entity_type": entity_type,
+                "uri": take_only_first_result["URL"] if take_only_first_result else "",
+                "probabilities": entity_probabilities
+            })
 
-        ner_results.append({
-            "label": entity_label,
-            "start": entity.start_position,
-            "end": entity.end_position,
-            "entity_type": entity_type,
-            "uri": best_result["URI"] if best_result else "",
-            "probabilities": entity_probabilities
-        })
 
     # Save all entities in the database
     save_entities_in_database(ner_results, text_obj)

@@ -101,7 +101,7 @@
 
                     // Replace entities with clickable spans
                     data.entities.forEach(entity => {
-                        const entityText = entity.entity_text;
+                        const entityText = entity.entity_label;
                         const regex = new RegExp(`\\b${entityText}\\b`, 'g'); // Match whole word
                         const probabilities = entity.probabilities;
                         const entityTag = entity.entity_type;

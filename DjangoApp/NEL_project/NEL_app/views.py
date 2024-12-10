@@ -34,7 +34,7 @@ def index(request):
                 return JsonResponse({"error": "Invalid source specified."}, status=400)
 
             # Collect the entities associated with the text
-            entities = Entity.objects.filter(text=text_obj).values('entity_text', 'entity_type', 'start_position', 'end_position', 'uri', 'probabilities')
+            entities = Entity.objects.filter(text=text_obj).values('entity_label', 'entity_type', 'start_position', 'end_position', 'uri', 'probabilities')
 
             # Return both text and entities as a response
             return JsonResponse({
