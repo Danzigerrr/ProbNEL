@@ -123,7 +123,50 @@
                 resultDiv.innerHTML = `<p class="text-danger">An error occurred while processing your request.</p>`;
             });
     }
-
 </script>
+
+<div class="mb-4">
+    <h4>Upload Dataset (JSON):</h4>
+    <input type="file" id="dataset-input" class="form-control" accept=".json">
+    <button class="btn btn-info mt-2" onclick="uploadDataset()">Upload Dataset</button>
+</div>
+
+<script>
+    function uploadDataset() {
+        const input = document.getElementById("dataset-input");
+        const file = input.files[0];
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        if (file) {
+            const formData = new FormData();
+            formData.append("dataset", file);
+
+            fetch("upload-dataset/", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": csrfToken
+                },
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Dataset uploaded successfully!");
+                        console.log(data.content); // Debug: View the content of the JSON file
+                    } else {
+                        alert("Failed to upload dataset: " + data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("An error occurred during upload.");
+                });
+        } else {
+            alert("Please select a file to upload.");
+        }
+    }
+</script>
+
+
 </body>
 </html>

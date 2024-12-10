@@ -2,10 +2,12 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from flair.data import Sentence
 from flair.models import SequenceTagger
-from .Database.utils import *
+from .Knowledge_bases.utils import *
+import json
+from django.views.decorators.csrf import csrf_exempt
 
 print("Loading model...")
-# tagger = SequenceTagger.load("flair/ner-english-ontonotes-fast")
+tagger = SequenceTagger.load("flair/ner-english-ontonotes-fast")
 print("Model loaded.")
 
 
@@ -47,3 +49,19 @@ def index(request):
 
     # For GET requests, render the template
     return render(request, "NEL_app/index.html")
+
+
+@csrf_exempt  # Allow CSRF for this specific view (or use middleware if necessary)
+def upload_dataset(request):
+    if request.method == "POST" and request.FILES.get("dataset"):
+        try:
+            dataset_file = request.FILES["dataset"]
+            dataset_content = json.load(dataset_file)
+
+            # Print the dataset content to the console
+            print("Received dataset:", dataset_content)
+
+            return JsonResponse({"success": True, "content": dataset_content})
+        except Exception as e:
+            return JsonResponse({"success": False, "error": str(e)}, status=400)
+    return JsonResponse({"success": False, "error": "Invalid request."}, status=400)
