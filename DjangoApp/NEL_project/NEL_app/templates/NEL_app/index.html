@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NER and NED Demo</title>
+    <title>ProbNEL</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -47,7 +47,9 @@
 
     <div id="context-box">
         <h4>Entity Details</h4>
-        <div id="entity-details"></div>
+        <div id="entity-details-table">
+            <div id="entity-details"></div>
+        </div>
     </div>
 
     <br>
@@ -98,8 +100,8 @@
             .then(response => response.json())
             .then(data => {
                 const resultDiv = document.getElementById("result");
-                const entityDetailsDiv = document.getElementById("entity-details");
-                entityDetailsDiv.innerHTML = ''; // Clear any previous details
+
+                clearCurrentEntityDetails();
 
                 if (data.error) {
                     resultDiv.innerHTML = `<p class="text-danger">Error: ${data.error}</p>`;
@@ -132,6 +134,17 @@
             });
     }
 
+    function clearCurrentEntityDetails() {
+        // Get the entity details container
+        const entityDetailsTable = document.getElementById("entity-details-table");
+
+        // Clear the container before adding new details
+        entityDetailsTable.innerHTML = `
+        <div id="entity-details"></div>
+    `;
+    }
+
+
     function uploadDataset() {
         const input = document.getElementById("dataset-input");
         const file = input.files[0];
@@ -158,6 +171,7 @@
                     return response.json();
                 })
                 .then(data => {
+                    console.log(data)
                     if (data.success) {
                         alert("Dataset uploaded successfully!");
                         console.log(data.content); // Debug: View the content of the JSON file
