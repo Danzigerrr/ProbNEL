@@ -18,7 +18,7 @@ def search_entities(sentence, text_obj, knowledge_base):
             best_result = search_dbpedia(entity_label)
             print(f"best_result: {best_result}")
             ner_results.append(FoundEntity(
-                text = text_obj,
+                text=text_obj,
                 entity_label=entity_label,
                 entity_type=entity_type,
                 start_position=entity.start_position,
@@ -31,7 +31,7 @@ def search_entities(sentence, text_obj, knowledge_base):
             best_result = search_wikidata(entity_label)
             take_only_first_result = best_result[0]
             ner_results.append(FoundEntity(
-                text = text_obj,
+                text=text_obj,
                 entity_label=entity_label,
                 entity_type=entity_type,
                 start_position=entity.start_position,

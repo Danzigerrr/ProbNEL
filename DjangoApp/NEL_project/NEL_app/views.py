@@ -7,34 +7,6 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from .testing.utils import *
 
-# In-memory storage
-texts = []
-
-
-def get_text_by_content(content):
-    return next((t for t in texts if t.content == content), None)
-
-
-def add_text(content):
-    text = Text(content=content)
-    texts.append(text)
-    return text
-
-
-def add_entity_to_text(text_obj, entity_label, entity_type, start, end, uri, probabilities):
-    entity = FoundEntity(
-        text=text_obj,
-        entity_label=entity_label,
-        entity_type=entity_type,
-        start_position=start,
-        end_position=end,
-        uri=uri,
-        probabilities=probabilities,
-    )
-    text_obj.entities.append(entity)
-    return entity
-
-
 print("Loading model...")
 tagger = SequenceTagger.load("flair/ner-english-ontonotes-fast")
 print("Model loaded.")
@@ -50,9 +22,7 @@ def index(request):
 
         try:
             # Create or get Text object
-            text_obj = get_text_by_content(user_input)
-            if not text_obj:
-                text_obj = add_text(user_input)
+            text_obj = Text(user_input)
 
             # Process the sentence with the Flair model
             sentence = Sentence(user_input)
