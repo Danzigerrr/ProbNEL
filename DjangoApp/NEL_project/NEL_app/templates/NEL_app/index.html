@@ -40,6 +40,14 @@
         <button type="button" class="btn btn-secondary" onclick="submitInput(event, 'wikidata')">Process with Wikidata</button>
     </form>
 
+    <div id="loader-text-input" style="display: none; text-align: center; margin-top: 20px;">
+        <div class="spinner-border" role="status">
+            <span class="sr-only"></span>
+        </div>
+        <p>Please wait, processing the text...</p>
+    </div>
+
+
     <div id="result" class="result">
         <h3>Processed Text:</h3>
         <p id="text-with-entities"></p>
@@ -60,7 +68,7 @@
         <button class="btn btn-info mt-2" onclick="uploadDataset()">Upload Dataset</button>
     </div>
 
-    <div id="loader" style="display: none; text-align: center; margin-top: 20px;">
+    <div id="loader-dataset" style="display: none; text-align: center; margin-top: 20px;">
         <div class="spinner-border" role="status">
             <span class="sr-only"></span>
         </div>
@@ -96,6 +104,10 @@
 
         const userInput = document.getElementById("user_input").value; // Get user input
         const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value; // Get CSRF token
+        const loader = document.getElementById("loader-text-input");
+
+        // Show the loader
+        loader.style.display = "block";
 
         fetch("", {
             method: "POST",
@@ -111,6 +123,9 @@
         })
             .then(response => response.json())
             .then(data => {
+                // Hide the loader
+                loader.style.display = "none";
+
                 const resultDiv = document.getElementById("result");
 
                 clearCurrentEntityDetails();
@@ -160,7 +175,7 @@
         const input = document.getElementById("dataset-input");
         const file = input.files[0];
         const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-        const loader = document.getElementById("loader");
+        const loader = document.getElementById("loader-dataset");
 
         if (file) {
             const formData = new FormData();
