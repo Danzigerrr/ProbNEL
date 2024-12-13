@@ -4,12 +4,12 @@ from ..classes import Text, FoundEntity
 from ..NER_utils.utils import *
 
 
-def search_entities(sentence, text_obj, knowledge_base):
+def search_entities(text_with_ner_tags, text_obj, knowledge_base):
     print("Searching in knowledge_base:" + str(knowledge_base))
     ner_results = []
 
     # Process entities recognized in the sentence
-    for entity in sentence.get_spans("ner"):
+    for entity in text_with_ner_tags.get_spans("ner"):
         entity_label = entity.text
         entity_type = entity.get_label("ner").value
         entity_probabilities = extract_entity_probabilities(entity)
