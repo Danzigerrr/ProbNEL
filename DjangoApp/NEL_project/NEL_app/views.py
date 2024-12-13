@@ -74,9 +74,9 @@ def upload_dataset(request):
 
             print_parsing_info(dataset)
 
-            run_test_on_dataset(dataset)
+            evaluation_results = run_test_on_dataset(dataset)
 
-            return JsonResponse({"success": True, "message": "Dataset uploaded successfully."})
+            return JsonResponse({"success": True, "evaluation_results": evaluation_results})
 
         except Exception as e:
             return JsonResponse({"success": False, "error": str(e)}, status=400)
@@ -111,6 +111,7 @@ def run_test_on_dataset(dataset):
             }
             for e in text_obj.entities
         ]
+        print()
 
         # Compare predicted entities with ground-truth entity mentions
         for mention in text_obj.entities:
@@ -147,3 +148,36 @@ def run_test_on_dataset(dataset):
     print(f"Total ground-truth URIs: {total_uris}")
     print(f"Correctly matched URIs (NED): {correct_uri_matches}")
     print(f"NED Accuracy: {ned_accuracy:.2f}%")
+
+    evaluation_results = create_evaluation_results(
+        total_predictions=total_predictions,
+        correct_predictions=correct_predictions,
+        ner_accuracy=ner_accuracy,
+        total_uris=total_uris,
+        correct_uri_matches=correct_uri_matches,
+        ned_accuracy=ned_accuracy
+    )
+
+    return evaluation_results
+
+
+def create_evaluation_results(
+        total_predictions,
+        correct_predictions,
+        ner_accuracy,
+        total_uris,
+        correct_uri_matches,
+        ned_accuracy
+):
+    """
+    Create an evaluation results object to be passed to the frontend.
+    """
+    return {
+        "total_ground_truth_mentions": total_predictions,
+        "correct_ner_predictions": correct_predictions,
+        "ner_accuracy": f"{ner_accuracy:.2f}%",
+        "total_ground_truth_uris": total_uris,
+        "correct_ned_predictions": correct_uri_matches,
+        "ned_accuracy": f"{ned_accuracy:.2f}%"
+    }
+

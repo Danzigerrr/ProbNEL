@@ -59,6 +59,18 @@
         <input type="file" id="dataset-input" class="form-control" accept=".json">
         <button class="btn btn-info mt-2" onclick="uploadDataset()">Upload Dataset</button>
     </div>
+
+    <div id="loader" style="display: none; text-align: center; margin-top: 20px;">
+        <div class="spinner-border" role="status">
+            <span class="sr-only"></span>
+        </div>
+        <p>Please wait, processing the dataset...</p>
+    </div>
+
+    <div id="results-container" class="mt-4">
+        <!-- Evaluation results will be displayed here -->
+    </div>
+
 </div>
 
 <!-- Bootstrap JS (optional, for extra functionality like tooltips, popovers) -->
@@ -144,15 +156,18 @@
     `;
     }
 
-
     function uploadDataset() {
         const input = document.getElementById("dataset-input");
         const file = input.files[0];
         const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        const loader = document.getElementById("loader");
 
         if (file) {
             const formData = new FormData();
             formData.append("dataset", file);
+
+            // Show the loader
+            loader.style.display = "block";
 
             // Create an AbortController for the timeout mechanism
             const controller = new AbortController();
@@ -171,15 +186,22 @@
                     return response.json();
                 })
                 .then(data => {
-                    console.log(data)
+                    // Hide the loader
+                    loader.style.display = "none";
+
+                    console.log(data);
                     if (data.success) {
-                        alert("Dataset uploaded successfully!");
-                        console.log(data.content); // Debug: View the content of the JSON file
+                        const evaluationResults = data.evaluation_results;
+                        displayEvaluationResults(evaluationResults);
+
                     } else {
                         alert("Failed to upload dataset: " + data.error);
                     }
                 })
                 .catch(error => {
+                    // Hide the loader
+                    loader.style.display = "none";
+
                     clearTimeout(timeout); // Clear the timeout in case of an error
                     if (error.name === "AbortError") {
                         alert("The request took too long and was aborted.");
@@ -192,6 +214,29 @@
             alert("Please select a file to upload.");
         }
     }
+
+    function displayEvaluationResults(results) {
+        // Create the container where evaluation results will be displayed
+        const resultsContainer = document.getElementById("results-container");
+        resultsContainer.innerHTML = ""; // Clear previous results
+
+        const resultsHTML = `
+        <h4>Evaluation Results</h4>
+        <ul>
+            <li><strong>NER Accuracy:</strong> ${results.ner_accuracy}</li>
+            <li><strong>Total Mentions (Ground Truth):</strong> ${results.total_ground_truth_mentions}</li>
+            <li><strong>Correct NER Predictions:</strong> ${results.correct_ner_predictions}</li>
+        </ul>
+        <ul>
+            <li><strong>NED Accuracy:</strong> ${results.ned_accuracy}</li>
+            <li><strong>Total URIs (Ground Truth):</strong> ${results.total_ground_truth_uris}</li>
+            <li><strong>Correct NED Predictions:</strong> ${results.correct_ned_predictions}</li>
+        </ul>
+    `;
+
+        resultsContainer.innerHTML = resultsHTML;
+    }
+
 
 </script>
 
