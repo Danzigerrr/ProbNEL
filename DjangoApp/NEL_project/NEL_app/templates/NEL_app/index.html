@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NER and NED Demo</title>
+    <title>ProbNEL</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -40,6 +40,14 @@
         <button type="button" class="btn btn-secondary" onclick="submitInput(event, 'wikidata')">Process with Wikidata</button>
     </form>
 
+    <div id="loader-text-input" style="display: none; text-align: center; margin-top: 20px;">
+        <div class="spinner-border" role="status">
+            <span class="sr-only"></span>
+        </div>
+        <p>Please wait, processing the text...</p>
+    </div>
+
+
     <div id="result" class="result">
         <h3>Processed Text:</h3>
         <p id="text-with-entities"></p>
@@ -47,8 +55,30 @@
 
     <div id="context-box">
         <h4>Entity Details</h4>
-        <div id="entity-details"></div>
+        <div id="entity-details-table">
+            <div id="entity-details"></div>
+        </div>
     </div>
+
+    <br>
+
+    <div class="mb-4">
+        <h4>Upload Dataset (JSON):</h4>
+        <input type="file" id="dataset-input" class="form-control" accept=".json">
+        <button class="btn btn-info mt-2" onclick="uploadDataset()">Upload Dataset</button>
+    </div>
+
+    <div id="loader-dataset" style="display: none; text-align: center; margin-top: 20px;">
+        <div class="spinner-border" role="status">
+            <span class="sr-only"></span>
+        </div>
+        <p>Please wait, processing the dataset...</p>
+    </div>
+
+    <div id="results-container" class="mt-4">
+        <!-- Evaluation results will be displayed here -->
+    </div>
+
 </div>
 
 <!-- Bootstrap JS (optional, for extra functionality like tooltips, popovers) -->
@@ -74,6 +104,10 @@
 
         const userInput = document.getElementById("user_input").value; // Get user input
         const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value; // Get CSRF token
+        const loader = document.getElementById("loader-text-input");
+
+        // Show the loader
+        loader.style.display = "block";
 
         fetch("", {
             method: "POST",
@@ -89,9 +123,12 @@
         })
             .then(response => response.json())
             .then(data => {
+                // Hide the loader
+                loader.style.display = "none";
+
                 const resultDiv = document.getElementById("result");
-                const entityDetailsDiv = document.getElementById("entity-details");
-                entityDetailsDiv.innerHTML = ''; // Clear any previous details
+
+                clearCurrentEntityDetails();
 
                 if (data.error) {
                     resultDiv.innerHTML = `<p class="text-danger">Error: ${data.error}</p>`;
@@ -124,6 +161,100 @@
             });
     }
 
+    function clearCurrentEntityDetails() {
+        // Get the entity details container
+        const entityDetailsTable = document.getElementById("entity-details-table");
+
+        // Clear the container before adding new details
+        entityDetailsTable.innerHTML = `
+        <div id="entity-details"></div>
+    `;
+    }
+
+    function uploadDataset() {
+        const input = document.getElementById("dataset-input");
+        const file = input.files[0];
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        const loader = document.getElementById("loader-dataset");
+
+        if (file) {
+            const formData = new FormData();
+            formData.append("dataset", file);
+
+            // Show the loader
+            loader.style.display = "block";
+
+            // Create an AbortController for the timeout mechanism
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 300000); // 300000ms = 5 minutes
+
+            fetch("upload-dataset/", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": csrfToken
+                },
+                body: formData,
+                signal: controller.signal // Attach the AbortController signal
+            })
+                .then(response => {
+                    clearTimeout(timeout); // Clear the timeout if request completes
+                    return response.json();
+                })
+                .then(data => {
+                    // Hide the loader
+                    loader.style.display = "none";
+
+                    console.log(data);
+                    if (data.success) {
+                        const evaluationResults = data.evaluation_results;
+                        displayEvaluationResults(evaluationResults);
+
+                    } else {
+                        alert("Failed to upload dataset: " + data.error);
+                    }
+                })
+                .catch(error => {
+                    // Hide the loader
+                    loader.style.display = "none";
+
+                    clearTimeout(timeout); // Clear the timeout in case of an error
+                    if (error.name === "AbortError") {
+                        alert("The request took too long and was aborted.");
+                    } else {
+                        console.error("Error:", error);
+                        alert("An error occurred during upload.");
+                    }
+                });
+        } else {
+            alert("Please select a file to upload.");
+        }
+    }
+
+    function displayEvaluationResults(results) {
+        // Create the container where evaluation results will be displayed
+        const resultsContainer = document.getElementById("results-container");
+        resultsContainer.innerHTML = ""; // Clear previous results
+
+        const resultsHTML = `
+        <h4>Evaluation Results</h4>
+        <ul>
+            <li><strong>NER Accuracy:</strong> ${results.ner_accuracy}</li>
+            <li><strong>Total Mentions (Ground Truth):</strong> ${results.total_ner_ground_truth_entities}</li>
+            <li><strong>Correct NER Predictions:</strong> ${results.correct_ner_prediction_entities}</li>
+        </ul>
+        <ul>
+            <li><strong>NED Accuracy:</strong> ${results.ned_accuracy}</li>
+            <li><strong>Total URIs (Ground Truth):</strong> ${results.total_ned_ground_truth_uris}</li>
+            <li><strong>Correct NED Predictions:</strong> ${results.correct_ned_uris_prediction}</li>
+        </ul>
+    `;
+
+        resultsContainer.innerHTML = resultsHTML;
+    }
+
+
 </script>
+
+
 </body>
 </html>
