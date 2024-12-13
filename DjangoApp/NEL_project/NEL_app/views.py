@@ -76,7 +76,11 @@ def upload_dataset(request):
 
             evaluation_results = run_test_on_dataset(dataset)
 
-            return JsonResponse({"success": True, "evaluation_results": evaluation_results})
+            # Return the serialized object as JSON
+            return JsonResponse({
+                "success": True,
+                "evaluation_results": json.loads(evaluation_results.to_json())
+            })
 
         except Exception as e:
             return JsonResponse({"success": False, "error": str(e)}, status=400)
@@ -86,98 +90,58 @@ def upload_dataset(request):
 
 def run_test_on_dataset(dataset):
     """Run NER and NED on the dataset and evaluate prediction accuracy."""
-    correct_predictions = 0
-    total_predictions = 0
-    correct_uri_matches = 0
-    total_uris = 0
+    evaluation_results = EvaluationResults()
 
     # Iterate over all Text objects in memory
-    for text_obj in dataset.texts:
-        print("NER - processing: " + str(text_obj.content[:50]))
+    for ground_truth_text in dataset.texts:
+        print("NER - processing: " + str(ground_truth_text.content[:50]))
+
         # Process the text using the Flair model for NER
-        sentence = Sentence(text_obj.content)
+        sentence = Sentence(ground_truth_text.content)
         tagger.predict(sentence, return_probabilities_for_all_classes=True)
 
         print("Run NED using DBpedia knowledge base")
-        search_entities(sentence, text_obj, knowledge_base="dbpedia")
+        predicted_text = Text(ground_truth_text.content)
+        search_entities(sentence, predicted_text, knowledge_base="dbpedia")
 
         print("Collect entities from in-memory objects associated with the current text")
-        predicted_entities = [
-            {
-                "entity_label": e.entity_label,
-                "start_position": e.start_position,
-                "end_position": e.end_position,
-                "uri": e.uri,
-            }
-            for e in text_obj.entities
-        ]
-        print()
+        predicted_entities = get_entities_from_text(predicted_text)
+        ground_truth_entities = get_entities_from_text(ground_truth_text)
 
-        # Compare predicted entities with ground-truth entity mentions
-        for mention in text_obj.entities:
-            total_predictions += 1
+        print(f"Predicted entities: {predicted_entities}")
+        print("------\n")
+        print(f"Ground truth entities: {ground_truth_entities}")
 
-            # Check if a predicted entity matches the ground truth
+        # Evaluate NER and NED
+        for ground_truth_entity in ground_truth_entities:
             matching_entity = next(
                 (
                     pred
                     for pred in predicted_entities
-                    if pred["entity_label"] == mention.entity_label
-                       and pred["start_position"] == mention.start_position
-                       and pred["end_position"] == mention.end_position
+                    if pred["entity_label"] == ground_truth_entity["entity_label"]
+                       and pred["start_position"] == ground_truth_entity["start_position"]
+                       and pred["end_position"] == ground_truth_entity["end_position"]
                 ),
                 None,
             )
 
-            if matching_entity:
-                correct_predictions += 1
-                total_uris += 1
+            evaluation_results.update_metrics(ground_truth_entity, matching_entity)
 
-                # Check if the predicted URI matches the ground-truth URI
-                if matching_entity["uri"] == mention.uri:
-                    correct_uri_matches += 1
-
-    # Calculate accuracy for NER and NED
-    ner_accuracy = (correct_predictions / total_predictions) * 100 if total_predictions > 0 else 0
-    ned_accuracy = (correct_uri_matches / total_uris) * 100 if total_uris > 0 else 0
-
-    print("NER and NED Evaluation:")
-    print(f"Total ground-truth mentions: {total_predictions}")
-    print(f"Correctly predicted mentions (NER): {correct_predictions}")
-    print(f"NER Accuracy: {ner_accuracy:.2f}%")
-    print(f"Total ground-truth URIs: {total_uris}")
-    print(f"Correctly matched URIs (NED): {correct_uri_matches}")
-    print(f"NED Accuracy: {ned_accuracy:.2f}%")
-
-    evaluation_results = create_evaluation_results(
-        total_predictions=total_predictions,
-        correct_predictions=correct_predictions,
-        ner_accuracy=ner_accuracy,
-        total_uris=total_uris,
-        correct_uri_matches=correct_uri_matches,
-        ned_accuracy=ned_accuracy
-    )
+    # Finalize and print evaluation results
+    evaluation_results.finalize()
+    evaluation_results.print()
 
     return evaluation_results
 
 
-def create_evaluation_results(
-        total_predictions,
-        correct_predictions,
-        ner_accuracy,
-        total_uris,
-        correct_uri_matches,
-        ned_accuracy
-):
-    """
-    Create an evaluation results object to be passed to the frontend.
-    """
-    return {
-        "total_ground_truth_mentions": total_predictions,
-        "correct_ner_predictions": correct_predictions,
-        "ner_accuracy": f"{ner_accuracy:.2f}%",
-        "total_ground_truth_uris": total_uris,
-        "correct_ned_predictions": correct_uri_matches,
-        "ned_accuracy": f"{ned_accuracy:.2f}%"
-    }
-
+def get_entities_from_text(text):
+    entities = [
+        {
+            "entity_label": e.entity_label,
+            "start_position": e.start_position,
+            "end_position": e.end_position,
+            "uri": e.uri,
+        }
+        for e in text.entities
+    ]
+    return entities
