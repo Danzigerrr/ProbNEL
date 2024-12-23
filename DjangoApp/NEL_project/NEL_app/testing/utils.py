@@ -1,4 +1,4 @@
-from ..classes import *
+from ..classes import TestDataset, Text, OriginalEntity
 
 
 def print_parsing_info(dataset):
@@ -21,14 +21,12 @@ def parse_dataset_content(dataset_content, dataset_name):
         text_object = Text(content=content)  # Create a Text object
 
         for mention in text_entry["entity_mentions"]:
-            entity_mention = FoundEntity(
-                text=text_object,
-                entity_label=mention["surface_form"],
-                entity_type="entity",  # Placeholder, adjust as needed
-                start_position=mention["position"]["start"],
-                end_position=mention["position"]["end"],
-                uri=mention.get("dbpedia_target_uri"),
-                probabilities=[]
+            entity_mention = OriginalEntity(
+                surface_form=mention["surface_form"],
+                position_start=mention["position"]["start"],
+                position_end=mention["position"]["end"],
+                dbpedia_uri=mention.get("dbpedia_target_uri"),
+                wikidata_uri=mention.get("wikidata_target_uri")
             )
             text_object.add_entity(entity_mention)
 

@@ -2,6 +2,8 @@ from flair.models import SequenceTagger
 from flair.data import Sentence
 from ..classes import FoundEntity, Text
 
+tagger = SequenceTagger.load("flair/ner-english-ontonotes-fast")
+
 
 class NERHandler:
     found_entities = []  # list of FoundEntity
@@ -13,7 +15,8 @@ class NERHandler:
         :param model: The name of the Flair NER model to load.
         """
         print(f"Loading NER model: {ner_tagger_model_name}")
-        self.tagger = SequenceTagger.load(ner_tagger_model_name)
+        # self.tagger = SequenceTagger.load(ner_tagger_model_name)
+        self.tagger = tagger
         print("Model NER loaded.")
 
     def process_text(self, text_obj: Text):
@@ -28,7 +31,6 @@ class NERHandler:
     def extract_entities(self, text_obj):
         """
         Extracts entities from the NER-annotated text and associates them with a Text object.
-        :param text_with_ner_tags: Flair Sentence object annotated with NER tags.
         :param text_obj: Text object to associate found entities with.
         :return: List of FoundEntity objects.
         """

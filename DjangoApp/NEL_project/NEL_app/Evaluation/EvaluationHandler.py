@@ -1,5 +1,5 @@
 from .EvaluationResults import EvaluationResults
-from ..classes import Text
+from ..classes import Text, FoundEntity, OriginalEntity
 
 
 class EvaluationHandler:
@@ -21,21 +21,24 @@ class EvaluationHandler:
         evaluation_results = EvaluationResults()
 
         for ground_truth_text in dataset.texts:
-            print(f"Processing text: {ground_truth_text.content[:50]}")
+            text_content = ground_truth_text.content
+
+            print(f"Processing text: {text_content[:50]}...")
 
             # Perform Named Entity Recognition (NER)
-            sentence_with_ner = self.ner_handler.process_text(ground_truth_text.content)
+            self.ner_handler.process_text(ground_truth_text)
 
             # Create a new Text object to hold the predicted entities
-            predicted_text = Text(ground_truth_text.content)
+            predicted_text = Text(text_content)
 
             # Extract entities from NER and add them to the Text object
-            found_entities = self.ner_handler.extract_entities(sentence_with_ner, predicted_text)
+            found_entities = self.ner_handler.extract_entities(predicted_text)
+
             for entity in found_entities:
                 predicted_text.add_entity(entity)
 
             # Perform Named Entity Disambiguation (NED)
-            self.ned_handler.search_entities(sentence_with_ner, predicted_text)
+            self.ned_handler.search_entities(predicted_text)
 
             # Extract entities for comparison
             predicted_entities = self.get_entities_from_text(predicted_text)
@@ -44,7 +47,7 @@ class EvaluationHandler:
             print(f"Predicted entities: {predicted_entities}")
             print(f"Ground truth entities: {ground_truth_entities}")
 
-            # Evaluate NER and NED
+            # Evaluate NER
             for ground_truth_entity in ground_truth_entities:
                 matching_entity = next(
                     (
@@ -65,16 +68,28 @@ class EvaluationHandler:
 
     def get_entities_from_text(self, text):
         """
-        Extracts entities from a Text object.
+        Extracts entities from a Text object, handling both FoundEntity and OriginalEntity instances.
         :param text: A Text object containing entities.
         :return: A list of dictionaries representing entities.
         """
-        return [
-            {
-                "entity_label": e.entity_label,
-                "start_position": e.start_position,
-                "end_position": e.end_position,
-                "uri": e.uri,
-            }
-            for e in text.entities
-        ]
+        def map_entity(e):
+            # Check the class type and map fields accordingly
+            if isinstance(e, FoundEntity):
+                return {
+                    "entity_label": e.entity_label,
+                    "start_position": e.start_position,
+                    "end_position": e.end_position,
+                    "uri": e.uri if e.uri is not None else None,
+                }
+            elif isinstance(e, OriginalEntity):
+                return {
+                    "entity_label": e.surface_form,
+                    "start_position": e.position_start,
+                    "end_position": e.position_end,
+                    "dbpedia_uri": e.dbpedia_uri if e.dbpedia_uri is not None else None,
+                    "wikidata_uri": e.wikidata_uri if e.wikidata_uri is not None else None,
+                }
+            else:
+                raise TypeError(f"Unsupported entity type: {type(e)}")
+
+        return [map_entity(e) for e in text.entities]
