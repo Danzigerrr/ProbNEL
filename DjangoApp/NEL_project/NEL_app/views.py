@@ -2,21 +2,22 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from flair.data import Sentence
 from flair.models import SequenceTagger
-from .Knowledge_bases.utils import *
 from django.views.decorators.csrf import csrf_exempt
 from .testing.utils import *
 import json
 from .Evaluation.utils import run_test_on_dataset
+from .NED_utlis.NEDHandler import NEDHandler
 
-print("Loading model...")
-tagger = SequenceTagger.load("flair/ner-english-ontonotes-fast")
-print("Model loaded.")
+ner_tagger_model_name = "flair/ner-english-ontonotes-fast"
+print(f"Loading NER model: {ner_tagger_model_name}")
+tagger = SequenceTagger.load(ner_tagger_model_name)
+print("Model NER loaded.")
 
 
 def index(request):
     if request.method == "POST" and request.headers.get('x-requested-with') == 'XMLHttpRequest':
         user_input = request.POST.get("user_input", "")
-        source = request.POST.get("source", "")  # Retrieve the source parameter
+        knowledge_graph = request.POST.get("knowledge_graph", "")  # Retrieve the knowledge_graph parameter
 
         if not user_input:
             return JsonResponse({"error": "Input text is required."}, status=400)
@@ -29,13 +30,13 @@ def index(request):
             text_with_ner_tags = Sentence(user_input)
             tagger.predict(text_with_ner_tags, return_probabilities_for_all_classes=True)
 
-            # Determine the source-specific processing
-            if source == "dbpedia":
-                search_entities(text_with_ner_tags, text_from_user, knowledge_base="dbpedia")
-            elif source == "wikidata":
-                search_entities(text_with_ner_tags, text_from_user, knowledge_base="wikidata")
+            # Determine the knowledge_graph-specific processing
+            if knowledge_graph == "dbpedia" or knowledge_graph == "wikidata":
+                ned = NEDHandler(knowledge_graph)
+                ned.search_entities(text_with_ner_tags, text_from_user)
             else:
-                return JsonResponse({"error": "Invalid source specified."}, status=400)
+                return JsonResponse({"error": "Invalid knowledge_graph for Knowledge Graph specified. "
+                                              "Allowed values: dbpedia, wikidata"}, status=400)
 
             # Collect the entities associated with the text
             entities = [
@@ -64,7 +65,7 @@ def index(request):
 
 
 @csrf_exempt
-def upload_dataset(request):
+def run_test_on_dataset(request):
     if request.method == "POST" and request.FILES.get("dataset"):
         try:
             dataset_file = request.FILES["dataset"]

@@ -1,7 +1,7 @@
 from .EvaluationResults import EvaluationResults
 from flair.data import Sentence
+from ..NED_utlis.NEDHandler import NEDHandler
 from ..classes import Text
-from ..Knowledge_bases.utils import search_entities
 
 
 def run_test_on_dataset(dataset, tagger):
@@ -18,7 +18,8 @@ def run_test_on_dataset(dataset, tagger):
 
         print("Run NED using DBpedia knowledge base")
         predicted_text = Text(ground_truth_text.content)
-        search_entities(sentence, predicted_text, knowledge_base="dbpedia")
+        ned = NEDHandler(knowledge_base="dbpedia")
+        ned.search_entities(sentence, predicted_text)
 
         print("Collect entities from in-memory objects associated with the current text")
         predicted_entities = get_entities_from_text(predicted_text)

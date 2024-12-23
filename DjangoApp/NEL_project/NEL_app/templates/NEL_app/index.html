@@ -99,7 +99,7 @@
             `;
     }
 
-    function submitInput(event, source) {
+    function submitInput(event, knowledge_graph) {
         event.preventDefault(); // Prevent form submission
 
         const userInput = document.getElementById("user_input").value; // Get user input
@@ -118,7 +118,7 @@
             },
             body: new URLSearchParams({
                 user_input: userInput,
-                source: source // Pass the process type to the backend
+                knowledge_graph: knowledge_graph // Pass the process type to the backend
             })
         })
             .then(response => response.json())
@@ -188,7 +188,7 @@
             const controller = new AbortController();
             const timeout = setTimeout(() => controller.abort(), 300000); // 300000ms = 5 minutes
 
-            fetch("upload-dataset/", {
+            fetch("run_test_on_dataset/", {
                 method: "POST",
                 headers: {
                     "X-CSRFToken": csrfToken
