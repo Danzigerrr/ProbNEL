@@ -1,17 +1,12 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from flair.data import Sentence
-from flair.models import SequenceTagger
 from django.views.decorators.csrf import csrf_exempt
 from .testing.utils import *
 import json
 from .Evaluation.utils import run_test_on_dataset
 from .NED_utlis.NEDHandler import NEDHandler
-
-ner_tagger_model_name = "flair/ner-english-ontonotes-fast"
-print(f"Loading NER model: {ner_tagger_model_name}")
-tagger = SequenceTagger.load(ner_tagger_model_name)
-print("Model NER loaded.")
+from .NER_utils.NERHandler import NERHandler
 
 
 def index(request):
@@ -27,29 +22,23 @@ def index(request):
             text_from_user = Text(user_input)
 
             # Process the sentence with the Flair model
-            text_with_ner_tags = Sentence(user_input)
-            tagger.predict(text_with_ner_tags, return_probabilities_for_all_classes=True)
+            # Initialize NERHandler and process the text
+            ner = NERHandler("flair/ner-english-ontonotes-fast")
+            text_with_ner_tags = ner.process_text(user_input)
+            found_entities = ner.extract_entities(text_with_ner_tags, text_from_user)
+
+            # Add entities to the Text object
+            for entity in found_entities:
+                text_from_user.add_entity(entity)
 
             # Determine the knowledge_graph-specific processing
-            if knowledge_graph == "dbpedia" or knowledge_graph == "wikidata":
-                ned = NEDHandler(knowledge_graph)
-                ned.search_entities(text_with_ner_tags, text_from_user)
+            if knowledge_graph in ["dbpedia", "wikidata"]:
+                ned_handler = NEDHandler(knowledge_graph)
+                ned_handler.search_entities(text_with_ner_tags, text_from_user)
             else:
-                return JsonResponse({"error": "Invalid knowledge_graph for Knowledge Graph specified. "
-                                              "Allowed values: dbpedia, wikidata"}, status=400)
+                return JsonResponse({"error": "Invalid knowledge_graph specified. Allowed values: dbpedia, wikidata"}, status=400)
 
-            # Collect the entities associated with the text
-            entities = [
-                {
-                    "entity_label": e.entity_label,
-                    "entity_type": e.entity_type,
-                    "start_position": e.start_position,
-                    "end_position": e.end_position,
-                    "uri": e.uri,
-                    "probabilities": e.probabilities,
-                }
-                for e in text_from_user.entities
-            ]
+            entities = get_found_entities(text_from_user)
 
             # Return both text and entities as a response
             return JsonResponse({
@@ -62,6 +51,22 @@ def index(request):
 
     # For GET requests, render the template
     return render(request, "NEL_app/index.html")
+
+
+def get_found_entities(text_from_user):
+    # Collect the entities associated with the text
+    entities = [
+        {
+            "entity_label": e.entity_label,
+            "entity_type": e.entity_type,
+            "start_position": e.start_position,
+            "end_position": e.end_position,
+            "uri": e.uri,
+            "probabilities": e.probabilities,
+        }
+        for e in text_from_user.entities
+    ]
+    return entities
 
 
 @csrf_exempt

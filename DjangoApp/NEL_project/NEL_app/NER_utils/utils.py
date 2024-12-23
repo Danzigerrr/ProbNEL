@@ -16,32 +16,3 @@ def extract_entity_probabilities(entity):
     sorted_probabilities = sorted(entity_probabilities.items(), key=lambda x: x[1], reverse=True)
 
     return sorted_probabilities[:3]
-
-
-def get_entities_and_probabilities(sentence):
-    """
-    Extract entities and their top 3 class probabilities from a sentence.
-    :param sentence: A Flair Sentence object containing the text.
-    :return: A list of dictionaries containing entity text, start/end positions,
-             entity group, and their top 3 probabilities.
-    """
-    ner_results = []
-
-    # Iterate through the entities in the sentence
-    for entity in sentence.get_spans('ner'):
-        entity_probabilities = extract_entity_probabilities(entity)
-
-        top_3_probabilities = "<ul>"
-        for i, (label, probability) in enumerate(entity_probabilities):
-            top_3_probabilities += f"<li>{label}: {probability:.4f}</li>"
-        top_3_probabilities += "</ul>"
-
-        ner_results.append({
-            "text": entity.text,
-            "start": entity.start_position,
-            "end": entity.end_position,
-            "entity_group": entity.get_label("ner").value,
-            "probabilities": top_3_probabilities
-        })
-
-    return ner_results

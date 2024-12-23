@@ -26,7 +26,6 @@ class NEDHandler:
 
         for entity in text_with_ner_tags.get_spans("ner"):
             entity_label = entity.text
-            entity_type = entity.get_label("ner").value
             entity_probabilities = extract_entity_probabilities(entity)
 
             if self.knowledge_base == "dbpedia":
