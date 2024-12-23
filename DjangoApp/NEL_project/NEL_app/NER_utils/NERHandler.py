@@ -1,9 +1,12 @@
 from flair.models import SequenceTagger
 from flair.data import Sentence
-from ..classes import FoundEntity
+from ..classes import FoundEntity, Text
 
 
 class NERHandler:
+    found_entities = []  # list of FoundEntity
+    sentence = None  # Flair sentence object
+
     def __init__(self, ner_tagger_model_name: str = "flair/ner-english-ontonotes-fast"):
         """
         Initializes the NERHandler with a specified model.
@@ -13,15 +16,39 @@ class NERHandler:
         self.tagger = SequenceTagger.load(ner_tagger_model_name)
         print("Model NER loaded.")
 
-    def process_text(self, user_input: str):
+    def process_text(self, text_obj: Text):
         """
         Processes the given text using the Flair NER model.
-        :param user_input: The input text to process.
-        :return: A Flair Sentence object annotated with NER tags.
+        :param text_obj: A Flair Sentence object annotated with NER tags.
         """
-        sentence = Sentence(user_input)
-        self.tagger.predict(sentence, return_probabilities_for_all_classes=True)
-        return sentence
+        self.sentence = Sentence(text_obj.content)
+        self.tagger.predict(self.sentence, return_probabilities_for_all_classes=True)
+        text_obj.entities = self.extract_entities(text_obj)
+
+    def extract_entities(self, text_obj):
+        """
+        Extracts entities from the NER-annotated text and associates them with a Text object.
+        :param text_with_ner_tags: Flair Sentence object annotated with NER tags.
+        :param text_obj: Text object to associate found entities with.
+        :return: List of FoundEntity objects.
+        """
+        found_entities = []
+
+        for entity in self.sentence.get_spans("ner"):
+            probabilities = self.extract_entity_probabilities(entity)
+            found_entities.append(
+                FoundEntity(
+                    text=text_obj,
+                    entity_label=entity.text,
+                    entity_type=entity.get_label("ner").value,
+                    start_position=entity.start_position,
+                    end_position=entity.end_position,
+                    probabilities=probabilities
+                )
+            )
+
+        self.found_entities = found_entities
+        return found_entities
 
     def extract_entity_probabilities(self, entity):
         """
@@ -46,27 +73,3 @@ class NERHandler:
         sorted_probabilities = sorted(entity_probabilities.items(), key=lambda x: x[1], reverse=True)
 
         return sorted_probabilities[:3]
-
-    def extract_entities(self, text_with_ner_tags, text_obj):
-        """
-        Extracts entities from the NER-annotated text and associates them with a Text object.
-        :param text_with_ner_tags: Flair Sentence object annotated with NER tags.
-        :param text_obj: Text object to associate found entities with.
-        :return: List of FoundEntity objects.
-        """
-        found_entities = []
-
-        for entity in text_with_ner_tags.get_spans("ner"):
-            probabilities = self.extract_entity_probabilities(entity)
-            found_entities.append(
-                FoundEntity(
-                    text=text_obj,
-                    entity_label=entity.text,
-                    entity_type=entity.get_label("ner").value,
-                    start_position=entity.start_position,
-                    end_position=entity.end_position,
-                    probabilities=probabilities
-                )
-            )
-
-        return found_entities
