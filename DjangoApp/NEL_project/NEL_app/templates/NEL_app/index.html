@@ -90,7 +90,7 @@
         entityDetails.innerHTML += `
                 <h5>Entity: ${entityText}</h5>
                 <p><strong>Class:</strong> ${entityTag}</p>
-                <p><strong>DBpedia URI:</strong> <a href="${uri}" target="_blank">${uri}</a></p>
+                <p><strong>URI:</strong> <a href="${uri}" target="_blank">${uri}</a></p>
                 <p><strong>Top Probabilities:</strong></p>
                 <ul>
                     ${probabilities.map(prob => `<li>${prob[0]}: ${prob[1].toFixed(2)}</li>`).join("")}
@@ -99,7 +99,7 @@
             `;
     }
 
-    function submitInput(event, source) {
+    function submitInput(event, knowledge_graph) {
         event.preventDefault(); // Prevent form submission
 
         const userInput = document.getElementById("user_input").value; // Get user input
@@ -118,7 +118,7 @@
             },
             body: new URLSearchParams({
                 user_input: userInput,
-                source: source // Pass the process type to the backend
+                knowledge_graph: knowledge_graph // Pass the process type to the backend
             })
         })
             .then(response => response.json())
@@ -138,18 +138,20 @@
 
                     // Replace entities with clickable spans
                     data.entities.forEach(entity => {
-                        const entityText = entity.entity_label;
-                        const regex = new RegExp(`\\b${entityText}\\b`, 'g'); // Match whole word
-                        const probabilities = entity.probabilities;
-                        const entityTag = entity.entity_type;
-                        const uri = entity.uri;
+                        const { entity_label, probabilities, entity_type, dbpedia_uri, wikidata_uri } = entity;
+                        const regex = new RegExp(`\\b${entity_label}\\b`, 'g'); // Match whole word
+                        const entity_uri = dbpedia_uri || wikidata_uri; // Use dbpedia_uri if available, fallback to wikidata_uri
 
-                        textWithEntities = textWithEntities.replace(regex,
-                            `<a href="${uri}" class="entity" target="_blank">${entityText}</a>`);
+                        // Replace text with a clickable link
+                        textWithEntities = textWithEntities.replace(
+                            regex,
+                            `<a href="${entity_uri}" class="entity" target="_blank">${entity_label}</a>`
+                        );
 
-                        // Show entity details directly
-                        showEntityDetails(entityText, entityTag, probabilities, uri);
+                        // Show entity details
+                        showEntityDetails(entity_label, entity_type, probabilities, entity_uri);
                     });
+
 
                     document.getElementById("text-with-entities").innerHTML = textWithEntities;
                 }
@@ -188,7 +190,7 @@
             const controller = new AbortController();
             const timeout = setTimeout(() => controller.abort(), 300000); // 300000ms = 5 minutes
 
-            fetch("upload-dataset/", {
+            fetch("run_test_on_dataset/", {
                 method: "POST",
                 headers: {
                     "X-CSRFToken": csrfToken
@@ -207,8 +209,7 @@
                     console.log(data);
                     if (data.success) {
                         const evaluationResults = data.evaluation_results;
-                        displayEvaluationResults(evaluationResults);
-
+                        displayEvaluationResults(evaluationResults.ner, evaluationResults.ned);
                     } else {
                         alert("Failed to upload dataset: " + data.error);
                     }
@@ -230,22 +231,23 @@
         }
     }
 
-    function displayEvaluationResults(results) {
+    function displayEvaluationResults(nerResults, nedResults) {
         // Create the container where evaluation results will be displayed
         const resultsContainer = document.getElementById("results-container");
         resultsContainer.innerHTML = ""; // Clear previous results
 
         const resultsHTML = `
-        <h4>Evaluation Results</h4>
+        <h4>NER Evaluation Results</h4>
         <ul>
-            <li><strong>NER Accuracy:</strong> ${results.ner_accuracy}</li>
-            <li><strong>Total Mentions (Ground Truth):</strong> ${results.total_ner_ground_truth_entities}</li>
-            <li><strong>Correct NER Predictions:</strong> ${results.correct_ner_prediction_entities}</li>
+            <li><strong>NER Accuracy:</strong> ${nerResults.accuracy_score}</li>
+            <li><strong>Total Ground Truth:</strong> ${nerResults.total_ground_truth_entities}</li>
+            <li><strong>Correct Predictions:</strong> ${nerResults.correct_predicted_entities}</li>
         </ul>
+        <h4>NED Evaluation Results</h4>
         <ul>
-            <li><strong>NED Accuracy:</strong> ${results.ned_accuracy}</li>
-            <li><strong>Total URIs (Ground Truth):</strong> ${results.total_ned_ground_truth_uris}</li>
-            <li><strong>Correct NED Predictions:</strong> ${results.correct_ned_uris_prediction}</li>
+            <li><strong>NED Accuracy:</strong> ${nedResults.accuracy_score}</li>
+            <li><strong>Total Ground Truth:</strong> ${nedResults.total_ground_truth_entities}</li>
+            <li><strong>Correct Predictions:</strong> ${nedResults.correct_predicted_entities}</li>
         </ul>
     `;
 

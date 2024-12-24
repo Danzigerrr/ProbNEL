@@ -27,7 +27,7 @@ def search_wikidata(entity_text, max_results=3):
             for item in data['search']:
                 label = item['label']
                 description = item.get('description', 'No description available')
-                url = f"https://www.wikidata.org/wiki/{item['id']}"
+                uri = f"https://www.wikidata.org/wiki/{item['id']}"
                 entity_id = item['id']
 
                 # Now, we fetch detailed information about the entity to get its type (instance of)
@@ -36,16 +36,28 @@ def search_wikidata(entity_text, max_results=3):
                 results.append({
                     "Label": label,
                     "Description": description,
-                    "URL": url,
+                    "URI": uri,
                     "ID": entity_id,
                     "Type": type_info
                 })
 
-        return results
+        final_result = get_best_wikidata_result(results)
+        return final_result
 
     except requests.exceptions.RequestException as e:
         print(f"Error querying Wikidata: {e}")
         return []
+
+
+def get_best_wikidata_result(results):
+    """
+    Extract the best (first) result from the Wikidata search results.
+
+    :param results: The JSON response from Wikidata API.
+    :return: A dictionary containing details of the first result, or None if no results are found.
+    """
+    best_result = results[0]
+    return best_result
 
 
 def get_entity_type(entity_id):
