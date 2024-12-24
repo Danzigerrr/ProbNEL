@@ -1,7 +1,7 @@
 from .DBpedia.utils import search_dbpedia
 from .Wikidata.utils import search_wikidata
 from ..NER_utils import NERHandler
-from ..classes import Text, FoundEntity
+from ..classes import Text, Entity
 
 
 class NEDHandler:
@@ -14,7 +14,7 @@ class NEDHandler:
             raise ValueError("Knowledge base must be 'dbpedia' or 'wikidata'")
         self.knowledge_base = knowledge_base.lower()
 
-    def search_entities(self, text_obj: Text):
+    def perform_ned(self, text_obj: Text):
         """
         Searches for entities in the given text using the specified knowledge base.
         :param text_with_ner_tags: Text annotated with NER tags.
@@ -28,11 +28,11 @@ class NEDHandler:
 
             if self.knowledge_base == "dbpedia":
                 best_result = search_dbpedia(entity_label)
-                entity.uri = best_result.get("URI")
+                entity.dbpedia_uri = best_result.get("URI")
             elif self.knowledge_base == "wikidata":
                 best_result = search_wikidata(entity_label)
                 first_result = best_result[0] if best_result else None
-                entity.uri = first_result.get("URL") if first_result else ""
+                entity.wikidata_uri = first_result.get("URL") if first_result else ""
 
     def add_entities_to_text(self, ner_results: list, text_obj: Text):
         """

@@ -85,12 +85,13 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-    function showEntityDetails(entityText, entityTag, probabilities, uri) {
+    function showEntityDetails(entityText, entityTag, probabilities, dbpedia_uri, wikidata_uri) {
         const entityDetails = document.getElementById("entity-details");
         entityDetails.innerHTML += `
                 <h5>Entity: ${entityText}</h5>
                 <p><strong>Class:</strong> ${entityTag}</p>
-                <p><strong>DBpedia URI:</strong> <a href="${uri}" target="_blank">${uri}</a></p>
+                <p><strong>DBpedia URI:</strong> <a href="${dbpedia_uri}" target="_blank">${dbpedia_uri}</a></p>
+                <p><strong>Wikidata URI:</strong> <a href="${wikidata_uri}" target="_blank">${wikidata_uri}</a></p>
                 <p><strong>Top Probabilities:</strong></p>
                 <ul>
                     ${probabilities.map(prob => `<li>${prob[0]}: ${prob[1].toFixed(2)}</li>`).join("")}
@@ -142,13 +143,14 @@
                         const regex = new RegExp(`\\b${entityText}\\b`, 'g'); // Match whole word
                         const probabilities = entity.probabilities;
                         const entityTag = entity.entity_type;
-                        const uri = entity.uri;
+                        const dbpedia_uri = entity.dbpedia_uri;
+                        const wikidata_uri = entity.wikidata_uri;
 
                         textWithEntities = textWithEntities.replace(regex,
-                            `<a href="${uri}" class="entity" target="_blank">${entityText}</a>`);
+                            `<a href="${dbpedia_uri}" class="entity" target="_blank">${entityText}</a>`);
 
                         // Show entity details directly
-                        showEntityDetails(entityText, entityTag, probabilities, uri);
+                        showEntityDetails(entityText, entityTag, probabilities, dbpedia_uri, wikidata_uri);
                     });
 
                     document.getElementById("text-with-entities").innerHTML = textWithEntities;
@@ -207,8 +209,7 @@
                     console.log(data);
                     if (data.success) {
                         const evaluationResults = data.evaluation_results;
-                        displayEvaluationResults(evaluationResults);
-
+                        displayEvaluationResults(evaluationResults.ner, evaluationResults.ned);
                     } else {
                         alert("Failed to upload dataset: " + data.error);
                     }
@@ -230,22 +231,26 @@
         }
     }
 
-    function displayEvaluationResults(results) {
+    function displayEvaluationResults(nerResults, nedResults) {
         // Create the container where evaluation results will be displayed
         const resultsContainer = document.getElementById("results-container");
         resultsContainer.innerHTML = ""; // Clear previous results
 
         const resultsHTML = `
-        <h4>Evaluation Results</h4>
+        <h4>NER Evaluation Results</h4>
         <ul>
-            <li><strong>NER Accuracy:</strong> ${results.ner_accuracy}</li>
-            <li><strong>Total Mentions (Ground Truth):</strong> ${results.total_ner_ground_truth_entities}</li>
-            <li><strong>Correct NER Predictions:</strong> ${results.correct_ner_prediction_entities}</li>
+            <li><strong>NER Accuracy:</strong> ${nerResults.accuracy_score}</li>
+            <li><strong>Total Ground Truth:</strong> ${nerResults.total_ground_truth_entities}</li>
+            <li><strong>Correct Predictions:</strong> ${nerResults.correct_predicted_entities}</li>
+            <li>content: ${nerResults}</li>
         </ul>
+        <h4>NED Evaluation Results</h4>
         <ul>
-            <li><strong>NED Accuracy:</strong> ${results.ned_accuracy}</li>
-            <li><strong>Total URIs (Ground Truth):</strong> ${results.total_ned_ground_truth_uris}</li>
-            <li><strong>Correct NED Predictions:</strong> ${results.correct_ned_uris_prediction}</li>
+            <li><strong>NED Accuracy:</strong> ${nedResults.accuracy_score}</li>
+            <li><strong>Total Ground Truth:</strong> ${nedResults.total_ground_truth_entities}</li>
+            <li><strong>Correct Predictions:</strong> ${nedResults.correct_predicted_entities}</li>
+            <li>content: ${nedResults}</li>
+
         </ul>
     `;
 

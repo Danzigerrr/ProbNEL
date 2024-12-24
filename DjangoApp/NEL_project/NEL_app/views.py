@@ -17,28 +17,19 @@ def index(request):
             return JsonResponse({"error": "Input text is required."}, status=400)
 
         try:
-            # Create or get Text object
             text_obj = Text(user_input)
 
-            # Process the sentence with the Flair model
-            # Initialize NERHandler and process the text
             ner = NERHandler("flair/ner-english-ontonotes-fast")
-            ner.process_text(text_obj)
+            ner.perform_ner(text_obj)
 
-            # Determine the knowledge_graph-specific processing
             if knowledge_graph in ["dbpedia", "wikidata"]:
-                ned_handler = NEDHandler(knowledge_graph)
-                ned_handler.search_entities(text_obj)
+                ned = NEDHandler(knowledge_graph)
+                ned.perform_ned(text_obj)
             else:
                 return JsonResponse({"error": "Invalid knowledge_graph specified. Allowed values: dbpedia, wikidata"}, status=400)
 
-            entities = get_found_entities(text_obj)
-
-            # Return both text and entities as a response
-            return JsonResponse({
-                "text": text_obj.content,
-                "entities": entities
-            })
+            json_response = create_json_response(text_obj)
+            return json_response
 
         except Exception as e:
             return JsonResponse({"error": f"Error processing input: {str(e)}"}, status=500)
@@ -47,8 +38,7 @@ def index(request):
     return render(request, "NEL_app/index.html")
 
 
-def get_found_entities(text_from_user):
-    # Collect the entities associated with the text
+def create_json_response(text_obj):
     entities = [
         {
             "entity_label": e.entity_label,
@@ -58,9 +48,13 @@ def get_found_entities(text_from_user):
             "uri": e.uri,
             "probabilities": e.probabilities,
         }
-        for e in text_from_user.entities
+        for e in text_obj.entities
     ]
-    return entities
+
+    return JsonResponse({
+        "text": text_obj.content,
+        "entities": entities
+    })
 
 
 @csrf_exempt
@@ -81,14 +75,26 @@ def run_test_on_dataset(request):
             # Run evaluation
             evaluation_results = evaluation_handler.run_test_on_dataset(dataset)
 
-            # Return the serialized evaluation results
-            return JsonResponse({
-                "success": True,
-                "evaluation_results": json.loads(evaluation_results.to_json())
-            })
+            serialised_evaluation_results = serialize_the_evaluation_results_to_json(evaluation_results)
+            return serialised_evaluation_results
 
         except Exception as e:
             return JsonResponse({"success": False, "error": str(e)}, status=400)
 
     return JsonResponse({"success": False, "error": "Invalid request."}, status=400)
+
+
+def serialize_the_evaluation_results_to_json(evaluation_results):
+    # Serialize the evaluation results to JSON
+    ner_results_json = json.loads(evaluation_results[0].to_json())
+    ned_results_json = json.loads(evaluation_results[1].to_json())
+    # Return the serialized evaluation results
+    serialised_evaluation_results = JsonResponse({
+        "success": True,
+        "evaluation_results": {
+            "ner": ner_results_json,
+            "ned": ned_results_json
+        }
+    })
+    return serialised_evaluation_results
 

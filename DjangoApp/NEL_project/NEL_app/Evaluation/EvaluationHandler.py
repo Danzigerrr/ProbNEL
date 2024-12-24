@@ -1,5 +1,5 @@
 from .EvaluationResults import EvaluationResults
-from ..classes import Text, FoundEntity, OriginalEntity
+from ..classes import Text
 
 
 class EvaluationHandler:
@@ -9,87 +9,67 @@ class EvaluationHandler:
         :param ner_handler: An instance of NERHandler for Named Entity Recognition.
         :param ned_handler: An instance of NEDHandler for Named Entity Disambiguation.
         """
-        self.ner_handler = ner_handler
-        self.ned_handler = ned_handler
+        self.ner = ner_handler
+        self.ned = ned_handler
 
     def run_test_on_dataset(self, dataset):
         """
         Run NER and NED on the dataset and evaluate prediction accuracy.
         :param dataset: A dataset containing Text objects with ground truth entities.
-        :return: An EvaluationResults object containing evaluation metrics.
+        :return: A tuple containing NEREvaluationResults and EvaluationResults objects.
         """
-        evaluation_results = EvaluationResults()
+        ner_evaluation_results = EvaluationResults()
+        ned_evaluation_results = EvaluationResults()
 
         for ground_truth_text in dataset.texts:
             text_content = ground_truth_text.content
-
             print(f"Processing text: {text_content[:50]}...")
 
-            # Perform Named Entity Recognition (NER)
-            self.ner_handler.process_text(ground_truth_text)
+            text_obj = Text(text_content)
 
-            # Create a new Text object to hold the predicted entities
-            predicted_text = Text(text_content)
+            # perform ner
+            self.ner.perform_ner(text_obj)
 
-            # Extract entities from NER and add them to the Text object
-            found_entities = self.ner_handler.extract_entities(predicted_text)
+            # evaluate ner
+            self.evaluate_ner(ner_evaluation_results, text_obj, ground_truth_text)
 
-            for entity in found_entities:
-                predicted_text.add_entity(entity)
+            # perform ned
+            self.ned.perform_ned(text_obj)
 
-            # Perform Named Entity Disambiguation (NED)
-            self.ned_handler.search_entities(predicted_text)
-
-            # Extract entities for comparison
-            predicted_entities = self.get_entities_from_text(predicted_text)
-            ground_truth_entities = self.get_entities_from_text(ground_truth_text)
-
-            print(f"Predicted entities: {predicted_entities}")
-            print(f"Ground truth entities: {ground_truth_entities}")
-
-            # Evaluate NER
-            for ground_truth_entity in ground_truth_entities:
-                matching_entity = next(
-                    (
-                        pred
-                        for pred in predicted_entities
-                        if pred["entity_label"] == ground_truth_entity["entity_label"]
-                           and pred["start_position"] == ground_truth_entity["start_position"]
-                           and pred["end_position"] == ground_truth_entity["end_position"]
-                    ),
-                    None,
-                )
-
-                evaluation_results.update_metrics(ground_truth_entity, matching_entity)
+            # evaluate ned
+            self.evaluate_ned(ned_evaluation_results, text_obj, ground_truth_text)
 
         # Finalize evaluation results
-        evaluation_results.finalize()
-        return evaluation_results
+        ner_evaluation_results.calculate_accuracy()
+        ned_evaluation_results.finalize()
 
-    def get_entities_from_text(self, text):
-        """
-        Extracts entities from a Text object, handling both FoundEntity and OriginalEntity instances.
-        :param text: A Text object containing entities.
-        :return: A list of dictionaries representing entities.
-        """
-        def map_entity(e):
-            # Check the class type and map fields accordingly
-            if isinstance(e, FoundEntity):
-                return {
-                    "entity_label": e.entity_label,
-                    "start_position": e.start_position,
-                    "end_position": e.end_position,
-                    "uri": e.uri if e.uri is not None else None,
-                }
-            elif isinstance(e, OriginalEntity):
-                return {
-                    "entity_label": e.surface_form,
-                    "start_position": e.position_start,
-                    "end_position": e.position_end,
-                    "dbpedia_uri": e.dbpedia_uri if e.dbpedia_uri is not None else None,
-                    "wikidata_uri": e.wikidata_uri if e.wikidata_uri is not None else None,
-                }
-            else:
-                raise TypeError(f"Unsupported entity type: {type(e)}")
+        return ner_evaluation_results, ned_evaluation_results
 
-        return [map_entity(e) for e in text.entities]
+    def evaluate_ner(self, ner_evaluation_results: EvaluationResults, text_obj: Text, ground_truth_text: Text):
+        # Evaluate NER
+        for ground_truth_entity in ground_truth_text.entities:
+            correct_prediction = False
+            for pred in text_obj.entities:
+                if (pred.entity_label == ground_truth_entity.entity_label
+                        and pred.start_position == ground_truth_entity.start_position
+                        and pred.end_position == ground_truth_entity.end_position
+                        and pred.entity_type == ground_truth_entity.entity_type):
+                    correct_prediction = True
+
+            ner_evaluation_results.update_metrics(correct_prediction)
+
+    def evaluate_ned(self, ned_evaluation_results: EvaluationResults, text_obj: Text, ground_truth_text: Text):
+        """
+        Evaluate NED by comparing ground truth entities with predicted entities.
+        """
+        for ground_truth_entity in ground_truth_text.entities:
+            correct_prediction = False
+            for pred in text_obj.entities:
+                if (pred.entity_label == ground_truth_entity.entity_label
+                        and pred.start_position == ground_truth_entity.start_position
+                        and pred.end_position == ground_truth_entity.end_position
+                        and (pred.dbpedia_uri == ground_truth_entity.dbpedia_uri
+                             or pred.wikidata_uri == ground_truth_entity.wikidata_uri)):
+                    correct_prediction = True
+
+            ned_evaluation_results.update_metrics(correct_prediction)
