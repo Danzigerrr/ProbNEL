@@ -6,6 +6,7 @@ import json
 from .NED_utlis.NEDHandler import NEDHandler
 from .NER_utils.NERHandler import NERHandler
 from .Evaluation.EvaluationHandler import EvaluationHandler
+from .Evaluation.DatasetLoader import DatasetLoader
 
 
 def index(request: HttpRequest) -> HttpResponse:
@@ -62,11 +63,13 @@ def create_json_response(text_obj: Text):
 def run_test_on_dataset(request: HttpRequest) -> HttpResponse:
     if request.method == "POST" and request.FILES.get("dataset"):
         try:
+            # Load dataset using DatasetLoader
+            dataset_loader = DatasetLoader()
             dataset_file = request.FILES["dataset"]
-            dataset_content = json.load(dataset_file)
-            dataset = parse_dataset_content(dataset_content, dataset_file.name)
+            dataset = dataset_loader.load_dataset(dataset_file)
 
-            print_parsing_info(dataset)
+            # Print dataset information
+            dataset_loader.print_dataset_info(dataset)
 
             # Initialize handlers
             ner_handler = NERHandler("flair/ner-english-ontonotes-fast")

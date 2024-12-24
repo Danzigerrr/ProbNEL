@@ -30,5 +30,5 @@ class EvaluationResults:
         return json.dumps({
             "total_ground_truth_entities": self.total_ground_truth_entities,
             "correct_predicted_entities": self.correct_predicted_entities,
-            "accuracy": f"{self.accuracy_score:.2f}%"
+            "accuracy_score": f"{self.accuracy_score:.2f}%"
         })
