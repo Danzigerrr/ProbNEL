@@ -28,11 +28,10 @@ class NEDHandler:
 
             if self.knowledge_base == "dbpedia":
                 best_result = search_dbpedia(entity_label)
-                entity.dbpedia_uri = best_result.get("URI")
+                entity.dbpedia_uri = best_result.get("URI") if best_result else ""
             elif self.knowledge_base == "wikidata":
                 best_result = search_wikidata(entity_label)
-                first_result = best_result[0] if best_result else None
-                entity.wikidata_uri = first_result.get("URL") if first_result else ""
+                entity.wikidata_uri = best_result.get("URI") if best_result else ""
 
     def add_entities_to_text(self, ner_results: list, text_obj: Text):
         """
