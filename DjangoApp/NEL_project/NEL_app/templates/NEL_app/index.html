@@ -85,13 +85,12 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-    function showEntityDetails(entityText, entityTag, probabilities, dbpedia_uri, wikidata_uri) {
+    function showEntityDetails(entityText, entityTag, probabilities, uri) {
         const entityDetails = document.getElementById("entity-details");
         entityDetails.innerHTML += `
                 <h5>Entity: ${entityText}</h5>
                 <p><strong>Class:</strong> ${entityTag}</p>
-                <p><strong>DBpedia URI:</strong> <a href="${dbpedia_uri}" target="_blank">${dbpedia_uri}</a></p>
-                <p><strong>Wikidata URI:</strong> <a href="${wikidata_uri}" target="_blank">${wikidata_uri}</a></p>
+                <p><strong>URI:</strong> <a href="${uri}" target="_blank">${uri}</a></p>
                 <p><strong>Top Probabilities:</strong></p>
                 <ul>
                     ${probabilities.map(prob => `<li>${prob[0]}: ${prob[1].toFixed(2)}</li>`).join("")}
@@ -139,19 +138,20 @@
 
                     // Replace entities with clickable spans
                     data.entities.forEach(entity => {
-                        const entityText = entity.entity_label;
-                        const regex = new RegExp(`\\b${entityText}\\b`, 'g'); // Match whole word
-                        const probabilities = entity.probabilities;
-                        const entityTag = entity.entity_type;
-                        const dbpedia_uri = entity.dbpedia_uri;
-                        const wikidata_uri = entity.wikidata_uri;
+                        const { entity_label, probabilities, entity_type, dbpedia_uri, wikidata_uri } = entity;
+                        const regex = new RegExp(`\\b${entity_label}\\b`, 'g'); // Match whole word
+                        const entity_uri = dbpedia_uri || wikidata_uri; // Use dbpedia_uri if available, fallback to wikidata_uri
 
-                        textWithEntities = textWithEntities.replace(regex,
-                            `<a href="${dbpedia_uri}" class="entity" target="_blank">${entityText}</a>`);
+                        // Replace text with a clickable link
+                        textWithEntities = textWithEntities.replace(
+                            regex,
+                            `<a href="${entity_uri}" class="entity" target="_blank">${entity_label}</a>`
+                        );
 
-                        // Show entity details directly
-                        showEntityDetails(entityText, entityTag, probabilities, dbpedia_uri, wikidata_uri);
+                        // Show entity details
+                        showEntityDetails(entity_label, entity_type, probabilities, entity_uri);
                     });
+
 
                     document.getElementById("text-with-entities").innerHTML = textWithEntities;
                 }

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpRequest, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from .testing.utils import *
 import json
@@ -8,7 +8,7 @@ from .NER_utils.NERHandler import NERHandler
 from .Evaluation.EvaluationHandler import EvaluationHandler
 
 
-def index(request):
+def index(request: HttpRequest) -> HttpResponse:
     if request.method == "POST" and request.headers.get('x-requested-with') == 'XMLHttpRequest':
         user_input = request.POST.get("user_input", "")
         knowledge_graph = request.POST.get("knowledge_graph", "")  # Retrieve the knowledge_graph parameter
@@ -38,14 +38,15 @@ def index(request):
     return render(request, "NEL_app/index.html")
 
 
-def create_json_response(text_obj):
+def create_json_response(text_obj: Text):
     entities = [
         {
             "entity_label": e.entity_label,
             "entity_type": e.entity_type,
             "start_position": e.start_position,
             "end_position": e.end_position,
-            "uri": e.uri,
+            "dbpedia_uri": e.dbpedia_uri,
+            "wikidata_uri": e.wikidata_uri,
             "probabilities": e.probabilities,
         }
         for e in text_obj.entities
@@ -58,7 +59,7 @@ def create_json_response(text_obj):
 
 
 @csrf_exempt
-def run_test_on_dataset(request):
+def run_test_on_dataset(request: HttpRequest) -> HttpResponse:
     if request.method == "POST" and request.FILES.get("dataset"):
         try:
             dataset_file = request.FILES["dataset"]
