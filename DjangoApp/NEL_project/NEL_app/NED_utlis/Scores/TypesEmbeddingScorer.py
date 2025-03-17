@@ -1,15 +1,11 @@
-from typing import List
-
 import numpy as np
 from flair.data import Sentence
 from flair.embeddings import WordEmbeddings, FlairEmbeddings, StackedEmbeddings
 from scipy.spatial.distance import cosine
-
 from DjangoApp.NEL_project.NEL_app.classes import Entity
-from DjangoApp.NEL_project.NEL_app.NED_utlis.DBpedia.DBpedia_classes import Candidate
 
 
-class EntityCandidateScorer:
+class TypesEmbeddingScorer:
     """
     Class to calculate scores for candidates based on NER entity type and candidate ontology types.
     """
@@ -48,7 +44,7 @@ class EntityCandidateScorer:
         self.stacked_embeddings.embed(sentence)
         return sentence[0].embedding.cpu().detach().numpy()
 
-    def calculate_score_ner_to_ontologys(self, entity: Entity):
+    def calculate_score_types_embeddings_similarity(self, entity: Entity):
         """
         Calculates scores for candidates of an entity based on NER entity type and candidate ontology types.
         """
@@ -77,34 +73,8 @@ class EntityCandidateScorer:
 
                 final_scores[kg_type] = weighted_score
 
-            score_ner_to_ontology = 0
+            score_types_embeddings_similarity = 0
             for ontology_type in candidate.ontology_types:
-                score_ner_to_ontology += sum(ner_probabilities * similarity_matrix[:, kg_types.index(ontology_type)])
-            candidate.score_ner_to_ontology = score_ner_to_ontology/len(candidate.ontology_types) if len(candidate.ontology_types) > 0 else 0
+                score_types_embeddings_similarity += sum(ner_probabilities * similarity_matrix[:, kg_types.index(ontology_type)])
+            candidate.score_types_embeddings_similarity = score_types_embeddings_similarity/len(candidate.ontology_types) if len(candidate.ontology_types) > 0 else 0
 
-        # Normalize candidate scores
-        normalize_score_ner_to_ontologys(entity.candidates)
-
-        for candidate in entity.candidates:
-            candidate.candidate_score += candidate.score_ner_to_ontology
-
-
-def normalize_score_ner_to_ontologys(candidates: List[Candidate]):
-    """
-    Normalizes candidate scores using min-max scaling.
-    """
-    if not candidates:
-        return
-
-    scores = [candidate.score_ner_to_ontology for candidate in candidates]
-    min_score = min(scores)
-    max_score = max(scores)
-
-    if max_score - min_score == 0:
-        # All scores are the same, avoid division by zero
-        for candidate in candidates:
-            candidate.score_ner_to_ontology = 1.0 if candidate.score_ner_to_ontology == max_score else 0.0
-        return
-
-    for candidate in candidates:
-        candidate.score_ner_to_ontology = (candidate.score_ner_to_ontology - min_score) / (max_score - min_score)

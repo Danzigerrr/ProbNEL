@@ -7,15 +7,15 @@ class Candidate:
                  ontology_types: List[str],
                  comment: str,
                  uri: str,
-                 score_ner_to_ontology: Optional[float],
-                 candidate_score: Optional[float],
+                 score_types_embeddings_similarity: Optional[float],
+                 score_final: Optional[float],
                  ):
         self.label = label
         self.ontology_types = ontology_types
         self.comment = comment
         self.uri = uri
-        self.score_ner_to_ontology = score_ner_to_ontology
-        self.candidate_score = candidate_score
+        self.score_types_embeddings_similarity = score_types_embeddings_similarity
+        self.score_final = score_final
 
     def print_details(self):
         """Prints the details of the Candidate object."""
@@ -24,5 +24,5 @@ class Candidate:
         print(f"Ontology Types: {self.ontology_types}")
         print(f"Comment: {self.comment}")
         print(f"URI: {self.uri}")
-        print(f"Score NER to Ontology: {self.score_ner_to_ontology}")
-        print(f"Score final: {self.candidate_score}")
+        print(f"Score NER to Ontology: {self.score_types_embeddings_similarity}")
+        print(f"Score final: {self.score_final}")

@@ -1,10 +1,7 @@
-from .DBpedia.DBpedia_search import DBPediaSearch
+from .DBpedia.DBpediaSearch import DBpediaSearch
 from .Wikidata.utils import search_wikidata
-from ..NER_utils import NERHandler
-from ..classes import Text, Entity
-import json
-from .DBpedia.DBpedia_classes import *
-from .Scores.NER_type_to_Ontology_mapping_score import EntityCandidateScorer
+from ..classes import Text
+from .Scores.EntityCandidateScorer import EntityCandidateScorer
 
 
 class NEDHandler:
@@ -16,7 +13,7 @@ class NEDHandler:
         if knowledge_base.lower() not in ["dbpedia", "wikidata"]:
             raise ValueError("Knowledge base must be 'dbpedia' or 'wikidata'")
         self.knowledge_base = knowledge_base.lower()
-        self.DBPediaSearch = DBPediaSearch()
+        self.DBPediaSearch = DBpediaSearch()
         self.EntityCandidateScorer = EntityCandidateScorer()
 
     def perform_ned(self, text_obj: Text):
@@ -32,16 +29,17 @@ class NEDHandler:
 
             if self.knowledge_base == "dbpedia":
                 entity.candidates = self.DBPediaSearch.search_by_entity_surface_form(entity_label)
-                self.choose_best_candidate_for_entity(entity)
+                self.select_best_candidate_for_entity(entity)
             elif self.knowledge_base == "wikidata":
                 best_result = search_wikidata(entity_label)
                 entity.wikidata_uri = best_result.get("URI") if best_result else ""
 
-    def choose_best_candidate_for_entity(self, entity):
+    def select_best_candidate_for_entity(self, entity):
         """
         Chooses the best candidate for an entity based on the calculated scores.
         """
-        self.EntityCandidateScorer.calculate_score_ner_to_ontologys(entity)
+        self.EntityCandidateScorer.calculate_scores_for_candidates(entity)
+
         if entity.candidates:
             entity.candidates.sort(key=lambda x: x.candidate_score, reverse=True)
             entity.dbpedia_uri = entity.candidates[0].uri

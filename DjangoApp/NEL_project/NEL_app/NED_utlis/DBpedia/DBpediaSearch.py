@@ -1,9 +1,9 @@
 import requests
 import re
-from .DBpedia_classes import *
+from .DBpediaCandidate import *
 
 
-class DBPediaSearch:
+class DBpediaSearch:
     """
     A class for searching DBpedia using the Lookup API.
     """
@@ -65,7 +65,7 @@ def format_candidates_list(search_results):
                 ontology_types=ontology_types,
                 comment=comment,
                 uri=uri,
-                score_ner_to_ontology=0.0,
+                score_types_embedding_similarity=0.0,
                 candidate_score=0.0
             )
             candidates.append(candidate)
