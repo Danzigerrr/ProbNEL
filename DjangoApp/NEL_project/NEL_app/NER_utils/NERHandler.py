@@ -37,7 +37,7 @@ class NERHandler:
         found_entities = []
 
         for entity in self.sentence.get_spans("ner"):
-            probabilities = self.extract_entity_probabilities(entity)
+            probabilities = self.extract_entity_probabilities(entity=entity)
             found_entities.append(
                 Entity(
                     entity_label=entity.text,
@@ -53,7 +53,7 @@ class NERHandler:
         self.found_entities = found_entities
         return found_entities
 
-    def extract_entity_probabilities(self, entity):
+    def extract_entity_probabilities(self, entity, number_of_top_probabilities=3):
         """
         Extracts the top probabilities for a given entity.
         :param entity: A Flair entity object.
@@ -75,4 +75,4 @@ class NERHandler:
         # Sort probabilities by score in descending order
         sorted_probabilities = sorted(entity_probabilities.items(), key=lambda x: x[1], reverse=True)
 
-        return sorted_probabilities[:3]
+        return sorted_probabilities[:number_of_top_probabilities]
