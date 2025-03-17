@@ -1,15 +1,39 @@
+from typing import List
+
 import numpy as np
 from flair.data import Sentence
 from flair.embeddings import WordEmbeddings, FlairEmbeddings, StackedEmbeddings
 from scipy.spatial.distance import cosine
 
 from DjangoApp.NEL_project.NEL_app.classes import Entity
+from DjangoApp.NEL_project.NEL_app.NED_utlis.DBpedia.DBpedia_classes import Candidate
 
 
 class EntityCandidateScorer:
     """
     Class to calculate scores for candidates based on NER entity type and candidate ontology types.
     """
+    ontonotes_classes = {
+        "PERSON": "PERSON - A name referring to an individual, real or fictional.",
+        "NORP": "NORP - A word that identifies a nationality, religious group, or political group.",
+        "FAC": "FAC - The name of a man-made structure such as a building, airport, or bridge.",
+        "ORG": "ORG - A name representing a company, agency, institution, or organized entity.",
+        "GPE": "GPE - A geographic name used for political entities like countries, cities, or states.",
+        "LOC": "LOC - A name associated with a geographic place that is not politically defined, such as a mountain or body of water.",
+        "PRODUCT": "PRODUCT - The name of a manufactured item, vehicle, or consumable good.",
+        "EVENT": "EVENT - A term referring to a specific occurrence, such as a war, festival, or natural disaster.",
+        "WORK OF ART": "WORK OF ART - A title given to a creative work, including books, films, and paintings.",
+        "LAW": "LAW - A name for an official legal document, regulation, or treaty.",
+        "LANGUAGE": "LANGUAGE - A word identifying a system of communication spoken or written by a group of people.",
+        "DATE": "DATE - A reference to a calendar-based point in time, including specific days or time periods.",
+        "TIME": "TIME - An expression denoting a specific moment within a day, such as an hour or part of the day.",
+        "PERCENT": "PERCENT - A numerical expression representing a proportion relative to 100, often using the '%' symbol.",
+        "MONEY": "MONEY - A value that represents an amount of currency, including units like dollars or euros.",
+        "QUANTITY": "QUANTITY - A measurement of an amount, such as weight, volume, or distance.",
+        "ORDINAL": "ORDINAL - A number indicating position in a sequence, such as first or second.",
+        "CARDINAL": "CARDINAL - A number representing a count or total, without implying order or rank.",
+        "O": "O - Unknown"
+    }
 
     def __init__(self):
         self.stacked_embeddings = StackedEmbeddings([
@@ -24,14 +48,14 @@ class EntityCandidateScorer:
         self.stacked_embeddings.embed(sentence)
         return sentence[0].embedding.cpu().detach().numpy()
 
-    def calculate_candidate_scores(self, entity: Entity):
+    def calculate_score_ner_to_ontologys(self, entity: Entity):
         """
         Calculates scores for candidates of an entity based on NER entity type and candidate ontology types.
         """
         if not entity.candidates:
             return
 
-        ner_classes = [item[0] for item in entity.probabilities]
+        ner_classes = [self.ontonotes_classes[item[0]] for item in entity.probabilities]
         ner_probabilities = np.array([float(item[1]) for item in entity.probabilities])
 
         for candidate in entity.candidates:
@@ -49,15 +73,38 @@ class EntityCandidateScorer:
             final_scores = {}
 
             for j, kg_type in enumerate(kg_types):
-                max_similarities = np.max(similarity_matrix[:, j])
                 weighted_score = sum(ner_probabilities[i] * similarity_matrix[i, j] for i in range(len(ner_classes)))
 
                 final_scores[kg_type] = weighted_score
 
-            candidate_score = 0
+            score_ner_to_ontology = 0
             for ontology_type in candidate.ontology_types:
-                max_similarity_per_ner_class = np.max(similarity_matrix[:, kg_types.index(ontology_type)])
-                candidate_score += sum(ner_probabilities * similarity_matrix[:, kg_types.index(ontology_type)])
-            candidate.candidate_score = candidate_score/len(candidate.ontology_types) if len(candidate.ontology_types) > 0 else 0
+                score_ner_to_ontology += sum(ner_probabilities * similarity_matrix[:, kg_types.index(ontology_type)])
+            candidate.score_ner_to_ontology = score_ner_to_ontology/len(candidate.ontology_types) if len(candidate.ontology_types) > 0 else 0
+
+        # Normalize candidate scores
+        normalize_score_ner_to_ontologys(entity.candidates)
+
+        for candidate in entity.candidates:
+            candidate.candidate_score += candidate.score_ner_to_ontology
 
 
+def normalize_score_ner_to_ontologys(candidates: List[Candidate]):
+    """
+    Normalizes candidate scores using min-max scaling.
+    """
+    if not candidates:
+        return
+
+    scores = [candidate.score_ner_to_ontology for candidate in candidates]
+    min_score = min(scores)
+    max_score = max(scores)
+
+    if max_score - min_score == 0:
+        # All scores are the same, avoid division by zero
+        for candidate in candidates:
+            candidate.score_ner_to_ontology = 1.0 if candidate.score_ner_to_ontology == max_score else 0.0
+        return
+
+    for candidate in candidates:
+        candidate.score_ner_to_ontology = (candidate.score_ner_to_ontology - min_score) / (max_score - min_score)

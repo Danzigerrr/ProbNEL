@@ -22,7 +22,6 @@ class NEDHandler:
     def perform_ned(self, text_obj: Text):
         """
         Searches for entities in the given text using the specified knowledge base.
-        :param text_with_ner_tags: Text annotated with NER tags.
         :param text_obj: A Text object to associate with found entities.
         :return: None. Updates the text_obj with found entities.
         """
@@ -42,8 +41,12 @@ class NEDHandler:
         """
         Chooses the best candidate for an entity based on the calculated scores.
         """
-        self.EntityCandidateScorer.calculate_candidate_scores(entity)
+        self.EntityCandidateScorer.calculate_score_ner_to_ontologys(entity)
         if entity.candidates:
-            entity.candidates.sort(key=lambda x: x.candidate_score, reverse=False)
+            entity.candidates.sort(key=lambda x: x.candidate_score, reverse=True)
             entity.dbpedia_uri = entity.candidates[0].uri
-        entity.dbpedia_uri = entity.candidates[0].uri
+
+            print(f"\n### Best candidates for entity {entity.entity_label}:")
+            for candidate in entity.candidates[:3]:
+                candidate.print_details()
+
