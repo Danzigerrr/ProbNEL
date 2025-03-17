@@ -66,6 +66,7 @@ def format_candidates_list(search_results):
                 comment=comment,
                 uri=uri,
                 score_types_embeddings_similarity=0.0,
+                score_levenshtein_distance=0.0,
                 score_final=0.0
             )
             candidates.append(candidate)

@@ -8,6 +8,7 @@ class Candidate:
                  comment: str,
                  uri: str,
                  score_types_embeddings_similarity: Optional[float],
+                 score_levenshtein_distance: Optional[float],
                  score_final: Optional[float],
                  ):
         self.label = label
@@ -15,6 +16,7 @@ class Candidate:
         self.comment = comment
         self.uri = uri
         self.score_types_embeddings_similarity = score_types_embeddings_similarity
+        self.score_levenshtein_distance = score_levenshtein_distance
         self.score_final = score_final
 
     def print_details(self):
@@ -25,4 +27,5 @@ class Candidate:
         print(f"Comment: {self.comment}")
         print(f"URI: {self.uri}")
         print(f"Score NER to Ontology: {self.score_types_embeddings_similarity}")
+        print(f"Score Levenshtein: {self.score_levenshtein_distance}")
         print(f"Score final: {self.score_final}")
