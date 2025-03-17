@@ -1,4 +1,5 @@
 import requests
+import re
 from .DBpedia_classes import *
 
 
@@ -42,7 +43,7 @@ class DBPediaSearch:
 
 def format_candidates_list(search_results):
     """
-    Extract the best result from the DBpedia Lookup API response.
+    Extract the best result from the DBpedia Lookup API response, removing HTML tags.
 
     :param search_results: The JSON response from the DBpedia Lookup API.
     :return: A list of Candidate objects or None if no valid results are found.
@@ -51,16 +52,21 @@ def format_candidates_list(search_results):
     if search_results and search_results.get("docs"):
         for doc in search_results["docs"]:
             label = doc.get("label", [""])[0]
-            ontology_types = doc.get("typeName", [])  # Ensures ontology_types remains a list
+            ontology_types = doc.get("typeName", [])
             comment = doc.get("comment", [""])[0]
             uri = doc.get("resource", [""])[0]
 
+            # Remove HTML tags using regular expressions
+            label = re.sub(r'<[^>]+>', '', label)  # Remove HTML tags
+            comment = re.sub(r'<[^>]+>', '', comment)  # Remove HTML tags
+
             candidate = Candidate(
                 label=label,
-                ontology_types=ontology_types,  # Already a list, no need to convert
+                ontology_types=ontology_types,
                 comment=comment,
                 uri=uri,
-                score_ner_to_ontology=None
+                score_ner_to_ontology=0.0,
+                candidate_score=0.0
             )
             candidates.append(candidate)
     return candidates
