@@ -1,7 +1,9 @@
-from .DBpedia.utils import search_dbpedia
+from .DBpedia.utils import search_dbpedia_by_entity_surface_form
 from .Wikidata.utils import search_wikidata
 from ..NER_utils import NERHandler
 from ..classes import Text, Entity
+import json
+from .DBpedia.DBpedia_classes import *
 
 
 class NEDHandler:
@@ -27,18 +29,37 @@ class NEDHandler:
             entity_label = entity.entity_label  # Use the FoundEntity object for labels
 
             if self.knowledge_base == "dbpedia":
-                best_result = search_dbpedia(entity_label)
-                entity.dbpedia_uri = best_result.get("URI") if best_result else ""
+                search_results = search_dbpedia_by_entity_surface_form(entity_label)
+                entity.candidates = self.format_candidates_list(search_results)
+                self.choose_best_candidate_for_entity(entity)
             elif self.knowledge_base == "wikidata":
                 best_result = search_wikidata(entity_label)
                 entity.wikidata_uri = best_result.get("URI") if best_result else ""
 
-    def add_entities_to_text(self, ner_results: list, text_obj: Text):
+    def format_candidates_list(self, search_results):
         """
-        Adds recognized entities to the given Text object.
-        :param ner_results: List of FoundEntity objects.
-        :param text_obj: A Text object to update with entities.
-        :return: None.
+        Extract the best result from the DBpedia Lookup API response.
+
+        :param search_results: The JSON response from the DBpedia Lookup API.
+        :return: A list of Candidate objects or None if no valid results are found.
         """
-        for entity in ner_results:
-            text_obj.add_entity(entity)
+        candidates = []
+        if search_results and search_results.get("docs"):
+            for doc in search_results["docs"]:
+                label = doc.get("label", [""])[0]
+                ontology_types = doc.get("type", [])
+                comment = doc.get("comment", [""])[0]
+                uri = doc.get("resource", [""])[0]
+
+                candidate = Candidate(
+                    label=label,
+                    ontology_types=ontology_types,
+                    comment=comment,
+                    uri=uri,
+                    score_ner_to_ontology=None
+                )
+                candidates.append(candidate)
+        return candidates
+
+    def choose_best_candidate_for_entity(self, entity):
+        entity.dbpedia_uri = entity.candidates[0].uri

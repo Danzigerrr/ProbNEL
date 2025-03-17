@@ -11,6 +11,7 @@ class Entity:
         self.dbpedia_uri = dbpedia_uri
         self.wikidata_uri = wikidata_uri
         self.probabilities = probabilities if probabilities is not None else []
+        self.candidates = []
 
 
 class Text:
