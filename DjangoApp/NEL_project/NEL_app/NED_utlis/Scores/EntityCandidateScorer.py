@@ -24,11 +24,11 @@ class EntityCandidateScorer:
         self.calculate_final_score(entity)
 
     def normalise_scores(self, entity):
-        normalize_scores(entity.candidates, "score_ner_to_ontology")
+        normalize_scores(entity.candidates, "score_types_embeddings_similarity")
 
     def calculate_final_score(self, entity):
         for candidate in entity.candidates:
-            candidate.candidate_score += candidate.score_ner_to_ontology
+            candidate.score_final += candidate.score_types_embeddings_similarity
 
 
 def normalize_scores(candidates: List[Candidate], score_attribute: str):
@@ -37,7 +37,7 @@ def normalize_scores(candidates: List[Candidate], score_attribute: str):
 
     Args:
         candidates: A list of Candidate objects.
-        score_attribute: The name of the score attribute to normalize (e.g., "score_ner_to_ontology", "candidate_score").
+        score_attribute: The name of the score attribute to normalize (e.g., "score_types_embeddings_similarity", "score_final").
     """
     if not candidates:
         return

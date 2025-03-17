@@ -41,7 +41,7 @@ class NEDHandler:
         self.EntityCandidateScorer.calculate_scores_for_candidates(entity)
 
         if entity.candidates:
-            entity.candidates.sort(key=lambda x: x.candidate_score, reverse=True)
+            entity.candidates.sort(key=lambda x: x.score_final, reverse=True)
             entity.dbpedia_uri = entity.candidates[0].uri
 
             print(f"\n### Best candidates for entity {entity.entity_label}:")

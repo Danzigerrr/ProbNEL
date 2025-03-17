@@ -17,7 +17,7 @@ class NERHandler:
         print(f"Loading NER model: {ner_tagger_model_name}")
         # self.tagger = SequenceTagger.load(ner_tagger_model_name)
         self.tagger = tagger
-        print("Model NER loaded.")
+        print(f"Model NER \'{ner_tagger_model_name}\' loaded successfully")
 
     def perform_ner(self, text_obj: Text):
         """
