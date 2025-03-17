@@ -55,7 +55,7 @@ def format_candidates_list(search_results):
             ontology_types = doc.get("typeName", [])
             comment = doc.get("comment", [""])[0]
             uri = doc.get("resource", [""])[0]
-
+            ref_count = int(doc.get("refCount", ["0"])[0])
             # Remove HTML tags using regular expressions
             label = re.sub(r'<[^>]+>', '', label)  # Remove HTML tags
             comment = re.sub(r'<[^>]+>', '', comment)  # Remove HTML tags
@@ -65,8 +65,10 @@ def format_candidates_list(search_results):
                 ontology_types=ontology_types,
                 comment=comment,
                 uri=uri,
+                ref_count=ref_count,
                 score_types_embeddings_similarity=0.0,
                 score_levenshtein_distance=0.0,
+                score_popularity=0.0,
                 score_final=0.0
             )
             candidates.append(candidate)
