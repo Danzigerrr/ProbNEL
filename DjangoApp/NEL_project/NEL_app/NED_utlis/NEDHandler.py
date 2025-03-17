@@ -1,9 +1,10 @@
-from .DBpedia.utils import search_dbpedia_by_entity_surface_form
+from .DBpedia.DBpedia_search import DBPediaSearch
 from .Wikidata.utils import search_wikidata
 from ..NER_utils import NERHandler
 from ..classes import Text, Entity
 import json
 from .DBpedia.DBpedia_classes import *
+from .Scores.NER_type_to_Ontology_mapping_score import EntityCandidateScorer
 
 
 class NEDHandler:
@@ -15,6 +16,8 @@ class NEDHandler:
         if knowledge_base.lower() not in ["dbpedia", "wikidata"]:
             raise ValueError("Knowledge base must be 'dbpedia' or 'wikidata'")
         self.knowledge_base = knowledge_base.lower()
+        self.DBPediaSearch = DBPediaSearch()
+        self.EntityCandidateScorer = EntityCandidateScorer()
 
     def perform_ned(self, text_obj: Text):
         """
@@ -29,37 +32,18 @@ class NEDHandler:
             entity_label = entity.entity_label  # Use the FoundEntity object for labels
 
             if self.knowledge_base == "dbpedia":
-                search_results = search_dbpedia_by_entity_surface_form(entity_label)
-                entity.candidates = self.format_candidates_list(search_results)
+                entity.candidates = self.DBPediaSearch.search_by_entity_surface_form(entity_label)
                 self.choose_best_candidate_for_entity(entity)
             elif self.knowledge_base == "wikidata":
                 best_result = search_wikidata(entity_label)
                 entity.wikidata_uri = best_result.get("URI") if best_result else ""
 
-    def format_candidates_list(self, search_results):
-        """
-        Extract the best result from the DBpedia Lookup API response.
-
-        :param search_results: The JSON response from the DBpedia Lookup API.
-        :return: A list of Candidate objects or None if no valid results are found.
-        """
-        candidates = []
-        if search_results and search_results.get("docs"):
-            for doc in search_results["docs"]:
-                label = doc.get("label", [""])[0]
-                ontology_types = doc.get("type", [])
-                comment = doc.get("comment", [""])[0]
-                uri = doc.get("resource", [""])[0]
-
-                candidate = Candidate(
-                    label=label,
-                    ontology_types=ontology_types,
-                    comment=comment,
-                    uri=uri,
-                    score_ner_to_ontology=None
-                )
-                candidates.append(candidate)
-        return candidates
-
     def choose_best_candidate_for_entity(self, entity):
+        """
+        Chooses the best candidate for an entity based on the calculated scores.
+        """
+        self.EntityCandidateScorer.calculate_candidate_scores(entity)
+        if entity.candidates:
+            entity.candidates.sort(key=lambda x: x.candidate_score, reverse=False)
+            entity.dbpedia_uri = entity.candidates[0].uri
         entity.dbpedia_uri = entity.candidates[0].uri
