@@ -31,12 +31,13 @@ class TypesEmbeddingScorer:
         "O": "O - Unknown"
     }
 
-    def __init__(self):
+    def __init__(self, round_to_decimal_places=3):
         self.stacked_embeddings = StackedEmbeddings([
             WordEmbeddings('glove'),
             FlairEmbeddings('news-forward-fast'),
             FlairEmbeddings('news-backward-fast'),
         ])
+        self.round_to_decimal_places = round_to_decimal_places
 
     def get_embedding(self, word):
         """Generate word embedding using Flair."""
@@ -76,5 +77,6 @@ class TypesEmbeddingScorer:
             score_types_embeddings_similarity = 0
             for ontology_type in candidate.ontology_types:
                 score_types_embeddings_similarity += sum(ner_probabilities * similarity_matrix[:, kg_types.index(ontology_type)])
-            candidate.score_types_embeddings_similarity = score_types_embeddings_similarity/len(candidate.ontology_types) if len(candidate.ontology_types) > 0 else 0
+            score_embeddings = score_types_embeddings_similarity/len(candidate.ontology_types) if len(candidate.ontology_types) > 0 else 0
+            candidate.score_types_embeddings_similarity = round(score_embeddings, self.round_to_decimal_places)
 

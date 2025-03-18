@@ -7,8 +7,8 @@ class LevenshteinDistanceScorer:
     Class to calculate Levenshtein distance scores for candidates.
     """
 
-    def __init__(self):
-        pass
+    def __init__(self, round_to_decimal_places=3):
+        self.round_to_decimal_places = round_to_decimal_places
 
     def calculate_score(self, entity: Entity):
         """
@@ -24,4 +24,4 @@ class LevenshteinDistanceScorer:
             # Calculate Levenshtein distance score using FuzzyWuzzy
             score_levenshtein_distance = fuzz.ratio(entity_label, candidate_label) / 100.0  # Normalize to 0-1 range
 
-            candidate.score_levenshtein_distance = score_levenshtein_distance
+            candidate.score_levenshtein_distance = round(score_levenshtein_distance, self.round_to_decimal_places)
