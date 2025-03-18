@@ -68,8 +68,7 @@ class EvaluationHandler:
                 if (pred.entity_label == ground_truth_entity.entity_label
                         and pred.start_position == ground_truth_entity.start_position
                         and pred.end_position == ground_truth_entity.end_position
-                        and (pred.dbpedia_uri == ground_truth_entity.dbpedia_uri
-                             or pred.wikidata_uri == ground_truth_entity.wikidata_uri)):
+                        and pred.best_candidate_uri == ground_truth_entity.best_candidate_uri):
                     correct_prediction = True
 
             ned_evaluation_results.update_metrics(correct_prediction)

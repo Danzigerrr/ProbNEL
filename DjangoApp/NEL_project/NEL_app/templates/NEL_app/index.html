@@ -139,9 +139,9 @@
 
                     // Replace entities with clickable spans
                     data.entities.forEach(entity => {
-                        const { entity_label, probabilities, entity_type, dbpedia_uri, wikidata_uri } = entity;
+                        const { entity_label, probabilities, entity_type, best_candidate_uri } = entity;
                         const regex = new RegExp(`\\b${entity_label}\\b`, 'g'); // Match whole word
-                        const entity_uri = dbpedia_uri || wikidata_uri; // Use dbpedia_uri if available, fallback to wikidata_uri
+                        const entity_uri = best_candidate_uri;
 
                         // Replace text with a clickable link
                         textWithEntities = textWithEntities.replace(
