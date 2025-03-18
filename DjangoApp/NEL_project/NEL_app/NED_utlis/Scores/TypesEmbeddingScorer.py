@@ -44,7 +44,7 @@ class TypesEmbeddingScorer:
         self.stacked_embeddings.embed(sentence)
         return sentence[0].embedding.cpu().detach().numpy()
 
-    def calculate_score_types_embeddings_similarity(self, entity: Entity):
+    def calculate_score(self, entity: Entity):
         """
         Calculates scores for candidates of an entity based on NER entity type and candidate ontology types.
         """

@@ -9,22 +9,27 @@ from DjangoApp.NEL_project.NEL_app.NED_utlis.DBpedia.DBpediaCandidate import Can
 
 class EntityCandidateScorer:
     """
-    Class to calculate scores for candidates based on NER entity type and candidate ontology types.
+    Class to calculate scores for candidates of each entity in text.
     """
-
-
 
     def __init__(self):
         self.typesEmbeddingScorer = TypesEmbeddingScorer()
+        self.types_embedding_score_factor = 1
+
         self.LevenshteinDistanceScorer = LevenshteinDistanceScorer()
+        self.levenshtein_distance_score_factor = 1
+
         self.PopularityScorer = PopularityScorer()
+        self.popularity_score_factor = 1
+
         self.ContextScorer = ContextScorer()
+        self.context_score_factor = 1
 
     def calculate_scores_for_candidates(self, text: Text, entity: Entity):
         """
         Calculates scores for candidates of an entity from a text.
         """
-        self.typesEmbeddingScorer.calculate_score_types_embeddings_similarity(entity)
+        self.typesEmbeddingScorer.calculate_score(entity)
         self.LevenshteinDistanceScorer.calculate_score(entity)
         self.PopularityScorer.calculate_score(entity)
         self.ContextScorer.calculate_score(text, entity)
@@ -34,10 +39,10 @@ class EntityCandidateScorer:
 
     def calculate_final_score(self, entity):
         for candidate in entity.candidates:
-            candidate.score_final += candidate.score_types_embeddings_similarity
-            candidate.score_final += candidate.score_levenshtein_distance
-            candidate.score_final += candidate.score_popularity
-            candidate.score_final += candidate.score_context
+            candidate.score_final += self.types_embedding_score_factor * candidate.score_types_embeddings_similarity
+            candidate.score_final += self.levenshtein_distance_score_factor * candidate.score_levenshtein_distance
+            candidate.score_final += self.popularity_score_factor * candidate.score_popularity
+            candidate.score_final += self.context_score_factor * candidate.score_context
 
 
 def normalize_scores(candidates: List[Candidate], score_attribute: str):
