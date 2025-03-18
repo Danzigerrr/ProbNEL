@@ -1,6 +1,7 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-from DjangoApp.NEL_project.NEL_app.classes import Text, Entity
+from DjangoApp.NEL_project.NEL_app.Models.Text import Text
+from DjangoApp.NEL_project.NEL_app.Models.Entity import Entity
 
 
 class ContextScorer:

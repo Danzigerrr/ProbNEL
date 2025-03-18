@@ -11,21 +11,3 @@ class Entity:
         self.best_candidate_uri = best_candidate_uri
         self.probabilities = probabilities if probabilities is not None else []
         self.candidates = []
-
-
-class Text:
-    def __init__(self, content: str):
-        self.content = content
-        self.entities = []  # List of associated Entity objects
-
-    def add_entity(self, entity):
-        self.entities.append(entity)
-
-
-class TestDataset:
-    def __init__(self, name: str):
-        self.texts = []
-        self.name = name
-
-    def add_text(self, text: Text):
-        self.texts.append(text)

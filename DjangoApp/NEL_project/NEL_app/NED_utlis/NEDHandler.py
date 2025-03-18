@@ -1,6 +1,7 @@
 from .DBpedia.DBpediaSearch import DBpediaSearch
 from .Wikidata.WikidataSearch import WikidataSearch
-from ..classes import Text, Entity
+from ..Models.Text import Text
+from ..Models.Entity import Entity
 from .Scores.EntityCandidateScorer import EntityCandidateScorer
 
 

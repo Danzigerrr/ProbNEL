@@ -1,5 +1,5 @@
 from fuzzywuzzy import fuzz
-from DjangoApp.NEL_project.NEL_app.classes import Entity
+from DjangoApp.NEL_project.NEL_app.Models.Entity import Entity
 
 
 class LevenshteinDistanceScorer:

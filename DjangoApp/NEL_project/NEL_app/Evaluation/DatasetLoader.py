@@ -1,4 +1,6 @@
-from ..classes import TestDataset, Text, Entity
+from .TestDataset import TestDataset
+from ..Models.Text import Text
+from ..Models.Entity import Entity
 import json
 
 

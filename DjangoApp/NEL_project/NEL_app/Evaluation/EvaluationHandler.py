@@ -1,5 +1,5 @@
 from .EvaluationResults import EvaluationResults
-from ..classes import Text
+from ..Models.Text import Text
 
 
 class EvaluationHandler:

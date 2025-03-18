@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import JsonResponse, HttpRequest, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from .testing.utils import *
 import json
+from .Models.Text import Text
 from .NED_utlis.NEDHandler import NEDHandler
 from .NER_utils.NERHandler import NERHandler
 from .Evaluation.EvaluationHandler import EvaluationHandler
