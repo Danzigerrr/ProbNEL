@@ -7,9 +7,9 @@ class ContextScorer:
     """
     Class to calculate context similarity scores for candidates.
     """
-
-    def __init__(self):
+    def __init__(self, round_to_decimal_places=3):
         self.vectorizer = TfidfVectorizer(max_features=1000)  # Limit features for memory efficiency
+        self.round_to_decimal_places = round_to_decimal_places
 
     def calculate_score(self, text: Text, entity: Entity):
         """
@@ -28,4 +28,4 @@ class ContextScorer:
             # Calculate cosine similarity
             similarity_score = cosine_similarity(tfidf_matrix[0], tfidf_matrix[1])[0][0]
 
-            candidate.score_context = similarity_score
+            candidate.score_context = round(similarity_score, self.round_to_decimal_places)

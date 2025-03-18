@@ -36,13 +36,13 @@ class EntityCandidateScorer:
 
         self.calculate_final_score(entity)
 
-
     def calculate_final_score(self, entity):
         for candidate in entity.candidates:
             candidate.score_final += self.types_embedding_score_factor * candidate.score_types_embeddings_similarity
             candidate.score_final += self.levenshtein_distance_score_factor * candidate.score_levenshtein_distance
             candidate.score_final += self.popularity_score_factor * candidate.score_popularity
             candidate.score_final += self.context_score_factor * candidate.score_context
+            candidate.score_final = round(number=candidate.score_final, ndigits=3)
 
 
 def normalize_scores(candidates: List[Candidate], score_attribute: str):

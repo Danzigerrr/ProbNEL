@@ -6,6 +6,8 @@ class PopularityScorer:
     """
     Class to calculate popularity scores for candidates based on refCount.
     """
+    def __init__(self, round_to_decimal_places=3):
+        self.round_to_decimal_places = round_to_decimal_places
 
     def calculate_score(self, entity: Entity):
         """
@@ -32,4 +34,4 @@ class PopularityScorer:
             else:
                 for i, candidate in enumerate(entity.candidates):
                     normalized_score = (log_ref_counts[i] - min_log_ref_count) / (max_log_ref_count - min_log_ref_count)
-                    candidate.score_popularity = normalized_score
+                    candidate.score_popularity = round(normalized_score, self.round_to_decimal_places)
