@@ -1,4 +1,6 @@
-from ..classes import TestDataset, Text, Entity
+from .TestDataset import TestDataset
+from .TestEntity import TestEntity
+from ..Models.Text import Text
 import json
 
 
@@ -29,15 +31,13 @@ class DatasetLoader:
             text_object = Text(content=content)  # Create a Text object
 
             for mention in text_entry["entity_mentions"]:
-                entity_mention = Entity(
-                    entity_label=mention["entity_label"],
-                    entity_type=mention["entity_type"],
+                entity_mention = TestEntity(
+                    entity_label=mention["surface_form"],
                     start_position=mention["start_position"],
                     end_position=mention["end_position"],
-                    best_candidate_uri=mention.get("best_candidate_uri"),
-                    probabilities=[]
+                    target_uri=mention.get("target_uri")
                 )
-                text_object.add_entity(entity_mention)
+                text_object.entities.append(entity_mention)
 
             dataset.add_text(text_object)
         return dataset

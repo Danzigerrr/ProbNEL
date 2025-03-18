@@ -1,5 +1,5 @@
 import numpy as np
-from DjangoApp.NEL_project.NEL_app.classes import Entity
+from DjangoApp.NEL_project.NEL_app.Models.Entity import Entity
 
 
 class PopularityScorer:

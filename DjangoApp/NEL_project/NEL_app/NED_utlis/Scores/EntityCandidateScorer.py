@@ -3,7 +3,8 @@ from DjangoApp.NEL_project.NEL_app.NED_utlis.Scores.TypesEmbeddingScorer import 
 from DjangoApp.NEL_project.NEL_app.NED_utlis.Scores.LevenshteinDistanceScorer import LevenshteinDistanceScorer
 from DjangoApp.NEL_project.NEL_app.NED_utlis.Scores.PopularityScorer import PopularityScorer
 from DjangoApp.NEL_project.NEL_app.NED_utlis.Scores.ContextScorer import ContextScorer
-from DjangoApp.NEL_project.NEL_app.classes import Text, Entity
+from DjangoApp.NEL_project.NEL_app.Models.Text import Text
+from DjangoApp.NEL_project.NEL_app.Models.Entity import Entity
 from DjangoApp.NEL_project.NEL_app.NED_utlis.Candidate.Candidate import Candidate
 
 

@@ -1,6 +1,7 @@
 from flair.models import SequenceTagger
 from flair.data import Sentence
-from ..classes import Entity, Text
+from ..Models.Text import Text
+from ..Models.Entity import Entity
 
 tagger = SequenceTagger.load("flair/ner-english-ontonotes-fast")
 

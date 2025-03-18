@@ -2,7 +2,7 @@ import numpy as np
 from flair.data import Sentence
 from flair.embeddings import WordEmbeddings, FlairEmbeddings, StackedEmbeddings
 from scipy.spatial.distance import cosine
-from DjangoApp.NEL_project.NEL_app.classes import Entity
+from DjangoApp.NEL_project.NEL_app.Models.Entity import Entity
 
 
 class TypesEmbeddingScorer:
