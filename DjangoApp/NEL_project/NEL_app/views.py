@@ -64,8 +64,7 @@ def run_test_on_dataset(request: HttpRequest) -> HttpResponse:
         try:
             # Load dataset using DatasetLoader
             dataset_loader = DatasetLoader()
-            dataset_file = request.FILES["dataset"]
-            dataset = dataset_loader.load_dataset(dataset_file)
+            dataset = dataset_loader.load_dataset(request.FILES["dataset"])
 
             # Print dataset information
             dataset_loader.print_dataset_info(dataset)
@@ -73,9 +72,9 @@ def run_test_on_dataset(request: HttpRequest) -> HttpResponse:
             # Initialize handlers
             ner_handler = NERHandler("flair/ner-english-ontonotes-fast")
             ned_handler = NEDHandler("dbpedia")
-            evaluation_handler = EvaluationHandler(ner_handler, ned_handler)
 
             # Run evaluation
+            evaluation_handler = EvaluationHandler(ner_handler, ned_handler)
             evaluation_results = evaluation_handler.run_test_on_dataset(dataset)
 
             serialised_evaluation_results = serialize_the_evaluation_results_to_json(evaluation_results)
