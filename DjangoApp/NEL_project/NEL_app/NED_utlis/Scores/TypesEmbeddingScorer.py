@@ -18,7 +18,7 @@ class TypesEmbeddingScorer:
         "LOC": "LOC - A name associated with a geographic place that is not politically defined, such as a mountain or body of water.",
         "PRODUCT": "PRODUCT - The name of a manufactured item, vehicle, or consumable good.",
         "EVENT": "EVENT - A term referring to a specific occurrence, such as a war, festival, or natural disaster.",
-        "WORK OF ART": "WORK OF ART - A title given to a creative work, including books, films, and paintings.",
+        "WORK_OF_ART": "WORK OF ART - A title given to a creative work, including books, films, and paintings.",
         "LAW": "LAW - A name for an official legal document, regulation, or treaty.",
         "LANGUAGE": "LANGUAGE - A word identifying a system of communication spoken or written by a group of people.",
         "DATE": "DATE - A reference to a calendar-based point in time, including specific days or time periods.",

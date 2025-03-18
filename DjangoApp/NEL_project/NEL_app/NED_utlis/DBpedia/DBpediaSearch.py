@@ -26,7 +26,7 @@ class DBpediaSearch:
         """
         params = {
             "query": entity_surface_form,
-            "format": "JSON",
+            "format": "JSON_FULL",
             "maxResults": max_results,
         }
 
@@ -51,14 +51,11 @@ def format_candidates_list(search_results):
     candidates = []
     if search_results and search_results.get("docs"):
         for doc in search_results["docs"]:
-            label = doc.get("label", [""])[0]
-            ontology_types = doc.get("typeName", [])
-            comment = doc.get("comment", [""])[0]
-            uri = doc.get("resource", [""])[0]
-            ref_count = int(doc.get("refCount", ["0"])[0])
-            # Remove HTML tags using regular expressions
-            label = re.sub(r'<[^>]+>', '', label)  # Remove HTML tags
-            comment = re.sub(r'<[^>]+>', '', comment)  # Remove HTML tags
+            label = doc.get("label", [{}])[0].get("value", "")
+            ontology_types = [item.get("value", "") for item in doc.get("typeName", [])]
+            comment = doc.get("comment", [{}])[0].get("value", "")
+            uri = doc.get("resource", [{}])[0].get("value", "")
+            ref_count = int(doc.get("refCount", [{}])[0].get("value", "0"))
 
             candidate = Candidate(
                 label=label,
