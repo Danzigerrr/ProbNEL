@@ -33,14 +33,15 @@ class WikidataSearch:
                 description = result.get("Description", "")
                 uri = result.get("URI", "")
                 entity_id = result.get("ID", "")
-                ontology_types = get_parent_types(entity_id)
+                ontology_types = get_ontology_types(entity_id)
+                sitelinks_popularity = count_sitelinks_popularity(entity_id)
 
                 candidate = Candidate(
                     label=label,
                     ontology_types=ontology_types,
                     comment=description,
                     uri=uri,
-                    ref_count=0  # Wikidata does not provide ref_count
+                    ref_count=sitelinks_popularity
                 )
                 candidates.append(candidate)
             return candidates
@@ -74,15 +75,11 @@ def search_wikidata(entity_text, max_results=3):
                 uri = f"https://www.wikidata.org/wiki/{item['id']}"
                 entity_id = item['id']
 
-                # Now, we fetch detailed information about the entity to get its type (instance of)
-                type_info = get_entity_type(entity_id)
-
                 results.append({
                     "Label": label,
                     "Description": description,
                     "URI": uri,
                     "ID": entity_id,
-                    "Type": type_info
                 })
 
         return results
@@ -95,7 +92,7 @@ def search_wikidata(entity_text, max_results=3):
 
 def get_entity_type(entity_id):
     """
-    Fetches the type of an entity (e.g., Person, Organisation) based on its 'instance of' property.
+    Fetches the type of entity (e.g., Person, Organisation) based on its 'instance of' property.
     """
     params = {
         "action": "wbgetentities",
@@ -155,7 +152,7 @@ def get_entity_label(entity_id):
         return "Unknown"
 
 
-def get_parent_types(wikidata_id):
+def get_ontology_types(wikidata_id):
     """
     Query Wikidata to fetch the parent classes (hierarchy) of a given entity type.
     """
@@ -189,3 +186,34 @@ def get_parent_types(wikidata_id):
     except requests.exceptions.RequestException as e:
         print(f"Error querying Wikidata for parent types of {wikidata_id}: {e}")
         return []
+
+
+
+def count_sitelinks_popularity(wikidata_id):
+    """
+    Calculates a popularity score for a Wikidata entity based on the number of sitelinks.
+    """
+    params = {
+        "action": "wbgetentities",
+        "ids": wikidata_id,
+        "props": "sitelinks",
+        "format": "json"
+    }
+
+    try:
+        response = requests.get(WIKIDATA_GET_ENTITY_ENDPOINT, params=params)
+        response.raise_for_status()
+        data = response.json()
+
+        if "entities" in data and wikidata_id in data["entities"]:
+            entity = data["entities"][wikidata_id]
+            sitelinks = entity.get("sitelinks", {})
+            popularity_score = len(sitelinks)
+            return popularity_score
+        else:
+            return 0
+
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching sitelinks for {wikidata_id}: {e}")
+        return 0
+
