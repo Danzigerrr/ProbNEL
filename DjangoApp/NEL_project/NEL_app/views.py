@@ -46,8 +46,7 @@ def create_json_response(text_obj: Text):
             "entity_type": e.entity_type,
             "start_position": e.start_position,
             "end_position": e.end_position,
-            "dbpedia_uri": e.dbpedia_uri,
-            "wikidata_uri": e.wikidata_uri,
+            "best_candidate_uri": e.best_candidate_uri,
             "probabilities": e.probabilities,
         }
         for e in text_obj.entities

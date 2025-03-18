@@ -1,7 +1,51 @@
 import requests
+from ..Candidate.Candidate import Candidate
 
 WIKIDATA_SEARCH_ENDPOINT = "https://www.wikidata.org/w/api.php"
 WIKIDATA_GET_ENTITY_ENDPOINT = "https://www.wikidata.org/w/api.php"
+
+
+class WikidataSearch:
+    """
+    A class for searching Wikidata using the API.
+    """
+
+    def __init__(self):
+        """
+        Initializes the WikidataSearch object.
+        """
+        pass
+
+    def search_by_entity_surface_form(self, entity_surface_form, max_results=3):
+        """
+        Fetches search results from the Wikidata API.
+
+        :param entity_surface_form: The text to search for.
+        :param max_results: Maximum number of results to return.
+        :return: A list of Candidate objects or None if an error occurs.
+        """
+        results = search_wikidata(entity_surface_form, max_results)
+        candidates = []
+
+        if results:
+            for result in results:
+                label = result.get("Label", "")
+                description = result.get("Description", "")
+                uri = result.get("URI", "")
+                entity_id = result.get("ID", "")
+                ontology_types = get_parent_types(entity_id)
+
+                candidate = Candidate(
+                    label=label,
+                    ontology_types=ontology_types,
+                    comment=description,
+                    uri=uri,
+                    ref_count=0  # Wikidata does not provide ref_count
+                )
+                candidates.append(candidate)
+            return candidates
+        else:
+            return []
 
 
 def search_wikidata(entity_text, max_results=3):
@@ -41,23 +85,12 @@ def search_wikidata(entity_text, max_results=3):
                     "Type": type_info
                 })
 
-        final_result = get_best_wikidata_result(results)
-        return final_result
+        return results
 
     except requests.exceptions.RequestException as e:
         print(f"Error querying Wikidata: {e}")
         return []
 
-
-def get_best_wikidata_result(results):
-    """
-    Extract the best (first) result from the Wikidata search results.
-
-    :param results: The JSON response from Wikidata API.
-    :return: A dictionary containing details of the first result, or None if no results are found.
-    """
-    best_result = results[0]
-    return best_result
 
 
 def get_entity_type(entity_id):
@@ -134,20 +167,21 @@ def get_parent_types(wikidata_id):
     }
 
     try:
-        response = requests.get(WIKIDATA_SEARCH_ENDPOINT, params=params)
+        response = requests.get(WIKIDATA_GET_ENTITY_ENDPOINT, params=params)
         response.raise_for_status()
         data = response.json()
 
         parent_types = []
-        entity = data['entities'][wikidata_id]
+        if 'entities' in data and wikidata_id in data['entities']:
+            entity = data['entities'][wikidata_id]
 
-        # Check if the entity has the 'P31' property (instance of)
-        if 'claims' in entity and 'P31' in entity['claims']:
-            for claim in entity['claims']['P31']:
-                parent_id = claim['mainsnak']['datavalue']['value']['id']
-                # Fetch the label for each parent ID to make it human-readable
-                parent_label = get_entity_label(parent_id)
-                parent_types.append(parent_label)
+            # Check if the entity has the 'P31' property (instance of)
+            if 'claims' in entity and 'P31' in entity['claims']:
+                for claim in entity['claims']['P31']:
+                    parent_id = claim['mainsnak']['datavalue']['value']['id']
+                    # Fetch the label for each parent ID to make it human-readable
+                    parent_label = get_entity_label(parent_id)
+                    parent_types.append(parent_label)
 
         # Return parent types as a list of human-readable labels
         return parent_types
@@ -155,39 +189,3 @@ def get_parent_types(wikidata_id):
     except requests.exceptions.RequestException as e:
         print(f"Error querying Wikidata for parent types of {wikidata_id}: {e}")
         return []
-
-
-if __name__ == "__main__":
-    # NER output from Flair (mocked here for demonstration purposes)
-    sentence = "Notre Dame, the iconic medieval cathedral in Paris, reopens after five years of speedy reconstruction work."
-    ner_spans = [
-        {"text": "Notre Dame", "type": "FAC", "score": 1.0000},
-        {"text": "Paris", "type": "GPE", "score": 1.0000},
-        {"text": "five years", "type": "DATE", "score": 1.0000},
-    ]
-
-    for span in ner_spans:
-        entity_text = span["text"]
-        print(f"Disambiguating entity: {entity_text}")
-        results = search_wikidata(entity_text)
-
-        if results:
-            for result in results:
-                print(f"Best match for '{entity_text}':")
-                print(f"Label: {result['Label']}")
-                print(f"Description: {result['Description']}")
-                print(f"URL: {result['URL']}")
-                print(f"Type: {result['Type']}")
-                print(f"Parent types (hierarchy from detailed to general):")
-
-                # Fetch parent types
-                wikidata_id = result['ID']  # Wikidata ID from the first result
-                parent_types = get_parent_types(wikidata_id)
-                # Traverse and print parent types (you can implement a recursive call if necessary to get the full hierarchy)
-                while parent_types:
-                    parent_type_id = parent_types.pop(0)  # Get the next parent type
-                    print(f"- {parent_type_id}")  # Print parent type ID
-                print("\n")
-        else:
-            print(f"No matches found for '{entity_text}'\n")
-        print("----------\n")

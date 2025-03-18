@@ -45,8 +45,7 @@ class NERHandler:
                     start_position=entity.start_position,
                     end_position=entity.end_position,
                     probabilities=probabilities,
-                    dbpedia_uri="",
-                    wikidata_uri=""
+                    best_candidate_uri=""
                 )
             )
 

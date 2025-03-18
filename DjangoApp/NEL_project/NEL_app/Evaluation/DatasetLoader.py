@@ -34,8 +34,7 @@ class DatasetLoader:
                     entity_type=mention["entity_type"],
                     start_position=mention["start_position"],
                     end_position=mention["end_position"],
-                    dbpedia_uri=mention.get("dbpedia_uri"),
-                    wikidata_uri=mention.get("wikidata_uri"),
+                    best_candidate_uri=mention.get("best_candidate_uri"),
                     probabilities=[]
                 )
                 text_object.add_entity(entity_mention)

@@ -1,6 +1,5 @@
 import requests
-import re
-from .DBpediaCandidate import *
+from DjangoApp.NEL_project.NEL_app.NED_utlis.Candidate.Candidate import *
 
 
 class DBpediaSearch:
