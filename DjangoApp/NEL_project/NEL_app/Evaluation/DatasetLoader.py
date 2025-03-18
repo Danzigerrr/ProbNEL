@@ -32,11 +32,10 @@ class DatasetLoader:
 
             for mention in text_entry["entity_mentions"]:
                 entity_mention = TestEntity(
-                    entity_label=mention["entity_label"],
-                    entity_type=mention["entity_type"],
+                    entity_label=mention["surface_form"],
                     start_position=mention["start_position"],
                     end_position=mention["end_position"],
-                    best_candidate_uri=mention.get("dbpedia_uri")
+                    target_uri=mention.get("target_uri")
                 )
                 text_object.entities.append(entity_mention)
 

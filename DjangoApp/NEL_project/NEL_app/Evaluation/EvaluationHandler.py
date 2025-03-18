@@ -17,9 +17,10 @@ class EvaluationHandler:
         """
         Run NER and NED on the dataset and evaluate prediction accuracy.
         :param dataset: A dataset containing Text objects with ground truth entities.
-        :return: A list of EvaluationResults objects.
+        :return: An EvaluationResults object.
         """
-        all_evaluation_results = []
+        evaluation_results = EvaluationResults()  # Initialize a single EvaluationResults object
+
         for text_ground_truth in dataset.texts:
             text_content = text_ground_truth.content
             print(f"Processing text: {text_content[:50]}...")
@@ -29,20 +30,16 @@ class EvaluationHandler:
             self.ner.perform_ner(text_to_analyse)
             self.ned.perform_ned(text_to_analyse)
 
-            evaluation_results = evaluate_entity_linking(text_to_analyse, text_ground_truth)
-            all_evaluation_results.append(evaluation_results)
+            self.evaluate_entity_linking(text_to_analyse, text_ground_truth, evaluation_results)
 
-        return all_evaluation_results
+        evaluation_results.finalize_scores() # calculate the final scores
+        return evaluation_results
 
-
-def evaluate_entity_linking(text_to_analyse: Text,
-                            ground_truth_text: Text):
-    """
-    Evaluate NED by comparing ground truth entities with predicted entities.
-    """
-    evaluation_results = EvaluationResults()
-    evaluation_results.calculate_scores(text_to_analyse.entities, ground_truth_text.entities)
-
-    return evaluation_results
-
-
+    def evaluate_entity_linking(self,
+                                text_to_analyse: Text,
+                                ground_truth_text: Text,
+                                evaluation_results: EvaluationResults):
+        """
+        Evaluate NED by comparing ground truth entities with predicted entities.
+        """
+        evaluation_results.calculate_scores(text_to_analyse.entities, ground_truth_text.entities)

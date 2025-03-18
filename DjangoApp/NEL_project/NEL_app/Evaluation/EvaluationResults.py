@@ -10,31 +10,28 @@ class EvaluationResults:
         self.recall = 0.0
         self.f1_score = 0.0
         self.accuracy = 0.0
-
-    def update_metrics(self, ground_truth_exists, predicted_exists, matched):
-        """Update evaluation metrics based on ground truth and predicted entities."""
-        if ground_truth_exists:
-            self.total_ground_truth_entities += 1
-        if predicted_exists and matched:
-            self.correct_predicted_entities += 1
+        self.y_true = []
+        self.y_pred = []
 
     def calculate_scores(self, predicted_entities, ground_truth_entities):
         """Calculates precision, recall, F1 score and accuracy."""
-        y_true = []
-        y_pred = []
 
+        # Count total ground truth entities
+        self.total_ground_truth_entities += len(ground_truth_entities)
+
+        # Iterate through ground truth entities and check for matches
         for gt_entity in ground_truth_entities:
-            y_true.append(1)  # Ground truth entity exists
             found_match = False
             for pred_entity in predicted_entities:
                 if (gt_entity.start_position == pred_entity.start_position and
                         gt_entity.end_position == pred_entity.end_position and
-                        gt_entity.best_candidate_uri == pred_entity.best_candidate_uri):
-                    y_pred.append(1)  # Predicted entity matches ground truth
+                        gt_entity.target_uri == pred_entity.best_candidate_uri):
                     found_match = True
+                    self.correct_predicted_entities += 1
                     break
-            if not found_match:
-                y_pred.append(0)  # Predicted entity does not match
+
+            self.y_true.append(1)  # Ground truth entity exists
+            self.y_pred.append(1 if found_match else 0)  # Predicted entity matches or not
 
         # Handle cases where predicted entities exist but no ground truth
         for pred_entity in predicted_entities:
@@ -45,14 +42,16 @@ class EvaluationResults:
                     gt_match = True
                     break
             if not gt_match:
-                y_true.append(0)
-                y_pred.append(1)
+                self.y_true.append(0)
+                self.y_pred.append(1)
 
-        if len(y_true) > 0:
-            self.precision = precision_score(y_true, y_pred, zero_division=0)
-            self.recall = recall_score(y_true, y_pred, zero_division=0)
-            self.f1_score = f1_score(y_true, y_pred, zero_division=0)
-            self.accuracy = sum(1 for true, pred in zip(y_true, y_pred) if true == pred) / len(y_true)
+    def finalize_scores(self):
+        """Finalizes the scores after all texts have been processed."""
+        if len(self.y_true) > 0:
+            self.precision = precision_score(self.y_true, self.y_pred, zero_division=0)
+            self.recall = recall_score(self.y_true, self.y_pred, zero_division=0)
+            self.f1_score = f1_score(self.y_true, self.y_pred, zero_division=0)
+            self.accuracy = sum(1 for true, pred in zip(self.y_true, self.y_pred) if true == pred) / len(self.y_true)
 
     def to_json(self):
         """Convert the evaluation results into a JSON-serializable dictionary."""

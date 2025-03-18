@@ -47,7 +47,7 @@ class NEDHandler:
             entity.candidates.sort(key=lambda x: x.score_final, reverse=True)
             entity.best_candidate_uri = entity.candidates[0].uri
 
-            print(f"\n### Best candidates for entity {entity.entity_label}:")
-            for candidate in entity.candidates[:3]:
+            print(f"\n### Best candidate(s) for entity {entity.entity_label}:")
+            for candidate in entity.candidates[:1]:
                 candidate.print_details()
 
