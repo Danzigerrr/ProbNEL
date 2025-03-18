@@ -2,26 +2,24 @@ from typing import List, Optional
 
 
 class Candidate:
+    score_types_embeddings_similarity = 0.0
+    score_levenshtein_distance = 0.0
+    score_popularity = 0.0
+    score_context = 0.0
+    score_final = 0.0
+
     def __init__(self,
                  label: str,
                  ontology_types: List[str],
                  comment: str,
                  uri: str,
-                 ref_count: int,
-                 score_types_embeddings_similarity: Optional[float],
-                 score_levenshtein_distance: Optional[float],
-                 score_popularity: Optional[float],
-                 score_final: Optional[float],
+                 ref_count: int
                  ):
         self.label = label
         self.ontology_types = ontology_types
         self.comment = comment
         self.uri = uri
         self.ref_count = ref_count
-        self.score_types_embeddings_similarity = score_types_embeddings_similarity
-        self.score_levenshtein_distance = score_levenshtein_distance
-        self.score_popularity = score_popularity
-        self.score_final = score_final
 
     def print_details(self):
         """Prints the details of the Candidate object."""
@@ -34,4 +32,5 @@ class Candidate:
         print(f"Score NER to Ontology: {self.score_types_embeddings_similarity}")
         print(f"Score Levenshtein: {self.score_levenshtein_distance}")
         print(f"Score Popularity: {self.score_popularity}")
+        print(f"Score Context: {self.score_context}")
         print(f"Score final: {self.score_final}")

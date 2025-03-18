@@ -65,11 +65,7 @@ def format_candidates_list(search_results):
                 ontology_types=ontology_types,
                 comment=comment,
                 uri=uri,
-                ref_count=ref_count,
-                score_types_embeddings_similarity=0.0,
-                score_levenshtein_distance=0.0,
-                score_popularity=0.0,
-                score_final=0.0
+                ref_count=ref_count
             )
             candidates.append(candidate)
     return candidates
