@@ -2,7 +2,8 @@ from typing import List
 from DjangoApp.NEL_project.NEL_app.NED_utlis.Scores.TypesEmbeddingScorer import TypesEmbeddingScorer
 from DjangoApp.NEL_project.NEL_app.NED_utlis.Scores.LevenshteinDistanceScorer import LevenshteinDistanceScorer
 from DjangoApp.NEL_project.NEL_app.NED_utlis.Scores.PopularityScorer import PopularityScorer
-from DjangoApp.NEL_project.NEL_app.classes import Entity
+from DjangoApp.NEL_project.NEL_app.NED_utlis.Scores.ContextScorer import ContextScorer
+from DjangoApp.NEL_project.NEL_app.classes import Text, Entity
 from DjangoApp.NEL_project.NEL_app.NED_utlis.DBpedia.DBpediaCandidate import Candidate
 
 
@@ -11,18 +12,22 @@ class EntityCandidateScorer:
     Class to calculate scores for candidates based on NER entity type and candidate ontology types.
     """
 
+
+
     def __init__(self):
         self.typesEmbeddingScorer = TypesEmbeddingScorer()
         self.LevenshteinDistanceScorer = LevenshteinDistanceScorer()
         self.PopularityScorer = PopularityScorer()
+        self.ContextScorer = ContextScorer()
 
-    def calculate_scores_for_candidates(self, entity: Entity):
+    def calculate_scores_for_candidates(self, text: Text, entity: Entity):
         """
         Calculates scores for candidates of an entity from a text.
         """
         self.typesEmbeddingScorer.calculate_score_types_embeddings_similarity(entity)
         self.LevenshteinDistanceScorer.calculate_score(entity)
         self.PopularityScorer.calculate_score(entity)
+        self.ContextScorer.calculate_score(text, entity)
 
         self.calculate_final_score(entity)
 
@@ -32,6 +37,7 @@ class EntityCandidateScorer:
             candidate.score_final += candidate.score_types_embeddings_similarity
             candidate.score_final += candidate.score_levenshtein_distance
             candidate.score_final += candidate.score_popularity
+            candidate.score_final += candidate.score_context
 
 
 def normalize_scores(candidates: List[Candidate], score_attribute: str):
