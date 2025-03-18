@@ -1,5 +1,5 @@
 from .DBpedia.DBpediaSearch import DBpediaSearch
-from .Wikidata.utils import search_wikidata
+from .Wikidata.WikidataSearch import WikidataSearch
 from ..classes import Text, Entity
 from .Scores.EntityCandidateScorer import EntityCandidateScorer
 
@@ -14,6 +14,7 @@ class NEDHandler:
             raise ValueError("Knowledge base must be 'dbpedia' or 'wikidata'")
         self.knowledge_base = knowledge_base.lower()
         self.DBPediaSearch = DBpediaSearch()
+        self.WikidataSearch = WikidataSearch()
         self.EntityCandidateScorer = EntityCandidateScorer()
 
     def perform_ned(self, text: Text):
@@ -29,10 +30,11 @@ class NEDHandler:
 
             if self.knowledge_base == "dbpedia":
                 entity.candidates = self.DBPediaSearch.search_by_entity_surface_form(entity_label)
-                self.select_best_candidate_for_entity(text, entity)
+
             elif self.knowledge_base == "wikidata":
-                best_result = search_wikidata(entity_label)
-                entity.wikidata_uri = best_result.get("URI") if best_result else ""
+                entity.candidates = self.WikidataSearch.search_by_entity_surface_form(entity_label)
+
+            self.select_best_candidate_for_entity(text, entity)
 
     def select_best_candidate_for_entity(self, text: Text, entity: Entity):
         """
@@ -42,7 +44,7 @@ class NEDHandler:
 
         if entity.candidates:
             entity.candidates.sort(key=lambda x: x.score_final, reverse=True)
-            entity.dbpedia_uri = entity.candidates[0].uri
+            entity.best_candidate_uri = entity.candidates[0].uri
 
             print(f"\n### Best candidates for entity {entity.entity_label}:")
             for candidate in entity.candidates[:3]:
