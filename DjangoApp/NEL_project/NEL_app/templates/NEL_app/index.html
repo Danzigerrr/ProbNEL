@@ -210,7 +210,7 @@
                     console.log(data);
                     if (data.success) {
                         const evaluationResults = data.evaluation_results;
-                        displayEvaluationResults(evaluationResults.ner, evaluationResults.ned);
+                        displayEvaluationResults(evaluationResults);
                     } else {
                         alert("Failed to upload dataset: " + data.error);
                     }
@@ -232,7 +232,9 @@
         }
     }
 
-    function displayEvaluationResults(nerResults, nedResults) {
+    function displayEvaluationResults(evaluationResultsString) {
+        const evaluationResults = JSON.parse(evaluationResultsString);
+
         // Create the container where evaluation results will be displayed
         const resultsContainer = document.getElementById("results-container");
         resultsContainer.innerHTML = ""; // Clear previous results
@@ -240,17 +242,14 @@
         const resultsHTML = `
         <h4>NER Evaluation Results</h4>
         <ul>
-            <li><strong>NER Accuracy:</strong> ${nerResults.accuracy_score}</li>
-            <li><strong>Total Ground Truth:</strong> ${nerResults.total_ground_truth_entities}</li>
-            <li><strong>Correct Predictions:</strong> ${nerResults.correct_predicted_entities}</li>
+            <li><strong>Total Ground Truth:</strong> ${evaluationResults.total_ground_truth_entities}</li>
+            <li><strong>Correct Predictions:</strong> ${evaluationResults.correct_predicted_entities}</li>
+            <li><strong>Precision:</strong> ${evaluationResults.precision}</li>
+            <li><strong>Recall:</strong> ${evaluationResults.recall}</li>
+            <li><strong>F1 Score:</strong> ${evaluationResults.f1_score}</li>
+            <li><strong>Accuracy:</strong> ${evaluationResults.accuracy}</li>
         </ul>
-        <h4>NED Evaluation Results</h4>
-        <ul>
-            <li><strong>NED Accuracy:</strong> ${nedResults.accuracy_score}</li>
-            <li><strong>Total Ground Truth:</strong> ${nedResults.total_ground_truth_entities}</li>
-            <li><strong>Correct Predictions:</strong> ${nedResults.correct_predicted_entities}</li>
-        </ul>
-    `;
+        `;
 
         resultsContainer.innerHTML = resultsHTML;
     }

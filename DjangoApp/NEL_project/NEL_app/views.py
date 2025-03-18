@@ -78,6 +78,7 @@ def run_test_on_dataset(request: HttpRequest) -> HttpResponse:
             evaluation_results = evaluation_handler.run_test_on_dataset(dataset)
 
             serialised_evaluation_results = serialize_the_evaluation_results_to_json(evaluation_results)
+
             return serialised_evaluation_results
 
         except Exception as e:
@@ -87,16 +88,9 @@ def run_test_on_dataset(request: HttpRequest) -> HttpResponse:
 
 
 def serialize_the_evaluation_results_to_json(evaluation_results):
-    # Serialize the evaluation results to JSON
-    ner_results_json = json.loads(evaluation_results[0].to_json())
-    ned_results_json = json.loads(evaluation_results[1].to_json())
-    # Return the serialized evaluation results
     serialised_evaluation_results = JsonResponse({
         "success": True,
-        "evaluation_results": {
-            "ner": ner_results_json,
-            "ned": ned_results_json
-        }
+        "evaluation_results": evaluation_results.to_json()
     })
     return serialised_evaluation_results
 
