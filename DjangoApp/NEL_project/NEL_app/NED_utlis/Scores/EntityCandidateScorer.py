@@ -1,6 +1,7 @@
 from typing import List
 from DjangoApp.NEL_project.NEL_app.NED_utlis.Scores.TypesEmbeddingScorer import TypesEmbeddingScorer
 from DjangoApp.NEL_project.NEL_app.NED_utlis.Scores.LevenshteinDistanceScorer import LevenshteinDistanceScorer
+from DjangoApp.NEL_project.NEL_app.NED_utlis.Scores.PopularityScorer import PopularityScorer
 from DjangoApp.NEL_project.NEL_app.classes import Entity
 from DjangoApp.NEL_project.NEL_app.NED_utlis.DBpedia.DBpediaCandidate import Candidate
 
@@ -13,6 +14,7 @@ class EntityCandidateScorer:
     def __init__(self):
         self.typesEmbeddingScorer = TypesEmbeddingScorer()
         self.LevenshteinDistanceScorer = LevenshteinDistanceScorer()
+        self.PopularityScorer = PopularityScorer()
 
     def calculate_scores_for_candidates(self, entity: Entity):
         """
@@ -20,6 +22,7 @@ class EntityCandidateScorer:
         """
         self.typesEmbeddingScorer.calculate_score_types_embeddings_similarity(entity)
         self.LevenshteinDistanceScorer.calculate_score(entity)
+        self.PopularityScorer.calculate_score(entity)
 
         self.calculate_final_score(entity)
 
@@ -28,6 +31,7 @@ class EntityCandidateScorer:
         for candidate in entity.candidates:
             candidate.score_final += candidate.score_types_embeddings_similarity
             candidate.score_final += candidate.score_levenshtein_distance
+            candidate.score_final += candidate.score_popularity
 
 
 def normalize_scores(candidates: List[Candidate], score_attribute: str):
