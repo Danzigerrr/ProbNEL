@@ -1,8 +1,6 @@
 import numpy as np
-from flair.data import Sentence
-from flair.embeddings import WordEmbeddings, FlairEmbeddings, StackedEmbeddings
-from scipy.spatial.distance import cosine
 from DjangoApp.NEL_project.NEL_app.Models.Entity import Entity
+from sentence_transformers import SentenceTransformer, util
 
 
 class TypesEmbeddingScorer:
@@ -10,40 +8,35 @@ class TypesEmbeddingScorer:
     Class to calculate scores for candidates based on NER entity type and candidate ontology types.
     """
     ontonotes_classes = {
-        "PERSON": "PERSON - A name referring to an individual, real or fictional.",
-        "NORP": "NORP - A word that identifies a nationality, religious group, or political group.",
-        "FAC": "FAC - The name of a man-made structure such as a building, airport, or bridge.",
-        "ORG": "ORG - A name representing a company, agency, institution, or organized entity.",
-        "GPE": "GPE - A geographic name used for political entities like countries, cities, or states.",
-        "LOC": "LOC - A name associated with a geographic place that is not politically defined, such as a mountain or body of water.",
-        "PRODUCT": "PRODUCT - The name of a manufactured item, vehicle, or consumable good.",
-        "EVENT": "EVENT - A term referring to a specific occurrence, such as a war, festival, or natural disaster.",
-        "WORK_OF_ART": "WORK OF ART - A title given to a creative work, including books, films, and paintings.",
-        "LAW": "LAW - A name for an official legal document, regulation, or treaty.",
-        "LANGUAGE": "LANGUAGE - A word identifying a system of communication spoken or written by a group of people.",
-        "DATE": "DATE - A reference to a calendar-based point in time, including specific days or time periods.",
-        "TIME": "TIME - An expression denoting a specific moment within a day, such as an hour or part of the day.",
-        "PERCENT": "PERCENT - A numerical expression representing a proportion relative to 100, often using the '%' symbol.",
-        "MONEY": "MONEY - A value that represents an amount of currency, including units like dollars or euros.",
-        "QUANTITY": "QUANTITY - A measurement of an amount, such as weight, volume, or distance.",
-        "ORDINAL": "ORDINAL - A number indicating position in a sequence, such as first or second.",
-        "CARDINAL": "CARDINAL - A number representing a count or total, without implying order or rank.",
+        "PERSON": "PERSON - Proper names of people including first names, last names, individual or family names, fictional names and unique nicknames.",
+        "NORP": "NORP - Adjectival forms of GPE and non-GPE place names (such as American), named religions, heritage, and political affiliation.",
+        "FAC": "FAC - Names of man-made structures, including the buildings, airports, stations, infrastructures (bridges and streets), monuments, oil fields, golf courses, hospitals, zoos, shopping centers, etc.",
+        "ORG": "ORG - Names of companies, government agencies, political parties, educational institutions, sport teams, hospitals, museums, libraries etc.",
+        "GPE": "GPE - Names of geographical administrative entities including countries, villages, cities, states, provinces, prefectures, and other forms of municipalities",
+        "LOC": "LOC - Names of locations other than GPEs including celestial bodies, stars, continents, mountains, oceans, coasts, rivers, lakes, borders, etc.",
+        "PRODUCT": "PRODUCT - Name of any product including non-commercial vehicles (automobiles, rockets, aircraft, ships).",
+        "EVENT": "EVENT - Named events and phenomena including natural disasters, hurricanes, revolutions, battles, wars, demonstrations, concerts, sports events, etc.",
+        "WORK_OF_ART": "WORK OF ART - Titles of books, songs, films, plays and other creations such as awards, stock price indexes, and social security systems including health insurance systems or pension plans.",
+        "LAW": "LAW - Named legal documents including laws, treaties, sections, and chapters.",
+        "LANGUAGE": "LANGUAGE - Any named language including programming languages.",
+        "DATE": "DATE - Date or period of 24 hours or more, including day, week, month, certain named period, season, year, etc.",
+        "TIME": "TIME - Times of day and time duration less than 24 hours.",
+        "PERCENT": "PERCENT - Percentage.",
+        "MONEY": "MONEY - Monetary value.",
+        "QUANTITY": "QUANTITY - Measurements including length, distance, area, weight, heat, velocity, temperature, byte size, etc.",
+        "ORDINAL": "ORDINAL - Ordinal number.",
+        "CARDINAL": "CARDINAL - Cardinal number.",
         "O": "O - Unknown"
     }
 
     def __init__(self, round_to_decimal_places=3):
-        self.stacked_embeddings = StackedEmbeddings([
-            WordEmbeddings('glove'),
-            FlairEmbeddings('news-forward-fast'),
-            FlairEmbeddings('news-backward-fast'),
-        ])
+        self.embeddings_model = SentenceTransformer('all-MiniLM-L6-v2')
         self.round_to_decimal_places = round_to_decimal_places
 
-    def get_embedding(self, word):
-        """Generate word embedding using Flair."""
-        sentence = Sentence(word)
-        self.stacked_embeddings.embed(sentence)
-        return sentence[0].embedding.cpu().detach().numpy()
+    def get_embedding(self, sentence):
+        """Generate word embedding using embeddings model."""
+        embedding = self.embeddings_model.encode(sentence)
+        return embedding
 
     def calculate_score(self, entity: Entity):
         """
@@ -65,7 +58,7 @@ class TypesEmbeddingScorer:
 
             for i, ner_cls in enumerate(ner_classes):
                 for j, kg_type in enumerate(kg_types):
-                    similarity_matrix[i, j] = 1 - cosine(ner_embeddings[ner_cls], kg_embeddings[kg_type])
+                    similarity_matrix[i, j] = 1 - util.cos_sim(ner_embeddings[ner_cls], kg_embeddings[kg_type])
 
             final_scores = {}
 

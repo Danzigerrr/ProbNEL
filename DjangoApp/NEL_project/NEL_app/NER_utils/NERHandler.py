@@ -3,12 +3,14 @@ from flair.data import Sentence
 from ..Models.Text import Text
 from ..Models.Entity import Entity
 
-tagger = SequenceTagger.load("flair/ner-english-ontonotes-fast")
+tagger = SequenceTagger.load("flair/ner-english-ontonotes-fast", )
 
 
 class NERHandler:
     found_entities = []  # list of FoundEntity
     sentence = None  # Flair sentence object
+
+    ignored_ner_types = []
 
     def __init__(self, ner_tagger_model_name: str = "flair/ner-english-ontonotes-fast"):
         """
@@ -18,6 +20,8 @@ class NERHandler:
         print(f"Loading NER model: {ner_tagger_model_name}")
         # self.tagger = SequenceTagger.load(ner_tagger_model_name)
         self.tagger = tagger
+        if ner_tagger_model_name == "flair/ner-english-ontonotes-fast":
+            self.ignored_ner_types = ["DATE", "TIME", "PERCENT", "MONEY", "QUANTITY", "ORDINAL", "CARDINAL", "LANGUAGE"]
         print(f"Model NER \'{ner_tagger_model_name}\' loaded successfully")
 
     def perform_ner(self, text_obj: Text):
@@ -39,16 +43,20 @@ class NERHandler:
 
         for entity in self.sentence.get_spans("ner"):
             probabilities = self.extract_entity_probabilities(entity=entity)
-            found_entities.append(
-                Entity(
-                    entity_label=entity.text,
-                    entity_type=entity.get_label("ner").value,
-                    start_position=entity.start_position,
-                    end_position=entity.end_position,
-                    probabilities=probabilities,
-                    best_candidate_uri=""
+            top_ner_type_name = probabilities[0][0]
+            if top_ner_type_name in self.ignored_ner_types:
+                print(f"ignoring entity with typ ner type {top_ner_type_name}")
+            else:
+                found_entities.append(
+                    Entity(
+                        entity_label=entity.text,
+                        entity_type=entity.get_label("ner").value,
+                        start_position=entity.start_position,
+                        end_position=entity.end_position,
+                        probabilities=probabilities,
+                        best_candidate_uri=""
+                    )
                 )
-            )
 
         self.found_entities = found_entities
         return found_entities
