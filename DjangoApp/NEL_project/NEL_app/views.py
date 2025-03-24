@@ -76,6 +76,7 @@ def run_test_on_dataset(request: HttpRequest) -> HttpResponse:
             # Run evaluation
             evaluation_handler = EvaluationHandler(ner_handler, ned_handler)
             evaluation_results = evaluation_handler.run_test_on_dataset(dataset)
+            evaluation_results.print_results()
 
             serialised_evaluation_results = serialize_the_evaluation_results_to_json(evaluation_results)
 

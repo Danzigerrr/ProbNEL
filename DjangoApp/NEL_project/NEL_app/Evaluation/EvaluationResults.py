@@ -63,3 +63,15 @@ class EvaluationResults:
             "f1_score": f"{self.f1_score:.4f}",
             "accuracy": f"{self.accuracy:.4f}"
         })
+
+    def print_results(self):
+        """Prints the evaluation results to the console in a formatted way."""
+        print("Evaluation Results:")
+        print("--------------------")
+        print(f"Total Ground Truth Entities: {self.total_ground_truth_entities}")
+        print(f"Correct Predicted Entities: {self.correct_predicted_entities}")
+        print(f"Precision: {self.precision:.4f}")
+        print(f"Recall: {self.recall:.4f}")
+        print(f"F1 Score: {self.f1_score:.4f}")
+        print(f"Accuracy: {self.accuracy:.4f}")
+

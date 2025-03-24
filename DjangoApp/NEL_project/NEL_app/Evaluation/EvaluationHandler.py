@@ -1,6 +1,8 @@
 from .EvaluationResults import EvaluationResults
 from ..Models.Text import Text
-
+import threading
+import time
+from tqdm import tqdm
 
 class EvaluationHandler:
 
@@ -12,28 +14,56 @@ class EvaluationHandler:
         """
         self.ner = ner_handler
         self.ned = ned_handler
+        self.evaluation_results = EvaluationResults()  # Initialize a single EvaluationResults object
+        self.num_threads = 8 # Set the number of threads
 
     def run_test_on_dataset(self, dataset):
         """
-        Run NER and NED on the dataset and evaluate prediction accuracy.
+        Run NER and NED on the dataset in parallel and evaluate prediction accuracy.
         :param dataset: A dataset containing Text objects with ground truth entities.
         :return: An EvaluationResults object.
         """
-        evaluation_results = EvaluationResults()  # Initialize a single EvaluationResults object
+        start_time = time.time()
+        texts = dataset.texts
+        num_texts = len(texts)
 
-        for text_ground_truth in dataset.texts:
-            text_content = text_ground_truth.content
-            print(f"Processing text: {text_content[:50]}...")
+        threads = []
+        with tqdm(total=num_texts, desc="Evaluating dataset") as pbar:
+            def process_text_wrapper(text_ground_truth):
+                self.process_text(text_ground_truth)
+                pbar.update(1)
 
-            text_to_analyse = Text(text_content)
+            for text_ground_truth in texts:
+                thread = threading.Thread(target=process_text_wrapper, args=(text_ground_truth,))
+                threads.append(thread)
+                thread.start()
 
-            self.ner.perform_ner(text_to_analyse)
-            self.ned.perform_ned(text_to_analyse)
+                # Limit the number of active threads
+                if len(threads) >= self.num_threads:
+                    threads[0].join()
+                    threads.pop(0)
 
-            self.evaluate_entity_linking(text_to_analyse, text_ground_truth, evaluation_results)
+            for thread in threads:
+                thread.join()
 
-        evaluation_results.finalize_scores() # calculate the final scores
-        return evaluation_results
+        self.evaluation_results.finalize_scores()  # calculate the final scores
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        print(f"Evaluation completed in {elapsed_time:.2f} seconds.")
+        return self.evaluation_results
+
+    def process_text(self, text_ground_truth):
+        """
+        Process a single text, including NER, NED, and evaluation.
+        """
+        text_content = text_ground_truth.content
+        text_to_analyse = Text(text_content)
+
+        self.ner.perform_ner(text_to_analyse)
+        self.ned.perform_ned(text_to_analyse)
+
+        with threading.Lock(): # ensure thread safety
+            self.evaluate_entity_linking(text_to_analyse, text_ground_truth, self.evaluation_results)
 
     def evaluate_entity_linking(self,
                                 text_to_analyse: Text,
