@@ -11,21 +11,13 @@ class TypesEmbeddingScorer:
         "PERSON": "PERSON - A name referring to an individual, real or fictional.",
         "NORP": "NORP - A word that identifies a nationality, religious group, or political group.",
         "FAC": "FAC - The name of a man-made structure such as a building, airport, or bridge.",
-        "ORG": "ORG - A name representing a company, agency, institution, or organized entity.",
+        "ORG": "ORG - A company, agency, institution, or organized entity.",
         "GPE": "GPE - A geographic name used for political entities like countries, cities, or states.",
-        "LOC": "LOC - A name associated with a geographic place that is not politically defined, such as a mountain or body of water.",
+        "LOC": "LOC - A geographic place that is not politically defined, such as a mountain or body of water.",
         "PRODUCT": "PRODUCT - The name of a manufactured item, vehicle, or consumable good.",
         "EVENT": "EVENT - A term referring to a specific occurrence, such as a war, festival, or natural disaster.",
         "WORK_OF_ART": "WORK OF ART - A title given to a creative work, including books, films, and paintings.",
         "LAW": "LAW - A name for an official legal document, regulation, or treaty.",
-        "LANGUAGE": "LANGUAGE - A word identifying a system of communication spoken or written by a group of people.",
-        "DATE": "DATE - A reference to a calendar-based point in time, including specific days or time periods.",
-        "TIME": "TIME - An expression denoting a specific moment within a day, such as an hour or part of the day.",
-        "PERCENT": "PERCENT - A numerical expression representing a proportion relative to 100, often using the '%' symbol.",
-        "MONEY": "MONEY - A value that represents an amount of currency, including units like dollars or euros.",
-        "QUANTITY": "QUANTITY - A measurement of an amount, such as weight, volume, or distance.",
-        "ORDINAL": "ORDINAL - A number indicating position in a sequence, such as first or second.",
-        "CARDINAL": "CARDINAL - A number representing a count or total, without implying order or rank.",
         "O": "O - Unknown"
     }
 
