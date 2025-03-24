@@ -1,8 +1,6 @@
 import numpy as np
-from flair.data import Sentence
-from flair.embeddings import WordEmbeddings, FlairEmbeddings, StackedEmbeddings
-from scipy.spatial.distance import cosine
 from DjangoApp.NEL_project.NEL_app.Models.Entity import Entity
+from sentence_transformers import SentenceTransformer, util
 
 
 class TypesEmbeddingScorer:
@@ -32,18 +30,13 @@ class TypesEmbeddingScorer:
     }
 
     def __init__(self, round_to_decimal_places=3):
-        self.stacked_embeddings = StackedEmbeddings([
-            WordEmbeddings('glove'),
-            FlairEmbeddings('news-forward-fast'),
-            FlairEmbeddings('news-backward-fast'),
-        ])
+        self.embeddings_model = SentenceTransformer('all-MiniLM-L6-v2')
         self.round_to_decimal_places = round_to_decimal_places
 
-    def get_embedding(self, word):
-        """Generate word embedding using Flair."""
-        sentence = Sentence(word)
-        self.stacked_embeddings.embed(sentence)
-        return sentence[0].embedding.cpu().detach().numpy()
+    def get_embedding(self, sentence):
+        """Generate word embedding using embeddings model."""
+        embedding = self.embeddings_model.encode(sentence)
+        return embedding
 
     def calculate_score(self, entity: Entity):
         """
@@ -65,7 +58,7 @@ class TypesEmbeddingScorer:
 
             for i, ner_cls in enumerate(ner_classes):
                 for j, kg_type in enumerate(kg_types):
-                    similarity_matrix[i, j] = 1 - cosine(ner_embeddings[ner_cls], kg_embeddings[kg_type])
+                    similarity_matrix[i, j] = 1 - util.cos_sim(ner_embeddings[ner_cls], kg_embeddings[kg_type])
 
             final_scores = {}
 
