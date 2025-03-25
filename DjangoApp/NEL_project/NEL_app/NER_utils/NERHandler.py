@@ -3,7 +3,7 @@ from flair.data import Sentence
 from ..Models.Text import Text
 from ..Models.Entity import Entity
 
-tagger = SequenceTagger.load("flair/ner-english-ontonotes-fast", )
+tagger = SequenceTagger.load("flair/ner-english-ontonotes-fast")
 
 
 class NERHandler:
