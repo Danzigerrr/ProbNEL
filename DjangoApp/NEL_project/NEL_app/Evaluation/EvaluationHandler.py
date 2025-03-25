@@ -24,6 +24,16 @@ class EvaluationHandler:
         :return: An EvaluationResults object.
         """
         start_time = time.time()
+
+        self.process_texts_in_parallel(dataset)
+
+        self.evaluation_results.finalize_scores()  # calculate the final scores
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        print(f"Evaluation completed in {elapsed_time:.2f} seconds.")
+        return self.evaluation_results
+
+    def process_texts_in_parallel(self, dataset):
         texts = dataset.texts
         num_texts = len(texts)
 
@@ -46,12 +56,6 @@ class EvaluationHandler:
             for thread in threads:
                 thread.join()
 
-        self.evaluation_results.finalize_scores()  # calculate the final scores
-        end_time = time.time()
-        elapsed_time = end_time - start_time
-        print(f"Evaluation completed in {elapsed_time:.2f} seconds.")
-        return self.evaluation_results
-
     def process_text(self, text_ground_truth):
         """
         Process a single text, including NER, NED, and evaluation.
@@ -63,13 +67,12 @@ class EvaluationHandler:
         self.ned.perform_ned(text_to_analyse)
 
         with threading.Lock(): # ensure thread safety
-            self.evaluate_entity_linking(text_to_analyse, text_ground_truth, self.evaluation_results)
+            self.evaluate_entity_linking_in_text(text_to_analyse, text_ground_truth)
 
-    def evaluate_entity_linking(self,
-                                text_to_analyse: Text,
-                                ground_truth_text: Text,
-                                evaluation_results: EvaluationResults):
+    def evaluate_entity_linking_in_text(self,
+                                        text_to_analyse: Text,
+                                        ground_truth_text: Text):
         """
         Evaluate NED by comparing ground truth entities with predicted entities.
         """
-        evaluation_results.calculate_scores(text_to_analyse.entities, ground_truth_text.entities)
+        self.evaluation_results.calculate_scores(text_to_analyse.entities, ground_truth_text.entities)

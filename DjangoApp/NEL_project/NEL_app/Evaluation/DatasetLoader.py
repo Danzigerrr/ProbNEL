@@ -35,11 +35,11 @@ class DatasetLoader:
                     entity_label=mention["surface_form"],
                     start_position=mention["start_position"],
                     end_position=mention["end_position"],
-                    target_uri=mention.get("target_uri")
+                    target_uri=mention["target_uri"]
                 )
                 text_object.entities.append(entity_mention)
 
-            dataset.add_text(text_object)
+            dataset.texts.append(text_object)
         return dataset
 
     def print_dataset_info(self, dataset):
