@@ -1,6 +1,6 @@
 from .TestDataset import TestDataset
 from .TestEntity import TestEntity
-from .TestText import TestText
+from ..Models.Text import Text
 import json
 
 
@@ -28,7 +28,7 @@ class DatasetLoader:
         # Parse each text and its entity mentions
         for text_entry in dataset_content:
             content = text_entry["text"]
-            text_object = TestText(content=content)  # Create a Text object
+            text_object = Text(content=content)
 
             for mention in text_entry["entity_mentions"]:
                 entity_mention = TestEntity(

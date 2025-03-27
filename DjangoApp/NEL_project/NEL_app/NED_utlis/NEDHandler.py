@@ -18,7 +18,7 @@ class NEDHandler:
         self.WikidataSearch = WikidataSearch()
         self.EntityCandidateScorer = EntityCandidateScorer()
 
-    def perform_ned(self, text: Text):
+    def perform_ned(self, text):
         """
         Searches for entities in the given text using the specified knowledge base.
         :param text: A Text object to associate with found entities.
@@ -37,7 +37,7 @@ class NEDHandler:
 
             self.select_best_candidate_for_entity(text, entity)
 
-    def select_best_candidate_for_entity(self, text: Text, entity: Entity):
+    def select_best_candidate_for_entity(self, text, entity: Entity):
         """
         Chooses the best candidate for an entity based on the calculated scores.
         """
