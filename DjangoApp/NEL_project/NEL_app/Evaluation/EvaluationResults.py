@@ -1,5 +1,10 @@
 import json
+import csv
 from sklearn.metrics import precision_score, recall_score, f1_score, confusion_matrix
+
+from DjangoApp.NEL_project.NEL_app.Evaluation.TestText import TestText
+
+
 # import matplotlib.pyplot as plt
 # import seaborn as sns
 
@@ -13,12 +18,12 @@ class EvaluationResults:
         self.y_true = []  # List to store ground truth labels (1 for entity, 0 for non-entity)
         self.y_pred = []  # List to store predicted labels
 
-    def calculate_scores(self, predicted_entities, ground_truth_entities):
+    def calculate_scores(self, text_to_analyse: TestText, predicted_entities, ground_truth_entities):
         """Calculates precision, recall, F1 score, and accuracy."""
-        self.evaluate_ground_truth_entities(predicted_entities, ground_truth_entities)
+        self.evaluate_ground_truth_entities(text_to_analyse, predicted_entities, ground_truth_entities)
         self.evaluate_predicted_entities(predicted_entities, ground_truth_entities)
 
-    def evaluate_ground_truth_entities(self, predicted_entities, ground_truth_entities):
+    def evaluate_ground_truth_entities(self, text_to_analyse, predicted_entities, ground_truth_entities):
         """Iterate through ground truth entities and evaluate if they are correctly predicted."""
         print("$$ Iterating through Ground Truth entities:")
 
@@ -35,13 +40,34 @@ class EvaluationResults:
 
             if found_match:
                 print(f"$ Correct prediction found for '{gt_entity.entity_label}'({gt_entity.start_position}, {gt_entity.end_position})")
-                print(f"  Logs - Candidates: (Id:0) {[(c.label, c.score_types_embeddings_similarity, c.score_levenshtein_distance, c.score_popularity, c.score_context, c.score_final) for c in matched_pred_entity.candidates]}")
+                log_entry = {
+                    "entity_label": gt_entity.entity_label,
+                    "start_position": gt_entity.start_position,
+                    "end_position": gt_entity.end_position,
+                    "correct_prediction": True,
+                    "matching_candidate_index": 0,
+                    "candidates": [(c.label, c.score_types_embeddings_similarity, c.score_levenshtein_distance, c.score_popularity, c.score_context) for c in matched_pred_entity.candidates]
+                }
+                print(f"  Logs - Candidates: (Id:0) {log_entry['candidates']}")
+                text_to_analyse.logs.append(log_entry)
+                print(f"Logs updated ({len(text_to_analyse.logs)}): {text_to_analyse.logs}")
             else:
                 print(f"$ No Correct prediction found for '{gt_entity.entity_label}'({gt_entity.start_position}, {gt_entity.end_position})")
 
                 # Search for the matching entity in the candidate list and return its index
                 entity_with_cand, candidate_index = self.find_candidate_index(gt_entity, predicted_entities)
-                print(f"  Logs - Candidates: (Id:{candidate_index}) {[(c.label, c.score_types_embeddings_similarity, c.score_levenshtein_distance, c.score_popularity, c.score_context, c.score_final) for c in entity_with_cand.candidates]}")
+                if entity_with_cand is not None:
+                    log_entry = {
+                        "entity_label": gt_entity.entity_label,
+                        "start_position": gt_entity.start_position,
+                        "end_position": gt_entity.end_position,
+                        "correct_prediction": False,
+                        "matching_candidate_index": candidate_index,
+                        "candidates": [(c.label, c.score_types_embeddings_similarity, c.score_levenshtein_distance, c.score_popularity, c.score_context) for c in entity_with_cand.candidates]
+                    }
+                    print(f"  Logs - But one of the candidates is matching: Candidates: (Id:{candidate_index}) {log_entry['candidates']}")
+                    text_to_analyse.logs.append(log_entry)
+                    print(f"Logs updated ({len(text_to_analyse.logs)}): {text_to_analyse.logs}")
 
             # Store evaluation labels (1 if entity exists, 0 otherwise)
             self.y_true.append(1)  # Ground truth entity exists
@@ -49,14 +75,14 @@ class EvaluationResults:
 
     def find_candidate_index(self, gt_entity, predicted_entities):
         """Search for the target_uri in all predicted entities' candidate lists and return its index.
-        If not found, return -1.
+        If not found, return None.
         """
         for pred_entity in predicted_entities:
             if check_ner_matching(gt_entity, pred_entity):
                 for idx, candidate in enumerate(pred_entity.candidates):
                     if candidate.uri == gt_entity.target_uri:
                         return pred_entity, idx  # Return the index if the URIs match
-        return None, -1  # Return -1 if no match is found
+        return None, None
 
 
     def evaluate_predicted_entities(self, predicted_entities, ground_truth_entities):
@@ -75,7 +101,7 @@ class EvaluationResults:
             if not gt_match:
                 self.y_true.append(0)  # No ground truth entity
                 self.y_pred.append(1)  # Incorrectly predicted entity
-                print(f"$ Predicted entity '{pred_entity.entity_label}'({pred_entity.start_position}, {pred_entity.end_position}) does not exist in the ground truth text")
+                print(f"$ Predicted entity '{pred_entity.entity_label}'({pred_entity.start_position}, {pred_entity.end_position}) of type {pred_entity.probabilities[0]} does not exist in the ground truth text")
 
 
     def finalize_scores(self):
@@ -125,7 +151,6 @@ def check_ned_matching(gt_entity, pred_entity):
     return (
             gt_entity.start_position == pred_entity.start_position and
             gt_entity.end_position == pred_entity.end_position and
-            gt_entity.entity_label == pred_entity.entity_label and
             gt_entity.target_uri == pred_entity.best_candidate_uri
     )
 
@@ -133,6 +158,5 @@ def check_ner_matching(gt_entity, pred_entity):
     """Checks if a predicted entity matches a ground truth entity based on NER criteria."""
     return (
             gt_entity.start_position == pred_entity.start_position and
-            gt_entity.end_position == pred_entity.end_position and
-            gt_entity.entity_label == pred_entity.entity_label
+            gt_entity.end_position == pred_entity.end_position
     )

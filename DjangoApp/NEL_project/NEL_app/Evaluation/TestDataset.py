@@ -1,4 +1,4 @@
-from ..Models.Text import Text
+from .TestText import TestText
 
 
 class TestDataset:
