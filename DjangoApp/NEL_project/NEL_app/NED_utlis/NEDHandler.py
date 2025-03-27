@@ -30,7 +30,7 @@ class NEDHandler:
             entity_label = entity.entity_label  # Use the FoundEntity object for labels
 
             if self.knowledge_base == "dbpedia":
-                entity.candidates = self.DBPediaSearch.search_by_entity_surface_form(entity_label)
+                entity.candidates = self.DBPediaSearch.search_by_entity_surface_form(entity_label, 3)
 
             elif self.knowledge_base == "wikidata":
                 entity.candidates = self.WikidataSearch.search_by_entity_surface_form(entity_label)
@@ -47,8 +47,10 @@ class NEDHandler:
             entity.candidates.sort(key=lambda x: x.score_final, reverse=True)
             entity.best_candidate_uri = entity.candidates[0].uri
 
-            top_n_candidates_to_print = 3
-            print(f"\n### Best candidate(s) for entity '{entity.entity_label}'({entity.start_position}, {entity.end_position}):")
-            for candidate in entity.candidates[:top_n_candidates_to_print]:
-                candidate.print_details()
+            # self.print_top_candidates(entity)
+
+    def print_top_candidates(self, entity, top_n_candidates_to_print = 3):
+        print(f"\n### Best candidate(s) for entity '{entity.entity_label}'({entity.start_position}, {entity.end_position}):")
+        for candidate in entity.candidates[:top_n_candidates_to_print]:
+            candidate.print_details()
 

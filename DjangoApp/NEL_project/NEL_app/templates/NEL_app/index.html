@@ -189,7 +189,7 @@
 
             // Create an AbortController for the timeout mechanism
             const controller = new AbortController();
-            const timeout = setTimeout(() => controller.abort(), 300000); // 300000ms = 5 minutes
+            const timeout = setTimeout(() => controller.abort(), 10*60000); // 10 minutes
 
             fetch("run_test_on_dataset/", {
                 method: "POST",

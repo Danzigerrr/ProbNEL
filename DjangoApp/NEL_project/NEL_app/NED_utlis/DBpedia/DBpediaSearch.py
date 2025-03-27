@@ -24,7 +24,7 @@ class DBpediaSearch:
         :return: The JSON response from the DBpedia Lookup API, or None if an error occurs.
         """
         params = {
-            "query": entity_surface_form,
+            "query": entity_surface_form[:30],
             "format": "JSON_FULL",
             "maxResults": max_results,
         }

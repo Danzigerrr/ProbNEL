@@ -65,7 +65,7 @@ def run_test_on_dataset(request: HttpRequest) -> HttpResponse:
             dataset_loader = DatasetLoader()
             dataset = dataset_loader.load_dataset(request.FILES["dataset"])
 
-            # Print dataset information
+            # Print dataset informationevaluate_predicted_entities
             dataset_loader.print_dataset_info(dataset)
 
             # Initialize handlers
