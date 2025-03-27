@@ -1,0 +1,43 @@
+entity_label,start_position,end_position,correct_prediction,candidates,matching_candidate_index
+Bandar Seri Begawan,0,19,True,"[[""Bandar Seri Begawan"", 0.928, 1.0, 1.0, 0.354], [""Pusat Bandar, Brunei"", 0.923, 0.46, 0.23, 0.348], [""Embassy of the Philippines, Bandar Seri Begawan"", 0, 0.58, 0.0, 0.45]]",0
+AFP,26,29,False,"[[""AFC Ajax"", 0.697, 0.36, 1.0, -0.12], [""Agence France-Presse"", 0.654, 0.26, 0.0, 0.226], [""Armed Forces of the Philippines Medal of Valor"", 0, 0.12, 0.115, 0.126]]",1
+NPR NEWS,16,24,True,"[[""NPR"", 0.744, 0.55, 1.0, 0.067], [""News-Press & Gazette Company"", 0.653, 0.17, 0.459, 0.068], [""Weekend Edition"", 0.961, 0.17, 0.0, 0.033]]",0
+Washington,28,38,True,"[[""Washington, D.C."", 0.848, 0.77, 1.0, -0.011], [""Washington (state)"", 0.748, 0.71, 0.596, 0.11], [""University of Washington"", 0, 0.59, 0.0, 0.017]]",0
+Miami Dade County,500,517,True,"[[""Miami-Dade County, Florida"", 0.747, 0.74, 1.0, 0.286], [""Metrorail (Miami-Dade County)"", 0.846, 0.7, 0.0, 0.135], [""Miami-Dade County Public Schools"", 0, 0.65, 0.633, 0.296]]",0
+Democrats,586,595,True,"[[""Democratic Party (United States)"", 0.871, 0.44, 1.0, 0.018], [""Liberal Democrats (UK)"", 0.871, 0.58, 0.0, 0.054], [""Social democracy"", 0, 0.48, 0.225, -0.095]]",0
+Palm Beach County,653,670,True,"[[""Palm Beach County, Florida"", 0.747, 0.79, 1.0, 0.185], [""Wellington, Florida"", 0.857, 0.17, 0.32, 0.19], [""School District of Palm Beach County"", 0, 0.64, 0.0, 0.217]]",0
+Al Gore,567,574,True,"[[""Al Gore"", 0.7, 1.0, 1.0, 0.193], [""Albert Gore Sr."", 0.7, 0.64, 0.289, 0.158], [""Al Gore and information technology"", 0, 0.34, 0.0, 0.177]]",0
+Washington State,557,573,False,"[[""Washington, D.C."", 0.804, 0.69, 1.0, -0.003], [""Washington (state)"", 0.716, 0.88, 0.772, 0.062], [""Washington State University"", 0, 0.74, 0.0, 0.087]]",1
+Seattle,704,711,True,"[[""Seattle"", 0.848, 1.0, 1.0, 0.095], [""Seattle Seahawks"", 0.881, 0.61, 0.884, -0.039], [""Seattle SuperSonics"", 0.854, 0.54, 0.0, -0.054]]",0
+AFP,14,17,False,"[[""AFC Ajax"", 0.698, 0.36, 1.0, 0.068], [""Agence France-Presse"", 0.656, 0.26, 0.0, 0.346], [""Armed Forces of the Philippines Medal of Valor"", 0, 0.12, 0.115, -0.015]]",1
+Iraq,119,123,False,"[[""Iran"", 0.836, 0.75, 1.0, 0.169], [""Iraq"", 0.836, 1.0, 0.136, 0.432], [""Iraq War"", 0.946, 0.67, 0.0, 0.357]]",1
+Florida,57,64,True,"[[""Florida"", 0.748, 1.0, 1.0, 0.338], [""Tampa, Florida"", 0.848, 0.67, 0.024, 0.275], [""Orlando, Florida"", 0.848, 0.61, 0.0, 0.259]]",0
+AFP,12,15,False,"[[""AFC Ajax"", 0.697, 0.36, 1.0, -0.124], [""Agence France-Presse"", 0.653, 0.26, 0.0, 0.216], [""Armed Forces of the Philippines Medal of Valor"", 0, 0.12, 0.115, 0.099]]",1
+Lebanon,16,23,True,"[[""Lebanon"", 0.836, 1.0, 1.0, 0.48], [""2006 Lebanon War"", 0.945, 0.61, 0.0, 0.534], [""Lebanon national football team"", 0.915, 0.38, 0.397, 0.376]]",0
+Israel,133,139,True,"[[""Israel"", 0.836, 1.0, 1.0, 0.368], [""Israel national football team"", 0.916, 0.34, 0.165, 0.19], [""Israel national under-21 football team"", 0.916, 0.27, 0.0, 0.222]]",0
+Yemen,92,97,True,"[[""Yemen"", 0.836, 1.0, 1.0, 0.128], [""South Yemen"", 0.946, 0.62, 0.0, 0.094], [""Yemen national football team"", 0.916, 0.3, 0.243, 0.193]]",0
+Ralph Nader,78,89,True,"[[""Ralph Nader"", 0.697, 1.0, 1.0, 0.378], [""Ralph Nader 2008 presidential campaign"", 0, 0.45, 0.098, 0.492], [""Ralph Nader 2004 presidential campaign"", 0, 0.45, 0.0, 0.513]]",0
+America,427,434,True,"[[""United States"", 0.835, 0.2, 1.0, 0.032], [""California"", 0.748, 0.35, 0.68, 0.038], [""North America"", 0.827, 0.7, 0.0, -0.032]]",0
+Florida,503,510,True,"[[""Florida"", 0.748, 1.0, 1.0, 0.024], [""Tampa, Florida"", 0.848, 0.67, 0.024, 0.01], [""Orlando, Florida"", 0.848, 0.61, 0.0, -0.01]]",0
+Oregon,528,534,True,"[[""Oregon"", 0.747, 1.0, 1.0, 0.157], [""Portland, Oregon"", 0.847, 0.55, 0.852, 0.166], [""Eugene, Oregon"", 0.847, 0.6, 0.0, 0.05]]",0
+Portland,514,522,False,"[[""Poland"", 0.829, 0.86, 1.0, -0.064], [""Portland, Oregon"", 0.841, 0.67, 0.361, 0.132], [""Portland, Maine"", 0.841, 0.7, 0.0, 0.114]]",1
+Gainesville,570,581,True,"[[""Gainesville, Florida"", 0.848, 0.71, 1.0, 0.064], [""Gainesville, Georgia"", 0.848, 0.71, 0.338, 0.014], [""Gainesville, Texas"", 0.848, 0.76, 0.0, -0.006]]",0
+ABC,248,251,True,"[[""American Broadcasting Company"", 0.747, 0.19, 1.0, 0.317], [""ABC Futebol Clube"", 0.697, 0.3, 0.295, 0.145], [""ABC Records"", 0.719, 0.43, 0.0, 0.117]]",0
+Fox Sports,596,606,False,"[[""Fox Sports Radio"", 0.73, 0.77, 1.0, 0.163], [""Fox Sports 1"", 0.765, 0.91, 0.124, 0.234], [""Fox Sports (United States)"", 0, 0.56, 0.0, 0.179]]",2
+Sun Microsystems,620,636,True,"[[""Sun Microsystems"", 0.652, 1.0, 1.0, 0.058], [""Acquisition of Sun Microsystems by Oracle Corporation"", 0, 0.46, 0.244, 0.154], [""List of Sun Microsystems employees"", 0, 0.64, 0.0, 0.113]]",0
+Fidelity Investments,757,777,True,"[[""Fidelity Investments"", 0, 1.0, 1.0, 0.084], [""Fidelity International"", 0, 0.71, 0.506, 0.058], [""Fidelity Investments"", 0, 1.0, 0.0, 0.154]]",0
+PepsiCo,754,761,True,"[[""PepsiCo"", 0.654, 1.0, 1.0, 0.314], [""List of assets owned by PepsiCo"", 0, 0.37, 0.109, 0.283], [""Leonard v. Pepsico, Inc."", 0, 0.39, 0.0, 0.371]]",0
+Helen Hunt,575,585,True,"[[""Helen Hunt"", 0.705, 1.0, 1.0, 0.051], [""Helen Hunt Jackson"", 0.754, 0.71, 0.757, 0.011], [""Helen LaKelly Hunt"", 0.705, 0.71, 0.0, 0.022]]",0
+Greg Kinnear,586,598,True,"[[""Greg Kinnear"", 0.706, 1.0, 1.0, 0.08], [""Later (talk show)"", 1.022, 0.21, 0.631, 0.103], [""Greg Kinnear"", 0, 1.0, 0.0, 0.178]]",0
+Campbell Soup Co,644,660,True,"[[""Campbell Soup Company"", 0, 0.86, 1.0, 0.336], [""Doom 3"", 0.883, 0.18, 0.729, -0.081], [""Soap (TV series)"", 0.879, 0.25, 0.0, 0.17]]",0
+Times Square,549,561,True,"[[""Times Square"", 0.819, 1.0, 0.246, 0.204], [""Times Square Ball"", 0.797, 0.83, 0.0, 0.184], [""Times Square\u201342nd Street/Port Authority Bus Terminal station"", 0, 0.33, 1.0, 0.107]]",0
+Levi,638,642,False,"[[""Primo Levi"", 0.715, 0.57, 0.292, 0.044], [""Levi Strauss & Co."", 0, 0.36, 1.0, 0.189], [""Levi Eshkol"", 0.669, 0.53, 0.0, -0.005]]",1
+Microsoft,613,622,False,"[[""Microsoft Windows"", 0.905, 0.69, 1.0, 0.091], [""Microsoft"", 0.654, 1.0, 0.0, 0.123], [""Xbox 360"", 0.882, 0.12, 0.263, 0.076]]",1
+Land Rover,754,764,True,"[[""Land Rover"", 0.78, 1.0, 0.0, 0.14], [""Jaguar Land Rover"", 0, 0.74, 1.0, 0.16], [""Land Rover Defender"", 0.742, 0.69, 0.13, 0.097]]",0
+Volvo,769,774,False,"[[""Volvo Cars"", 0.654, 0.67, 1.0, 0.198], [""Volvo Buses"", 0.654, 0.62, 0.536, 0.181], [""Volvo"", 0.654, 1.0, 0.0, 0.172]]",2
+Sprint Communications Co,616,640,True,"[[""Sprint Corporation"", 0.654, 0.67, 0.0, 0.163], [""Entrepreneurship"", 0, 0.25, 1.0, -0.058], [""Mediumship"", 0, 0.18, 0.329, 0.033]]",0
+John Corbett,787,799,True,"[[""John Corbett"", 0.707, 1.0, 1.0, 0.266], [""John Corbett (coach)"", 0.842, 0.75, 0.0, -0.033], [""John Corbett O'Meara"", 0.703, 0.75, 0.0, 0.069]]",0
+Houston Grand Opera,551,570,False,"[[""Republican Party (United States)"", 0.699, 0.31, 1.0, -0.116], [""Houston Grand Opera"", 0, 1.0, 0.142, 0.139], [""Houston Grand Opera"", 0, 1.0, 0.0, 0.229]]",1
+CBS,733,736,True,"[[""CBS"", 0.747, 1.0, 0.858, 0.172], [""Columbia Records"", 0.719, 0.11, 1.0, -0.035], [""CBS Sports Radio"", 0.747, 0.32, 0.0, 0.254]]",0
+Brooklyn,602,610,True,"[[""Brooklyn"", 0.834, 1.0, 1.0, 0.197], [""Brooklyn Dodgers"", 0, 0.67, 0.0, 0.197], [""Brooklyn College"", 0, 0.67, 0.016, 0.036]]",0
+Slobodan Milosevic,319,337,True,"[[""Slobodan Milo\u0161evi\u0107"", 0.731, 0.89, 1.0, 0.699], [""Overthrow of Slobodan Milo\u0161evi\u0107"", 0, 0.65, 0.688, 0.559], [""Death of Slobodan Milo\u0161evi\u0107"", 0, 0.71, 0.0, 0.428]]",0

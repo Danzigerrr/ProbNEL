@@ -30,7 +30,7 @@ class NEDHandler:
             entity_label = entity.entity_label  # Use the FoundEntity object for labels
 
             if self.knowledge_base == "dbpedia":
-                entity.candidates = self.DBPediaSearch.search_by_entity_surface_form(entity_label, 3)
+                entity.candidates = self.DBPediaSearch.search_by_entity_surface_form(entity_label, 10)
 
             elif self.knowledge_base == "wikidata":
                 entity.candidates = self.WikidataSearch.search_by_entity_surface_form(entity_label)

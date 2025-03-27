@@ -43,7 +43,7 @@ class EvaluationLogs:
                             c.score_popularity, c.score_context) for c in matched_pred_entity.candidates]
         }
         self.logs.append(log_entry)
-        print(f"Logs updated ({len(self.logs)}): {self.logs}")
+        print(f"Logs updated ({len(self.logs)})")
 
     def find_candidate_index(self, gt_entity, predicted_entities):
         """Search for the target_uri in all predicted entities' candidate lists and return its index.

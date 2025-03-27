@@ -31,6 +31,7 @@ class EvaluationHandler:
         self.process_texts_sequential(dataset)
 
         self.evaluation_results.finalize_scores()
+        self.evaluation_logs.save_logs_to_files()
 
         end_time = time.time()
         elapsed_time = end_time - start_time
@@ -59,13 +60,13 @@ class EvaluationHandler:
         self.ned.perform_ned(text_to_analyse)
 
         self.evaluate_entity_linking_in_text(text_to_analyse, text_ground_truth)
-        self.evaluation_logs.create_logs(text_to_analyse.entities, text_ground_truth.entities)
-        self.evaluation_logs.save_logs_to_files()
+
 
     def evaluate_entity_linking_in_text(self, text_to_analyse: Text, text_ground_truth: Text):
-        """
-        Evaluate NED by comparing ground truth entities with predicted entities.
-        """
-        self.evaluation_results.calculate_scores(text_to_analyse, text_to_analyse.entities, text_ground_truth.entities)
+            """
+            Evaluate NED by comparing ground truth entities with predicted entities.
+            """
+            self.evaluation_results.calculate_scores(text_to_analyse, text_to_analyse.entities, text_ground_truth.entities)
+            self.evaluation_logs.create_logs(text_to_analyse.entities, text_ground_truth.entities)
 
 
