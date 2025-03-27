@@ -45,7 +45,8 @@ class NERHandler:
             probabilities = self.extract_entity_probabilities(entity=entity)
             top_ner_type_name = probabilities[0][0]
             if top_ner_type_name in self.ignored_ner_types:
-                print(f"ignoring entity with typ ner type {top_ner_type_name}")
+                # print(f"ignoring entity with typ ner type {top_ner_type_name}")
+                pass
             else:
                 found_entities.append(
                     Entity(
