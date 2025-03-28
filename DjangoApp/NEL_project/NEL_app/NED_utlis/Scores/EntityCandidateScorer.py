@@ -6,6 +6,7 @@ from DjangoApp.NEL_project.NEL_app.NED_utlis.Scores.ContextScorer import Context
 from DjangoApp.NEL_project.NEL_app.Models.Text import Text
 from DjangoApp.NEL_project.NEL_app.Models.Entity import Entity
 from DjangoApp.NEL_project.NEL_app.NED_utlis.Candidate.Candidate import Candidate
+from DjangoApp.NEL_project.NEL_app.NER_utils.NERConfig import NERConfig
 
 
 class EntityCandidateScorer:
@@ -26,11 +27,11 @@ class EntityCandidateScorer:
         self.ContextScorer = ContextScorer()
         self.context_score_factor = 1
 
-    def calculate_scores_for_candidates(self, text: Text, entity: Entity):
+    def calculate_scores_for_candidates(self, text: Text, entity: Entity, ner_config: NERConfig):
         """
         Calculates scores for candidates of an entity from a text.
         """
-        self.typesEmbeddingScorer.calculate_score(entity)
+        self.typesEmbeddingScorer.calculate_score(entity, ner_config)
         self.LevenshteinDistanceScorer.calculate_score(entity)
         self.PopularityScorer.calculate_score(entity)
         self.ContextScorer.calculate_score(text, entity)

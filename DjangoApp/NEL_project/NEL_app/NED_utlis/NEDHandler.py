@@ -4,6 +4,7 @@ from ..Models.Entity import Entity
 from .Scores.EntityCandidateScorer import EntityCandidateScorer
 from .Candidate_Selector.CandidateSelector import CandidateSelector
 from ..Models.Text import Text
+from ..NER_utils.NERConfig import NERConfig
 
 
 class NEDHandler:
@@ -11,6 +12,7 @@ class NEDHandler:
     ALLOWED_CANDIDATE_SELECTION_STRATEGIES = ["sum_of_metrics", "candidate_selector_neural_network"]
 
     def __init__(self,
+                 ner_config: NERConfig,
                  knowledge_base: str = ALLOWED_KNOWLEDGE_BASES[0],
                  candidate_selection_strategy: str = ALLOWED_CANDIDATE_SELECTION_STRATEGIES[0],
                  use_types_score: bool = True):
@@ -29,6 +31,7 @@ class NEDHandler:
             raise ValueError(f"Error: candidate_selection_strategy value must be on of the options: {self.ALLOWED_CANDIDATE_SELECTION_STRATEGIES}")
         self.candidate_selection_strategy = candidate_selection_strategy
         self.use_types_score = use_types_score
+        self.ner_config = ner_config
 
     def perform_ned(self, text: Text):
         """
@@ -55,7 +58,7 @@ class NEDHandler:
         """
         Chooses the best candidate for an entity based on the calculated scores.
         """
-        self.EntityCandidateScorer.calculate_scores_for_candidates(text, entity)
+        self.EntityCandidateScorer.calculate_scores_for_candidates(text, entity, self.ner_config)
 
         if not self.use_types_score:
             for candidate in entity.candidates: candidate.score_types_embeddings_similarity = 0.0

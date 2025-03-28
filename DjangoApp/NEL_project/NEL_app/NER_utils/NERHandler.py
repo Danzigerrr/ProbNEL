@@ -5,10 +5,11 @@ from .NERConfig import NERConfig
 
 
 class NERHandler:
-    tagger = None
-    ignored_ner_types = []
 
-    def perform_ner(self, text_obj: Text, tagger_name: str):
+    def __init__(self, ner_config: NERConfig):
+        self.ner_config = ner_config
+
+    def perform_ner(self, text_obj: Text):
         """
         Processes the given text using the Flair NER model.
         :param tagger_name: name of the model used for NER tagging
@@ -16,16 +17,15 @@ class NERHandler:
         """
         sentence = Sentence(text_obj.content)
 
-        self.load_ner_configuration(tagger_name)
+        self.ner_config.load_tagger_model()
+        self.ner_config.set_classes_definitions()
 
-        self.tagger.predict(sentence, return_probabilities_for_all_classes=True)
+        self.ner_config.tagger_model.predict(sentence, return_probabilities_for_all_classes=True)
+
         text_obj.entities = self.extract_entities(sentence)
+
         return text_obj
 
-    def load_ner_configuration(self, tagger_name):
-        ner_config = NERConfig(tagger_name)
-        self.tagger = ner_config.tagger
-        self.ignored_ner_types = ner_config.ignored_ner_types
 
     def extract_entities(self, sentence: Sentence):
         """
@@ -37,7 +37,7 @@ class NERHandler:
         for entity in sentence.get_spans("ner"):
             probabilities = self.extract_entity_probabilities(entity=entity)
             top_ner_type_name = probabilities[0][0]
-            if top_ner_type_name not in self.ignored_ner_types:
+            if top_ner_type_name not in self.ner_config.ignored_ner_types:
                 found_entities.append(
                     Entity(
                         entity_label=entity.text,
@@ -65,7 +65,7 @@ class NERHandler:
             token_probabilities = token.get_tags_proba_dist("ner")
             for token_prob in token_probabilities:
                 # Skip "O" class (non-entity tokens)
-                if token_prob.value == 'O':
+                if token_prob.value in ['O', '<STOP>', '<START', '<unk>']:
                     label = "O"
                 else:
                     label = token_prob.value[2:]  # Remove the prefix (e.g., B-, I-, E-)
