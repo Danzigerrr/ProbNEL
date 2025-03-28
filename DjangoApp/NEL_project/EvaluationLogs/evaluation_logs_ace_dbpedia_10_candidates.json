@@ -8,21 +8,21 @@
         "candidates": [
             [
                 "Bandar Seri Begawan",
-                0.928,
+                0.942,
                 1.0,
                 0.839,
                 0.354
             ],
             [
                 "Pusat Bandar, Brunei",
-                0.923,
+                0.937,
                 0.46,
                 0.289,
                 0.348
             ],
             [
                 "1999 Southeast Asian Games",
-                0.928,
+                0.943,
                 0.27,
                 0.349,
                 0.189
@@ -87,42 +87,42 @@
         "candidates": [
             [
                 "AFC Ajax",
-                0.697,
+                0.694,
                 0.36,
                 0.937,
                 -0.12
             ],
             [
                 "AFC Wimbledon",
-                0.697,
+                0.694,
                 0.25,
                 0.806,
                 0.007
             ],
             [
                 "Sunderland A.F.C.",
-                0.697,
+                0.694,
                 0.2,
                 1.0,
                 -0.148
             ],
             [
                 "Armed Forces of the Philippines",
-                0.694,
+                0.692,
                 0.18,
                 0.463,
                 0.302
             ],
             [
                 "Agence France-Presse",
-                0.654,
+                0.652,
                 0.26,
                 0.356,
                 0.226
             ],
             [
                 "Alpha-fetoprotein",
-                0.892,
+                0.887,
                 0.1,
                 0.345,
                 0.057
@@ -158,6 +158,85 @@
         ]
     },
     {
+        "entity_label": "White House",
+        "start_position": 343,
+        "end_position": 354,
+        "correct_prediction": false,
+        "matching_candidate_index": 1,
+        "candidates": [
+            [
+                "White",
+                0.874,
+                0.62,
+                1.0,
+                -0.015
+            ],
+            [
+                "White House",
+                0.76,
+                1.0,
+                0.295,
+                0.072
+            ],
+            [
+                "Chicago White Sox",
+                0.686,
+                0.5,
+                0.888,
+                -0.056
+            ],
+            [
+                "Vale of White Horse",
+                0.813,
+                0.67,
+                0.471,
+                -0.09
+            ],
+            [
+                "White House Office",
+                0.707,
+                0.76,
+                0.0,
+                0.133
+            ],
+            [
+                "White-shouldered house moth",
+                0.844,
+                0.53,
+                0.096,
+                0.085
+            ],
+            [
+                "White House Correspondents' Association",
+                0.691,
+                0.44,
+                0.115,
+                0.223
+            ],
+            [
+                "White House, Tennessee",
+                0.809,
+                0.67,
+                0.041,
+                -0.061
+            ],
+            [
+                "White House Press Secretary",
+                0,
+                0.58,
+                0.028,
+                0.216
+            ],
+            [
+                "White House COVID-19 outbreak",
+                0,
+                0.55,
+                0.123,
+                0.144
+            ]
+        ]
+    },
+    {
         "entity_label": "NPR NEWS",
         "start_position": 16,
         "end_position": 24,
@@ -166,42 +245,42 @@
         "candidates": [
             [
                 "NPR",
-                0.744,
+                0.747,
                 0.55,
                 0.629,
                 0.067
             ],
             [
                 "American Broadcasting Company",
-                0.744,
+                0.747,
                 0.05,
                 0.989,
                 0.037
             ],
             [
                 "New Patriotic Party",
-                0.709,
+                0.711,
                 0.22,
                 0.661,
                 0.024
             ],
             [
                 "Weekend Edition",
-                0.961,
+                0.97,
                 0.17,
                 0.201,
                 0.033
             ],
             [
                 "New Democratic Party",
-                0.709,
+                0.711,
                 0.14,
                 0.612,
                 -0.121
             ],
             [
                 "News-Press & Gazette Company",
-                0.653,
+                0.654,
                 0.17,
                 0.397,
                 0.068
@@ -215,7 +294,7 @@
             ],
             [
                 "KCUR-FM",
-                0.795,
+                0.799,
                 0.13,
                 0.093,
                 -0.004
@@ -266,7 +345,7 @@
             ],
             [
                 "Washington Capitals",
-                0.854,
+                0.855,
                 0.69,
                 0.418,
                 -0.005
@@ -324,35 +403,35 @@
         "candidates": [
             [
                 "Miami-Dade County, Florida",
-                0.747,
+                0.748,
                 0.74,
                 1.0,
                 0.286
             ],
             [
                 "Miami Gardens, Florida",
-                0.847,
+                0.848,
                 0.56,
                 0.603,
                 0.249
             ],
             [
                 "Metrorail (Miami-Dade County)",
-                0.846,
+                0.847,
                 0.7,
                 0.486,
                 0.135
             ],
             [
                 "Miami International Airport",
-                0.845,
+                0.846,
                 0.45,
                 0.642,
                 0.157
             ],
             [
                 "Homestead, Florida",
-                0.847,
+                0.848,
                 0.29,
                 0.603,
                 0.22
@@ -366,7 +445,7 @@
             ],
             [
                 "Sweetwater, Miami-Dade County, Florida",
-                0.847,
+                0.848,
                 0.58,
                 0.0,
                 0.177
@@ -482,35 +561,35 @@
         "candidates": [
             [
                 "Palm Beach County, Florida",
-                0.747,
+                0.748,
                 0.79,
                 0.917,
                 0.185
             ],
             [
                 "Florida State Road A1A",
-                0.842,
+                0.843,
                 0.26,
                 0.899,
                 0.162
             ],
             [
                 "Dixie Highway (Broward\u2013Palm Beach)",
-                0.842,
+                0.843,
                 0.39,
                 0.538,
                 0.154
             ],
             [
                 "Wellington, Florida",
-                0.857,
+                0.858,
                 0.17,
                 0.676,
                 0.19
             ],
             [
                 "High Point, Palm Beach County, Florida",
-                0.856,
+                0.857,
                 0.62,
                 0.0,
                 0.229
@@ -561,28 +640,28 @@
         "candidates": [
             [
                 "Al Gore",
-                0.7,
+                0.702,
                 1.0,
                 0.535,
                 0.193
             ],
             [
                 "Bush v. Gore",
-                0.941,
+                0.953,
                 0.53,
                 0.246,
                 0.451
             ],
             [
                 "Albert Gore Sr.",
-                0.7,
+                0.702,
                 0.64,
                 0.257,
                 0.158
             ],
             [
                 "Gore (album)",
-                0.979,
+                0.994,
                 0.42,
                 0.04,
                 0.19
@@ -640,28 +719,28 @@
         "candidates": [
             [
                 "Washington (state)",
-                0.716,
+                0.744,
                 0.88,
                 0.682,
                 0.062
             ],
             [
                 "Washington, D.C.",
-                0.804,
+                0.843,
                 0.69,
                 0.824,
                 -0.003
             ],
             [
                 "Seattle",
-                0.804,
+                0.843,
                 0.35,
                 0.591,
                 0.095
             ],
             [
                 "Spokane, Washington",
-                0.804,
+                0.843,
                 0.57,
                 0.387,
                 0.044
@@ -726,49 +805,49 @@
             ],
             [
                 "Seattle Seahawks",
-                0.881,
+                0.882,
                 0.61,
                 0.946,
                 -0.039
             ],
             [
                 "Seattle Sounders FC",
-                0.914,
+                0.916,
                 0.54,
                 0.569,
                 -0.055
             ],
             [
                 "Seattle Mariners",
-                0.871,
+                0.872,
                 0.61,
                 0.534,
                 -0.067
             ],
             [
                 "Seattle SuperSonics",
-                0.854,
+                0.855,
                 0.54,
                 0.537,
                 -0.054
             ],
             [
                 "Seattle Sounders (1994\u20132008)",
-                0.914,
+                0.916,
                 0.4,
                 0.453,
                 -0.087
             ],
             [
                 "Seattle Storm (soccer)",
-                0.914,
+                0.916,
                 0.48,
                 0.033,
                 -0.072
             ],
             [
                 "Seattle-Tacoma Shipbuilding Corporation",
-                0.864,
+                0.865,
                 0.3,
                 0.0,
                 0.007
@@ -798,42 +877,42 @@
         "candidates": [
             [
                 "AFC Ajax",
-                0.698,
+                0.728,
                 0.36,
                 0.937,
                 0.068
             ],
             [
                 "AFC Wimbledon",
-                0.698,
+                0.728,
                 0.25,
                 0.806,
                 0.093
             ],
             [
                 "Sunderland A.F.C.",
-                0.698,
+                0.728,
                 0.2,
                 1.0,
                 -0.062
             ],
             [
                 "Agence France-Presse",
-                0.656,
+                0.706,
                 0.26,
                 0.356,
                 0.346
             ],
             [
                 "Armed Forces of the Philippines",
-                0.694,
+                0.739,
                 0.18,
                 0.463,
                 0.14
             ],
             [
                 "Alpha-fetoprotein",
-                0.882,
+                0.885,
                 0.1,
                 0.345,
                 0.105
@@ -948,6 +1027,164 @@
         ]
     },
     {
+        "entity_label": "Tallahassee",
+        "start_position": 0,
+        "end_position": 11,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "Tallahassee, Florida",
+                0.857,
+                0.71,
+                1.0,
+                0.48
+            ],
+            [
+                "Lincoln High School (Tallahassee, Florida)",
+                0.883,
+                0.42,
+                0.258,
+                0.316
+            ],
+            [
+                "Tallahassee International Airport",
+                0.846,
+                0.5,
+                0.136,
+                0.368
+            ],
+            [
+                "Federal Correctional Institution, Tallahassee",
+                0.878,
+                0.39,
+                0.0,
+                0.386
+            ],
+            [
+                "Florida State University",
+                0,
+                0.29,
+                0.999,
+                0.322
+            ],
+            [
+                "Roman Catholic Diocese of Pensacola\u2013Tallahassee",
+                0.731,
+                0.38,
+                0.091,
+                0.321
+            ],
+            [
+                "Tallahassee Community College",
+                0,
+                0.55,
+                0.246,
+                0.353
+            ],
+            [
+                "Tallahassee metropolitan area",
+                0,
+                0.55,
+                0.115,
+                0.477
+            ],
+            [
+                "Mayor of Tallahassee, Florida",
+                0,
+                0.55,
+                0.32,
+                0.043
+            ],
+            [
+                "SouthWood, Tallahassee, Florida",
+                0,
+                0.52,
+                0.115,
+                0.266
+            ]
+        ]
+    },
+    {
+        "entity_label": "United States",
+        "start_position": 12,
+        "end_position": 25,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "United States",
+                0.786,
+                1.0,
+                1.0,
+                0.056
+            ],
+            [
+                "Republican Party (United States)",
+                0.807,
+                0.58,
+                0.437,
+                0.152
+            ],
+            [
+                "United Kingdom",
+                0.786,
+                0.52,
+                0.804,
+                -0.151
+            ],
+            [
+                "United States Army",
+                0.825,
+                0.84,
+                0.157,
+                0.054
+            ],
+            [
+                "United States Navy",
+                0.825,
+                0.84,
+                0.025,
+                0.11
+            ],
+            [
+                "Democratic Party (United States)",
+                0.807,
+                0.58,
+                0.458,
+                -0.067
+            ],
+            [
+                "California",
+                0.71,
+                0.26,
+                0.526,
+                0.073
+            ],
+            [
+                "Mexico",
+                0.786,
+                0.11,
+                0.385,
+                0.057
+            ],
+            [
+                "Unincorporated area",
+                0,
+                0.56,
+                0.461,
+                0.067
+            ],
+            [
+                "Township (United States)",
+                0,
+                0.7,
+                0.0,
+                0.191
+            ]
+        ]
+    },
+    {
         "entity_label": "Florida",
         "start_position": 57,
         "end_position": 64,
@@ -1027,85 +1264,6 @@
         ]
     },
     {
-        "entity_label": "AFP",
-        "start_position": 12,
-        "end_position": 15,
-        "correct_prediction": false,
-        "matching_candidate_index": 4,
-        "candidates": [
-            [
-                "AFC Ajax",
-                0.697,
-                0.36,
-                0.937,
-                -0.124
-            ],
-            [
-                "AFC Wimbledon",
-                0.697,
-                0.25,
-                0.806,
-                0.025
-            ],
-            [
-                "Sunderland A.F.C.",
-                0.697,
-                0.2,
-                1.0,
-                -0.126
-            ],
-            [
-                "Armed Forces of the Philippines",
-                0.694,
-                0.18,
-                0.463,
-                0.276
-            ],
-            [
-                "Agence France-Presse",
-                0.653,
-                0.26,
-                0.356,
-                0.216
-            ],
-            [
-                "Alpha-fetoprotein",
-                0.892,
-                0.1,
-                0.345,
-                0.119
-            ],
-            [
-                "AFP",
-                0,
-                1.0,
-                0.056,
-                0.058
-            ],
-            [
-                "AFP-L3",
-                0,
-                0.67,
-                0.0,
-                0.058
-            ],
-            [
-                "Armed Forces of the Philippines Medal of Valor",
-                0,
-                0.12,
-                0.423,
-                0.099
-            ],
-            [
-                "AFP Visayas Command",
-                0,
-                0.27,
-                0.0,
-                0.058
-            ]
-        ]
-    },
-    {
         "entity_label": "Lebanon",
         "start_position": 16,
         "end_position": 23,
@@ -1114,70 +1272,70 @@
         "candidates": [
             [
                 "Lebanon",
-                0.836,
+                0.837,
                 1.0,
                 1.0,
                 0.48
             ],
             [
                 "1982 Lebanon War",
-                0.945,
+                0.943,
                 0.61,
                 0.22,
                 0.585
             ],
             [
                 "2006 Lebanon War",
-                0.945,
+                0.943,
                 0.61,
                 0.235,
                 0.534
             ],
             [
                 "Beirut",
-                0.848,
+                0.849,
                 0.15,
                 0.739,
                 0.477
             ],
             [
                 "Lebanon national football team",
-                0.915,
+                0.911,
                 0.38,
                 0.539,
                 0.376
             ],
             [
                 "Mount Lebanon Governorate",
-                0.857,
+                0.859,
                 0.44,
                 0.321,
                 0.388
             ],
             [
                 "Lebanon, Pennsylvania",
-                0.848,
+                0.849,
                 0.5,
                 0.064,
                 0.369
             ],
             [
                 "Lebanon, Tennessee",
-                0.848,
+                0.849,
                 0.56,
                 0.0,
                 0.354
             ],
             [
                 "Lebanon, New Hampshire",
-                0.848,
+                0.849,
                 0.48,
                 0.0,
                 0.327
             ],
             [
                 "Lebanon County, Pennsylvania",
-                0.748,
+                0.751,
                 0.4,
                 0.032,
                 0.377
@@ -1343,85 +1501,6 @@
         ]
     },
     {
-        "entity_label": "Jerusalem",
-        "start_position": 0,
-        "end_position": 9,
-        "correct_prediction": true,
-        "matching_candidate_index": 0,
-        "candidates": [
-            [
-                "Jerusalem",
-                0.811,
-                1.0,
-                1.0,
-                0.228
-            ],
-            [
-                "Beitar Jerusalem F.C.",
-                0.859,
-                0.6,
-                0.857,
-                0.165
-            ],
-            [
-                "Hapoel Jerusalem F.C.",
-                0.859,
-                0.6,
-                0.541,
-                0.152
-            ],
-            [
-                "Hapoel Jerusalem B.C.",
-                0.802,
-                0.6,
-                0.44,
-                0.195
-            ],
-            [
-                "Hapoel Katamon Jerusalem F.C.",
-                0.859,
-                0.47,
-                0.354,
-                0.167
-            ],
-            [
-                "Agudat Sport Nordia Jerusalem",
-                0.859,
-                0.47,
-                0.082,
-                0.168
-            ],
-            [
-                "Kingdom of Jerusalem",
-                0.801,
-                0.62,
-                0.07,
-                0.088
-            ],
-            [
-                "Anglican Diocese of Jerusalem",
-                0.71,
-                0.47,
-                0.063,
-                0.164
-            ],
-            [
-                "Hebrew University of Jerusalem",
-                0,
-                0.46,
-                0.63,
-                0.232
-            ],
-            [
-                "East Jerusalem",
-                0,
-                0.78,
-                0.0,
-                0.312
-            ]
-        ]
-    },
-    {
         "entity_label": "AFP",
         "start_position": 16,
         "end_position": 19,
@@ -1430,42 +1509,42 @@
         "candidates": [
             [
                 "AFC Ajax",
-                0.695,
+                0.749,
                 0.36,
                 0.937,
                 -0.147
             ],
             [
                 "AFC Wimbledon",
-                0.695,
+                0.749,
                 0.25,
                 0.806,
                 0.032
             ],
             [
                 "Sunderland A.F.C.",
-                0.695,
+                0.749,
                 0.2,
                 1.0,
                 -0.131
             ],
             [
                 "Armed Forces of the Philippines",
-                0.692,
+                0.761,
                 0.18,
                 0.463,
                 0.255
             ],
             [
                 "Agence France-Presse",
-                0.652,
+                0.729,
                 0.26,
                 0.356,
                 0.222
             ],
             [
                 "Alpha-fetoprotein",
-                0.888,
+                0.896,
                 0.1,
                 0.345,
                 0.144
@@ -1516,14 +1595,14 @@
             ],
             [
                 "Yasser Arafat International Airport",
-                0.992,
+                0.993,
                 0.54,
                 0.712,
                 0.39
             ],
             [
                 "Martyr Yasser Arafat Governmental Hospital",
-                0.98,
+                0.981,
                 0.47,
                 0.178,
                 0.372
@@ -1588,35 +1667,35 @@
         "candidates": [
             [
                 "Andrew Flintoff",
-                0.766,
+                0.771,
                 0.76,
                 0.503,
                 0.14
             ],
             [
                 "Corey Burton",
-                0.703,
+                0.707,
                 0.62,
                 0.651,
                 0.167
             ],
             [
                 "Corey Haim",
-                0.703,
+                0.707,
                 0.58,
                 0.587,
                 0.245
             ],
             [
                 "Corey Feldman",
-                0.703,
+                0.707,
                 0.67,
                 0.631,
                 0.106
             ],
             [
                 "Slipknot (band)",
-                0.925,
+                0.934,
                 0.28,
                 0.797,
                 0.091
@@ -1667,42 +1746,42 @@
         "candidates": [
             [
                 "Washington, D.C.",
-                0.846,
+                0.848,
                 0.77,
                 1.0,
                 -0.041
             ],
             [
                 "Washington (state)",
-                0.762,
+                0.748,
                 0.71,
                 0.786,
                 -0.039
             ],
             [
                 "Tacoma, Washington",
-                0.846,
+                0.848,
                 0.71,
                 0.346,
                 0.095
             ],
             [
                 "Spokane, Washington",
-                0.846,
+                0.848,
                 0.69,
                 0.338,
                 0.091
             ],
             [
                 "Washington Capitals",
-                0.814,
+                0.853,
                 0.69,
                 0.418,
                 -0.025
             ],
             [
                 "Seattle",
-                0.846,
+                0.848,
                 0.24,
                 0.647,
                 -0.023
@@ -1746,49 +1825,49 @@
         "candidates": [
             [
                 "Gaza Strip",
-                0.742,
+                0.821,
                 0.57,
                 1.0,
                 0.338
             ],
             [
                 "Gaza City",
-                0.76,
+                0.842,
                 0.62,
                 0.828,
                 0.369
             ],
             [
                 "Gaza\u2013Israel conflict",
-                0.838,
+                0.927,
                 0.33,
                 0.215,
                 0.372
             ],
             [
                 "Second Battle of Gaza",
-                0.838,
+                0.927,
                 0.32,
                 0.14,
                 0.385
             ],
             [
                 "First Battle of Gaza",
-                0.838,
+                0.927,
                 0.33,
                 0.108,
                 0.359
             ],
             [
                 "Gaza War (2008\u20132009)",
-                0.838,
+                0.927,
                 0.33,
                 0.321,
                 0.062
             ],
             [
                 "Gaza Province",
-                0.668,
+                0.737,
                 0.47,
                 0.124,
                 0.286
@@ -1825,42 +1904,42 @@
         "candidates": [
             [
                 "AFC Ajax",
-                0.694,
+                0.703,
                 0.36,
                 0.937,
                 -0.044
             ],
             [
                 "Sunderland A.F.C.",
-                0.694,
+                0.703,
                 0.2,
                 1.0,
                 -0.067
             ],
             [
                 "AFC Wimbledon",
-                0.694,
+                0.703,
                 0.25,
                 0.806,
                 -0.033
             ],
             [
                 "Armed Forces of the Philippines",
-                0.691,
+                0.707,
                 0.18,
                 0.463,
                 0.216
             ],
             [
                 "Alpha-fetoprotein",
-                0.885,
+                0.879,
                 0.1,
                 0.345,
                 0.21
             ],
             [
                 "Agence France-Presse",
-                0.652,
+                0.67,
                 0.26,
                 0.356,
                 0.16
@@ -1896,50 +1975,129 @@
         ]
     },
     {
+        "entity_label": "Jerusalem",
+        "start_position": 0,
+        "end_position": 9,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "Jerusalem",
+                0.818,
+                1.0,
+                1.0,
+                0.462
+            ],
+            [
+                "Beitar Jerusalem F.C.",
+                0.882,
+                0.6,
+                0.857,
+                0.334
+            ],
+            [
+                "Hapoel Jerusalem F.C.",
+                0.882,
+                0.6,
+                0.541,
+                0.3
+            ],
+            [
+                "Hapoel Jerusalem B.C.",
+                0.824,
+                0.6,
+                0.44,
+                0.393
+            ],
+            [
+                "Hapoel Katamon Jerusalem F.C.",
+                0.882,
+                0.47,
+                0.354,
+                0.421
+            ],
+            [
+                "Kingdom of Jerusalem",
+                0.806,
+                0.62,
+                0.07,
+                0.291
+            ],
+            [
+                "Agudat Sport Nordia Jerusalem",
+                0.882,
+                0.47,
+                0.082,
+                0.242
+            ],
+            [
+                "Anglican Diocese of Jerusalem",
+                0.709,
+                0.47,
+                0.063,
+                0.249
+            ],
+            [
+                "Hebrew University of Jerusalem",
+                0,
+                0.46,
+                0.63,
+                0.373
+            ],
+            [
+                "East Jerusalem",
+                0,
+                0.78,
+                0.0,
+                0.42
+            ]
+        ]
+    },
+    {
         "entity_label": "AFP",
         "start_position": 15,
         "end_position": 18,
         "correct_prediction": false,
-        "matching_candidate_index": 4,
+        "matching_candidate_index": 3,
         "candidates": [
             [
                 "AFC Ajax",
-                0.696,
+                0.695,
                 0.36,
                 0.937,
                 0.053
             ],
             [
                 "Sunderland A.F.C.",
-                0.696,
+                0.695,
                 0.2,
                 1.0,
                 -0.017
             ],
             [
                 "AFC Wimbledon",
-                0.696,
+                0.695,
                 0.25,
                 0.806,
                 0.052
             ],
             [
-                "Alpha-fetoprotein",
-                0.891,
-                0.1,
-                0.345,
-                0.241
-            ],
-            [
                 "Agence France-Presse",
-                0.653,
+                0.659,
                 0.26,
                 0.356,
                 0.294
             ],
             [
+                "Alpha-fetoprotein",
+                0.875,
+                0.1,
+                0.345,
+                0.241
+            ],
+            [
                 "Armed Forces of the Philippines",
-                0.693,
+                0.697,
                 0.18,
                 0.463,
                 0.17
@@ -2069,42 +2227,42 @@
             ],
             [
                 "FC Spartak Moscow",
-                0.915,
+                0.916,
                 0.52,
                 0.585,
                 0.164
             ],
             [
                 "FC Dynamo Moscow",
-                0.915,
+                0.916,
                 0.55,
                 0.558,
                 0.144
             ],
             [
                 "PFC CSKA Moscow",
-                0.915,
+                0.916,
                 0.57,
                 0.526,
                 0.141
             ],
             [
                 "FC Torpedo Moscow",
-                0.915,
+                0.916,
                 0.52,
                 0.487,
                 0.225
             ],
             [
                 "FC Lokomotiv Moscow",
-                0.915,
+                0.916,
                 0.48,
                 0.514,
                 0.114
             ],
             [
                 "FC Moscow",
-                0.915,
+                0.916,
                 0.8,
                 0.066,
                 0.1
@@ -2118,14 +2276,14 @@
             ],
             [
                 "FC Spartak-2 Moscow",
-                0.915,
+                0.916,
                 0.48,
                 0.063,
                 0.172
             ],
             [
                 "HC Dynamo Moscow",
-                0.854,
+                0.855,
                 0.55,
                 0.0,
                 0.063
@@ -2141,42 +2299,42 @@
         "candidates": [
             [
                 "Beirut",
-                0.809,
+                0.841,
                 1.0,
                 0.756,
                 0.281
             ],
             [
                 "Racing Club Beirut",
-                0.867,
+                0.907,
                 0.5,
                 0.23,
                 0.373
             ],
             [
                 "Portland, Oregon",
-                0.809,
+                0.841,
                 0.18,
                 1.0,
                 -0.053
             ],
             [
                 "Nejmeh SC",
-                0.867,
+                0.907,
                 0.13,
                 0.509,
                 0.401
             ],
             [
                 "Beirut (band)",
-                0.847,
+                0.883,
                 0.63,
                 0.0,
                 0.248
             ],
             [
                 "Beirut\u2013Rafic Hariri International Airport",
-                0.804,
+                0.84,
                 0.26,
                 0.173,
                 0.348
@@ -2220,28 +2378,28 @@
         "candidates": [
             [
                 "AFC Ajax",
-                0.693,
+                0.712,
                 0.36,
                 0.937,
                 0.071
             ],
             [
                 "Sunderland A.F.C.",
-                0.693,
+                0.712,
                 0.2,
                 1.0,
                 0.107
             ],
             [
                 "AFC Wimbledon",
-                0.693,
+                0.712,
                 0.25,
                 0.806,
                 0.242
             ],
             [
                 "Armed Forces of the Philippines",
-                0.691,
+                0.718,
                 0.18,
                 0.463,
                 0.314
@@ -2255,7 +2413,7 @@
             ],
             [
                 "Agence France-Presse",
-                0.651,
+                0.682,
                 0.26,
                 0.356,
                 0.164
@@ -2378,42 +2536,42 @@
         "candidates": [
             [
                 "United Arab Emirates",
-                0.784,
+                0.835,
                 0.57,
                 0.874,
                 0.282
             ],
             [
                 "Emirates Club",
-                0.771,
+                0.895,
                 0.76,
                 0.489,
                 0.331
             ],
             [
                 "Afghanistan",
-                0.784,
+                0.835,
                 0.21,
                 1.0,
                 0.138
             ],
             [
                 "United Arab Emirates national football team",
-                0.771,
+                0.895,
                 0.31,
                 0.538,
                 0.394
             ],
             [
                 "Dubai",
-                0.793,
+                0.84,
                 0.15,
                 0.724,
                 0.156
             ],
             [
                 "United Arab Emirates national under-23 football team",
-                0.771,
+                0.895,
                 0.27,
                 0.187,
                 0.327
@@ -2457,49 +2615,49 @@
         "candidates": [
             [
                 "Mexico",
-                0.835,
+                0.836,
                 1.0,
                 1.0,
                 0.07
             ],
             [
                 "Mexico City",
-                0.847,
+                0.848,
                 0.71,
                 0.663,
                 -0.031
             ],
             [
                 "Mexico national football team",
-                0.914,
+                0.916,
                 0.34,
                 0.406,
                 0.236
             ],
             [
                 "New Mexico",
-                0.747,
+                0.748,
                 0.75,
                 0.446,
                 -0.063
             ],
             [
                 "State of Mexico",
-                0.856,
+                0.858,
                 0.57,
                 0.105,
                 -0.016
             ],
             [
                 "Albuquerque, New Mexico",
-                0.847,
+                0.848,
                 0.41,
                 0.214,
                 -0.104
             ],
             [
                 "Santa Fe, New Mexico",
-                0.847,
+                0.848,
                 0.46,
                 0.074,
                 -0.069
@@ -2615,31 +2773,38 @@
         "candidates": [
             [
                 "American Broadcasting Company",
-                0.745,
+                0.747,
                 0.16,
                 0.99,
                 0.155
             ],
             [
                 "Voice of America",
-                0.745,
+                0.747,
                 0.25,
                 0.471,
                 0.229
             ],
             [
                 "Epitaph Records",
-                0.718,
+                0.719,
                 0.26,
                 0.675,
                 -0.02
             ],
             [
                 "Vox (website)",
-                0.835,
+                0.84,
                 0.38,
                 0.294,
                 0.111
+            ],
+            [
+                "Jannat",
+                0.925,
+                0.0,
+                0.197,
+                0.049
             ],
             [
                 "Journalist",
@@ -2647,13 +2812,6 @@
                 0.11,
                 1.0,
                 0.059
-            ],
-            [
-                "Jannat",
-                0.917,
-                0.0,
-                0.197,
-                0.049
             ],
             [
                 "VOA News",
@@ -2701,42 +2859,42 @@
             ],
             [
                 "United States",
-                0.833,
+                0.836,
                 0.2,
                 1.0,
                 0.088
             ],
             [
                 "California",
-                0.746,
+                0.748,
                 0.35,
                 0.68,
                 0.082
             ],
             [
                 "Democratic Party (United States)",
-                0.863,
+                0.864,
                 0.26,
                 0.634,
                 0.016
             ],
             [
                 "North America",
-                0.824,
+                0.828,
                 0.7,
                 0.0,
                 0.015
             ],
             [
                 "British America",
-                0.833,
+                0.836,
                 0.64,
                 0.015,
                 -0.039
             ],
             [
                 "Confederate States of America",
-                0.833,
+                0.836,
                 0.39,
                 0.075,
                 0.065
@@ -2859,14 +3017,14 @@
             ],
             [
                 "American Broadcasting Company",
-                0.748,
+                0.75,
                 0.3,
                 0.99,
                 0.252
             ],
             [
                 "NASA",
-                0.68,
+                0.681,
                 0.18,
                 0.837,
                 0.131
@@ -2931,63 +3089,63 @@
         "candidates": [
             [
                 "Shanghai",
-                0.846,
+                0.843,
                 1.0,
                 1.0,
                 0.441
             ],
             [
                 "Shanghai Shenxin F.C.",
-                0.911,
+                0.9,
                 0.55,
                 0.343,
                 0.439
             ],
             [
                 "Shanghai United F.C.",
-                0.911,
+                0.9,
                 0.57,
                 0.172,
                 0.436
             ],
             [
                 "Shanghai Metro",
-                0.843,
+                0.835,
                 0.73,
                 0.007,
                 0.394
             ],
             [
                 "Shanghai Sharks",
-                0.85,
+                0.84,
                 0.7,
                 0.021,
                 0.351
             ],
             [
                 "Shanghai Media Group",
-                0.904,
+                0.895,
                 0.57,
                 0.0,
                 0.43
             ],
             [
                 "Shanghai Theatre Academy",
-                0.862,
+                0.854,
                 0.5,
                 0.19,
                 0.318
             ],
             [
                 "Battle of Shanghai",
-                0.942,
+                0.934,
                 0.62,
                 0.063,
                 0.206
             ],
             [
                 "Shanghai Jiao Tong University",
-                0.862,
+                0.854,
                 0.43,
                 0.14,
                 0.366
@@ -3031,7 +3189,7 @@
             ],
             [
                 "WGC-HSBC Champions",
-                0.758,
+                0.759,
                 0.36,
                 0.127,
                 0.353
@@ -3242,9 +3400,16 @@
         "entity_label": "Hong Kong",
         "start_position": 405,
         "end_position": 414,
-        "correct_prediction": true,
-        "matching_candidate_index": 0,
+        "correct_prediction": false,
+        "matching_candidate_index": 1,
         "candidates": [
+            [
+                "British Hong Kong",
+                0.837,
+                0.69,
+                0.584,
+                0.127
+            ],
             [
                 "Hong Kong",
                 0,
@@ -3253,50 +3418,43 @@
                 0.232
             ],
             [
-                "British Hong Kong",
-                0.811,
-                0.69,
-                0.584,
-                0.127
-            ],
-            [
                 "Hong Kong Rangers FC",
-                0.866,
+                0.863,
                 0.62,
                 0.472,
                 0.225
             ],
             [
                 "Hong Kong Pegasus FC",
-                0.866,
+                0.863,
                 0.62,
                 0.351,
                 0.279
             ],
             [
                 "Hong Kong national football team",
-                0.866,
+                0.863,
                 0.44,
                 0.412,
                 0.34
             ],
             [
                 "R&F (Hong Kong)",
-                0.866,
+                0.863,
                 0.75,
                 0.222,
                 0.219
             ],
             [
                 "University of Hong Kong",
-                0.83,
+                0.832,
                 0.56,
                 0.258,
                 0.243
             ],
             [
                 "Hong Kong national under-23 football team",
-                0.866,
+                0.863,
                 0.36,
                 0.288,
                 0.284
@@ -3318,81 +3476,81 @@
         ]
     },
     {
-        "entity_label": "Japan",
-        "start_position": 422,
-        "end_position": 427,
+        "entity_label": "Lebanon",
+        "start_position": 6,
+        "end_position": 13,
         "correct_prediction": true,
         "matching_candidate_index": 0,
         "candidates": [
             [
-                "Japan",
-                0.846,
+                "Lebanon",
+                0.87,
                 1.0,
                 1.0,
-                0.223
+                0.365
             ],
             [
-                "Tokyo",
-                0.855,
-                0.0,
-                0.63,
-                0.331
+                "1982 Lebanon War",
+                0.943,
+                0.61,
+                0.22,
+                0.483
             ],
             [
-                "Empire of Japan",
-                0.846,
+                "Lebanon national football team",
+                0.919,
+                0.38,
+                0.539,
+                0.392
+            ],
+            [
+                "2006 Lebanon War",
+                0.943,
+                0.61,
+                0.235,
+                0.425
+            ],
+            [
+                "Beirut",
+                0.872,
+                0.15,
+                0.739,
+                0.407
+            ],
+            [
+                "Mount Lebanon Governorate",
+                0.881,
+                0.44,
+                0.321,
+                0.497
+            ],
+            [
+                "Lebanon, Pennsylvania",
+                0.872,
                 0.5,
-                0.328,
-                0.122
+                0.064,
+                0.293
             ],
             [
-                "Japan national football team",
-                0.838,
-                0.3,
-                0.322,
-                0.33
-            ],
-            [
-                "Japan national under-20 football team",
-                0.838,
-                0.24,
-                0.069,
-                0.284
-            ],
-            [
-                "Japan women's national football team",
-                0.838,
-                0.24,
-                0.077,
-                0.272
-            ],
-            [
-                "Sony Music Entertainment Japan",
-                0.79,
-                0.29,
+                "Lebanon, Tennessee",
+                0.872,
+                0.56,
                 0.0,
-                0.302
+                0.269
             ],
             [
-                "Cities of Japan",
-                0,
-                0.5,
-                0.16,
-                0.273
+                "Lebanon, New Hampshire",
+                0.872,
+                0.48,
+                0.0,
+                0.283
             ],
             [
-                "Japan Standard Time",
-                0,
-                0.42,
-                0.27,
-                0.213
-            ],
-            [
-                "List of towns in Japan",
-                0,
-                0.37,
-                0.05,
-                0.286
+                "Lebanon County, Pennsylvania",
+                0.828,
+                0.4,
+                0.032,
+                0.285
             ]
         ]
     },
@@ -3563,14 +3721,14 @@
         "candidates": [
             [
                 "Syria",
-                0.967,
+                0.968,
                 0.2,
                 0.724,
                 0.373
             ],
             [
                 "Morocco",
-                0.967,
+                0.968,
                 0.27,
                 0.701,
                 0.235
@@ -3642,7 +3800,7 @@
         "candidates": [
             [
                 "Sidon",
-                0.848,
+                0.847,
                 0.6,
                 0.633,
                 0.382
@@ -3684,7 +3842,7 @@
             ],
             [
                 "Sidon District",
-                0.748,
+                0.747,
                 0.32,
                 0.425,
                 0.282
@@ -3800,7 +3958,7 @@
         "candidates": [
             [
                 "Jerusalem",
-                0.847,
+                0.848,
                 1.0,
                 1.0,
                 0.282
@@ -3821,7 +3979,7 @@
             ],
             [
                 "Hapoel Jerusalem B.C.",
-                0.854,
+                0.855,
                 0.6,
                 0.44,
                 0.332
@@ -3835,7 +3993,7 @@
             ],
             [
                 "Kingdom of Jerusalem",
-                0.835,
+                0.836,
                 0.62,
                 0.07,
                 0.186
@@ -3879,70 +4037,70 @@
         "candidates": [
             [
                 "BBC News",
-                0.649,
+                0.655,
                 1.0,
                 0.919,
                 0.118
             ],
             [
                 "BBC World News",
-                0.776,
+                0.784,
                 0.73,
                 0.887,
                 0.06
             ],
             [
                 "BBC World Service",
-                0.74,
+                0.747,
                 0.4,
                 1.0,
                 0.082
             ],
             [
                 "BBC News (TV channel)",
-                0.776,
+                0.784,
                 0.55,
                 0.736,
                 0.101
             ],
             [
                 "BBC Online",
-                0.83,
+                0.839,
                 0.56,
                 0.618,
                 0.055
             ],
             [
                 "BBC News Online",
-                0.83,
+                0.839,
                 0.7,
                 0.335,
                 0.128
             ],
             [
                 "BBC News at Ten",
-                0.874,
+                0.884,
                 0.7,
                 0.227,
                 0.145
             ],
             [
                 "BBC News at Six",
-                0.874,
+                0.884,
                 0.7,
                 0.145,
                 0.104
             ],
             [
                 "BBC News at One",
-                0.874,
+                0.884,
                 0.7,
                 0.114,
                 0.061
             ],
             [
                 "BBC News at Five",
-                0.874,
+                0.884,
                 0.67,
                 0.0,
                 0.13
@@ -4037,7 +4195,7 @@
         "candidates": [
             [
                 "Ruth Bader Ginsburg",
-                0.702,
+                0.703,
                 0.95,
                 0.604,
                 0.383
@@ -4116,35 +4274,35 @@
         "candidates": [
             [
                 "Sandra Day O'Connor",
-                0.7,
+                0.703,
                 1.0,
                 0.318,
                 0.301
             ],
             [
                 "Sandra Day O'Connor College of Law",
-                0.978,
+                0.988,
                 0.72,
                 0.322,
                 0.279
             ],
             [
                 "Democratic Party (United States)",
-                0.902,
+                0.91,
                 0.27,
                 1.0,
                 -0.006
             ],
             [
                 "Sandra Day O'Connor High School (Arizona)",
-                0.978,
+                0.988,
                 0.63,
                 0.111,
                 0.23
             ],
             [
                 "Sandra Day O'Connor High School (Texas)",
-                0.978,
+                0.988,
                 0.66,
                 0.163,
                 0.087
@@ -4223,7 +4381,7 @@
             ],
             [
                 "Washington Capitals",
-                0.854,
+                0.855,
                 0.69,
                 0.418,
                 -0.096
@@ -4274,21 +4432,21 @@
         "candidates": [
             [
                 "Bandar Seri Begawan",
-                0.913,
+                0.947,
                 1.0,
                 0.839,
                 0.152
             ],
             [
                 "Pusat Bandar, Brunei",
-                0.908,
+                0.942,
                 0.46,
                 0.289,
                 0.115
             ],
             [
                 "1999 Southeast Asian Games",
-                0.914,
+                0.945,
                 0.27,
                 0.349,
                 0.008
@@ -4349,49 +4507,49 @@
         "start_position": 26,
         "end_position": 29,
         "correct_prediction": false,
-        "matching_candidate_index": 5,
+        "matching_candidate_index": 4,
         "candidates": [
             [
                 "AFC Ajax",
-                0.694,
+                0.701,
                 0.36,
                 0.937,
                 -0.072
             ],
             [
                 "Sunderland A.F.C.",
-                0.694,
+                0.701,
                 0.2,
                 1.0,
                 -0.11
             ],
             [
                 "AFC Wimbledon",
-                0.694,
+                0.701,
                 0.25,
                 0.806,
                 -0.048
             ],
             [
                 "Armed Forces of the Philippines",
-                0.691,
+                0.697,
                 0.18,
                 0.463,
                 0.329
             ],
             [
-                "Alpha-fetoprotein",
-                0.883,
-                0.1,
-                0.345,
-                0.176
-            ],
-            [
                 "Agence France-Presse",
-                0.652,
+                0.658,
                 0.26,
                 0.356,
                 0.231
+            ],
+            [
+                "Alpha-fetoprotein",
+                0.875,
+                0.1,
+                0.345,
+                0.176
             ],
             [
                 "AFP",
@@ -4506,9 +4664,16 @@
         "entity_label": "Hong Kong",
         "start_position": 87,
         "end_position": 96,
-        "correct_prediction": true,
-        "matching_candidate_index": 0,
+        "correct_prediction": false,
+        "matching_candidate_index": 1,
         "candidates": [
+            [
+                "British Hong Kong",
+                0.824,
+                0.69,
+                0.584,
+                0.242
+            ],
             [
                 "Hong Kong",
                 0,
@@ -4517,50 +4682,43 @@
                 0.321
             ],
             [
-                "British Hong Kong",
-                0.678,
-                0.69,
-                0.584,
-                0.242
-            ],
-            [
                 "Hong Kong Rangers FC",
-                0.708,
+                0.894,
                 0.62,
                 0.472,
                 0.181
             ],
             [
                 "Hong Kong Pegasus FC",
-                0.708,
+                0.894,
                 0.62,
                 0.351,
                 0.227
             ],
             [
                 "Hong Kong national football team",
-                0.708,
+                0.894,
                 0.44,
                 0.412,
                 0.291
             ],
             [
                 "R&F (Hong Kong)",
-                0.708,
+                0.894,
                 0.75,
                 0.222,
                 0.166
             ],
             [
                 "University of Hong Kong",
-                0.684,
+                0.851,
                 0.56,
                 0.258,
                 0.292
             ],
             [
                 "Hong Kong national under-23 football team",
-                0.708,
+                0.894,
                 0.36,
                 0.288,
                 0.246
@@ -4590,42 +4748,42 @@
         "candidates": [
             [
                 "Asia",
-                0.724,
+                0.722,
                 1.0,
                 0.128,
                 0.243
             ],
             [
                 "Philippines",
-                0.768,
+                0.765,
                 0.13,
                 0.748,
                 0.165
             ],
             [
                 "Spanish language",
-                0.866,
+                0.861,
                 0.2,
                 0.571,
                 -0.036
             ],
             [
                 "South Asia",
-                0.724,
+                0.722,
                 0.57,
                 0.0,
                 0.188
             ],
             [
                 "Southeast Asia",
-                0.724,
+                0.722,
                 0.44,
                 0.139,
                 0.171
             ],
             [
                 "Georgia (country)",
-                0.768,
+                0.765,
                 0.19,
                 0.388,
                 -0.001
@@ -4669,14 +4827,14 @@
         "candidates": [
             [
                 "Philippines",
-                0.835,
+                0.836,
                 1.0,
                 1.0,
                 0.322
             ],
             [
                 "Manila",
-                0.847,
+                0.848,
                 0.24,
                 0.534,
                 0.238
@@ -4690,14 +4848,14 @@
             ],
             [
                 "Commonwealth of the Philippines",
-                0.835,
+                0.836,
                 0.52,
                 0.089,
                 0.301
             ],
             [
                 "Captaincy General of the Philippines",
-                0.835,
+                0.836,
                 0.47,
                 0.185,
                 0.183
@@ -4755,14 +4913,14 @@
             ],
             [
                 "Taipei",
-                0.848,
+                0.847,
                 0.5,
                 0.693,
                 0.212
             ],
             [
                 "Tainan",
-                0.848,
+                0.847,
                 0.83,
                 0.305,
                 0.141
@@ -4783,14 +4941,14 @@
             ],
             [
                 "Taiwan Province",
-                0.748,
+                0.747,
                 0.57,
                 0.014,
                 0.277
             ],
             [
                 "Taiwan Television",
-                0.908,
+                0.907,
                 0.52,
                 0.0,
                 0.16
@@ -4906,28 +5064,28 @@
         "candidates": [
             [
                 "Chen Shui-bian",
-                0.729,
+                0.731,
                 0.93,
                 0.701,
                 0.373
             ],
             [
                 "YouTube",
-                1.022,
+                1.026,
                 0.19,
                 1.0,
                 0.105
             ],
             [
                 "Su Tseng-chang",
-                0.701,
+                0.703,
                 0.36,
                 0.59,
                 0.343
             ],
             [
                 "Frank Hsieh",
-                0.701,
+                0.703,
                 0.24,
                 0.586,
                 0.364
@@ -4999,7 +5157,7 @@
             ],
             [
                 "Sarawak",
-                0.857,
+                0.858,
                 0.4,
                 0.457,
                 0.283
@@ -5034,7 +5192,7 @@
             ],
             [
                 "People's Justice Party (Malaysia)",
-                0.863,
+                0.864,
                 0.39,
                 0.112,
                 0.296
@@ -5064,21 +5222,21 @@
         "candidates": [
             [
                 "South Korea",
-                0.821,
+                0.815,
                 1.0,
                 1.0,
                 0.264
             ],
             [
                 "Korean War",
-                0.929,
+                0.926,
                 0.48,
                 0.695,
                 0.257
             ],
             [
                 "Seoul",
-                0.833,
+                0.828,
                 0.38,
                 0.757,
                 0.323
@@ -5113,21 +5271,21 @@
             ],
             [
                 "Munhwa Broadcasting Corporation",
-                0.851,
+                0.861,
                 0.29,
                 0.393,
                 0.212
             ],
             [
                 "National Assembly (South Korea)",
-                0.807,
+                0.821,
                 0.52,
                 0.0,
                 0.197
             ],
             [
                 "Gangwon Province, South Korea",
-                0.737,
+                0.741,
                 0.55,
                 0.013,
                 0.198
@@ -5222,35 +5380,35 @@
         "candidates": [
             [
                 "Bloomberg News",
-                0.654,
+                0.652,
                 1.0,
                 0.323,
                 0.112
             ],
             [
                 "American Broadcasting Company",
-                0.746,
+                0.745,
                 0.23,
                 0.99,
                 0.068
             ],
             [
                 "Bloomberg Radio",
-                0.797,
+                0.796,
                 0.69,
                 0.408,
                 0.045
             ],
             [
                 "Wiley (publisher)",
-                0.693,
+                0.691,
                 0.26,
                 0.612,
                 -0.003
             ],
             [
                 "The Shed (arts center)",
-                0.802,
+                0.801,
                 0.22,
                 0.332,
                 -0.076
@@ -5322,14 +5480,14 @@
             ],
             [
                 "South China AA",
-                0.91,
+                0.912,
                 0.53,
                 0.14,
                 0.26
             ],
             [
                 "China national football team",
-                0.91,
+                0.912,
                 0.3,
                 0.259,
                 0.089
@@ -5343,14 +5501,14 @@
             ],
             [
                 "China national under-20 football team",
-                0.91,
+                0.912,
                 0.24,
                 0.0,
                 0.148
             ],
             [
                 "China national under-23 football team",
-                0.91,
+                0.912,
                 0.24,
                 0.018,
                 0.115
@@ -5380,21 +5538,21 @@
         "candidates": [
             [
                 "Bandar Seri Begawan",
-                0.917,
+                0.948,
                 1.0,
                 0.839,
                 0.325
             ],
             [
                 "Pusat Bandar, Brunei",
-                0.912,
+                0.943,
                 0.46,
                 0.289,
                 0.271
             ],
             [
                 "1999 Southeast Asian Games",
-                0.918,
+                0.946,
                 0.27,
                 0.349,
                 0.323
@@ -5459,35 +5617,35 @@
         "candidates": [
             [
                 "AFC Ajax",
-                0.697,
+                0.698,
                 0.36,
                 0.937,
                 -0.014
             ],
             [
                 "Sunderland A.F.C.",
-                0.697,
+                0.698,
                 0.2,
                 1.0,
                 0.001
             ],
             [
                 "AFC Wimbledon",
-                0.697,
+                0.698,
                 0.25,
                 0.806,
                 0.048
             ],
             [
                 "Armed Forces of the Philippines",
-                0.694,
+                0.695,
                 0.18,
                 0.463,
                 0.333
             ],
             [
                 "Agence France-Presse",
-                0.654,
+                0.655,
                 0.26,
                 0.356,
                 0.171
@@ -5624,7 +5782,7 @@
             ],
             [
                 "Brunei national football team",
-                0.915,
+                0.916,
                 0.34,
                 0.647,
                 0.164
@@ -5638,28 +5796,28 @@
             ],
             [
                 "DPMM FC",
-                0.915,
+                0.916,
                 0.0,
                 0.709,
                 0.221
             ],
             [
                 "Brunei national under-21 football team",
-                0.915,
+                0.916,
                 0.27,
                 0.443,
                 0.158
             ],
             [
                 "Brunei national under-23 football team",
-                0.915,
+                0.916,
                 0.27,
                 0.416,
                 0.157
             ],
             [
                 "Tabuan Muda",
-                0.915,
+                0.916,
                 0.24,
                 0.395,
                 0.195
@@ -5696,56 +5854,56 @@
         "candidates": [
             [
                 "Irkutsk",
-                0.849,
+                0.855,
                 0.8,
                 0.855,
                 0.229
             ],
             [
                 "FC Zvezda Irkutsk",
-                0.906,
+                0.913,
                 0.48,
                 1.0,
                 0.207
             ],
             [
                 "FC Baikal Irkutsk",
-                0.906,
+                0.913,
                 0.48,
                 0.819,
                 0.198
             ],
             [
                 "FC Zenit Irkutsk",
-                0.906,
+                0.913,
                 0.5,
                 0.627,
                 0.228
             ],
             [
                 "Irkutsk Oblast",
-                0.741,
+                0.748,
                 0.55,
                 0.696,
                 0.252
             ],
             [
                 "Irkutsk State University",
-                0.858,
+                0.864,
                 0.38,
                 0.167,
                 0.233
             ],
             [
                 "International Airport Irkutsk",
-                0.837,
+                0.843,
                 0.32,
                 0.135,
                 0.267
             ],
             [
                 "Irkutsk Hydroelectric Power Station",
-                0.839,
+                0.845,
                 0.28,
                 0.054,
                 0.226
@@ -5775,7 +5933,7 @@
         "candidates": [
             [
                 "Xinhua News Agency",
-                0.659,
+                0.658,
                 1.0,
                 0.439,
                 0.465
@@ -5789,7 +5947,7 @@
             ],
             [
                 "NASA",
-                0.681,
+                0.68,
                 0.18,
                 0.837,
                 0.114
@@ -5854,63 +6012,63 @@
         "candidates": [
             [
                 "Beijing",
-                0.843,
+                0.846,
                 1.0,
                 0.693,
                 0.363
             ],
             [
                 "China",
-                0.832,
+                0.834,
                 0.33,
                 1.0,
                 0.288
             ],
             [
                 "Beijing Film Academy",
-                0.86,
+                0.863,
                 0.52,
                 0.149,
                 0.29
             ],
             [
                 "Beijing Subway",
-                0.842,
+                0.844,
                 0.67,
                 0.016,
                 0.289
             ],
             [
                 "Beijing Ducks",
-                0.849,
+                0.852,
                 0.7,
                 0.0,
                 0.266
             ],
             [
                 "Beijing Sport University F.C.",
-                0.909,
+                0.912,
                 0.39,
                 0.104,
                 0.367
             ],
             [
                 "Beijing Institute of Technology F.C.",
-                0.909,
+                0.912,
                 0.33,
                 0.058,
                 0.389
             ],
             [
                 "Beijing Guoan Talent Singapore FC",
-                0.909,
+                0.912,
                 0.35,
                 0.075,
                 0.316
             ],
             [
                 "Chaoyang District, Beijing",
-                0.744,
+                0.747,
                 0.42,
                 0.068,
                 0.257
@@ -6012,49 +6170,49 @@
         "candidates": [
             [
                 "Jiangsu",
-                0.748,
+                0.747,
                 0.61,
                 1.0,
                 0.224
             ],
             [
                 "Jiangxi",
-                0.748,
+                0.747,
                 0.52,
                 0.829,
                 0.34
             ],
             [
                 "Nanjing",
-                0.848,
+                0.846,
                 0.35,
                 0.828,
                 0.252
             ],
             [
                 "Suzhou",
-                0.848,
+                0.846,
                 0.18,
                 0.7,
                 0.276
             ],
             [
                 "Yangzhou",
-                0.848,
+                0.846,
                 0.33,
                 0.489,
                 0.271
             ],
             [
                 "Xuzhou",
-                0.848,
+                0.846,
                 0.18,
                 0.514,
                 0.391
             ],
             [
                 "Wenzhou",
-                0.848,
+                0.846,
                 0.17,
                 0.573,
                 0.244
@@ -6112,24 +6270,31 @@
             ],
             [
                 "South China AA",
-                0.915,
+                0.916,
                 0.53,
                 0.14,
                 0.245
             ],
             [
                 "China national football team",
-                0.915,
+                0.916,
                 0.3,
                 0.259,
                 0.338
             ],
             [
                 "China national under-23 football team",
-                0.915,
+                0.916,
                 0.24,
                 0.018,
                 0.348
+            ],
+            [
+                "China national under-20 football team",
+                0.916,
+                0.24,
+                0.0,
+                0.336
             ],
             [
                 "Republic of China (1912\u20131949)",
@@ -6137,13 +6302,6 @@
                 0.29,
                 0.145,
                 0.22
-            ],
-            [
-                "China national under-20 football team",
-                0.915,
-                0.24,
-                0.0,
-                0.336
             ],
             [
                 "Hong Kong",
@@ -6184,7 +6342,7 @@
             ],
             [
                 "Japan national football team",
-                0.916,
+                0.915,
                 0.3,
                 0.322,
                 0.09
@@ -6198,14 +6356,14 @@
             ],
             [
                 "Japan national under-20 football team",
-                0.916,
+                0.915,
                 0.24,
                 0.069,
                 0.134
             ],
             [
                 "Japan women's national football team",
-                0.916,
+                0.915,
                 0.24,
                 0.077,
                 0.066
@@ -6249,70 +6407,70 @@
         "candidates": [
             [
                 "South Korea",
-                0.828,
+                0.833,
                 1.0,
                 1.0,
                 0.13
             ],
             [
                 "Seoul",
-                0.84,
+                0.845,
                 0.38,
                 0.757,
                 0.297
             ],
             [
                 "Korean War",
-                0.935,
+                0.943,
                 0.48,
                 0.695,
                 0.141
             ],
             [
                 "South Korea national football team",
-                0.905,
+                0.913,
                 0.49,
                 0.565,
                 0.184
             ],
             [
                 "South Korea national under-20 football team",
-                0.905,
+                0.913,
                 0.41,
                 0.502,
                 0.163
             ],
             [
                 "South Korea national under-23 football team",
-                0.905,
+                0.913,
                 0.41,
                 0.488,
                 0.153
             ],
             [
                 "Munhwa Broadcasting Corporation",
-                0.855,
+                0.864,
                 0.29,
                 0.393,
                 0.255
             ],
             [
                 "South Korea women's national football team",
-                0.905,
+                0.913,
                 0.42,
                 0.167,
                 0.105
             ],
             [
                 "Gangwon Province, South Korea",
-                0.744,
+                0.747,
                 0.55,
                 0.013,
                 0.269
             ],
             [
                 "National Assembly (South Korea)",
-                0.811,
+                0.819,
                 0.52,
                 0.0,
                 0.105
@@ -6407,35 +6565,35 @@
         "candidates": [
             [
                 "London",
-                0.789,
+                0.836,
                 1.0,
                 1.0,
                 0.296
             ],
             [
                 "Greater London",
-                0.711,
+                0.74,
                 0.6,
                 0.381,
                 0.223
             ],
             [
                 "London, Ontario",
-                0.789,
+                0.836,
                 0.57,
                 0.186,
                 0.33
             ],
             [
                 "University of London",
-                0.785,
+                0.853,
                 0.46,
                 0.242,
                 0.291
             ],
             [
                 "London Underground",
-                0.763,
+                0.834,
                 0.5,
                 0.0,
                 0.233
@@ -6486,42 +6644,42 @@
         "candidates": [
             [
                 "AFC Wimbledon",
-                0.706,
+                0.697,
                 0.25,
                 0.806,
                 0.238
             ],
             [
                 "AFC Ajax",
-                0.706,
+                0.697,
                 0.36,
                 0.937,
                 -0.016
             ],
             [
                 "Sunderland A.F.C.",
-                0.706,
+                0.697,
                 0.2,
                 1.0,
                 -0.05
             ],
             [
                 "Alpha-fetoprotein",
-                0.893,
+                0.89,
                 0.1,
                 0.345,
                 0.125
             ],
             [
                 "Armed Forces of the Philippines",
-                0.702,
+                0.694,
                 0.18,
                 0.463,
                 0.081
             ],
             [
                 "Agence France-Presse",
-                0.662,
+                0.653,
                 0.26,
                 0.356,
                 0.112
@@ -6565,21 +6723,21 @@
         "candidates": [
             [
                 "Baghdad",
-                0.847,
+                0.848,
                 1.0,
                 1.0,
                 0.294
             ],
             [
                 "Al-Quwa Al-Jawiya",
-                0.915,
+                0.916,
                 0.17,
                 0.812,
                 0.243
             ],
             [
                 "Amanat Baghdad SC",
-                0.915,
+                0.916,
                 0.58,
                 0.322,
                 0.265
@@ -6593,14 +6751,14 @@
             ],
             [
                 "Baghdad Governorate",
-                0.857,
+                0.858,
                 0.54,
                 0.271,
                 0.253
             ],
             [
                 "Baghdad International Airport",
-                0.845,
+                0.846,
                 0.39,
                 0.214,
                 0.416
@@ -6614,14 +6772,14 @@
             ],
             [
                 "Siege of Baghdad (1258)",
-                0.945,
+                0.946,
                 0.47,
                 0.0,
                 0.262
             ],
             [
                 "Embassy of the United States, Baghdad",
-                0.858,
+                0.859,
                 0.32,
                 0.125,
                 0.212
@@ -6665,14 +6823,14 @@
             ],
             [
                 "King Saud University",
-                0.866,
+                0.865,
                 0.23,
                 0.456,
                 0.237
             ],
             [
                 "American International School \u2013 Riyadh",
-                0.884,
+                0.883,
                 0.27,
                 0.035,
                 0.252
@@ -6719,77 +6877,77 @@
         "start_position": 355,
         "end_position": 383,
         "correct_prediction": false,
-        "matching_candidate_index": 3,
+        "matching_candidate_index": 4,
         "candidates": [
             [
                 "England national football team",
-                0.848,
+                0.851,
                 0.48,
                 0.858,
                 0.076
             ],
             [
                 "Scotland national football team",
-                0.848,
+                0.851,
                 0.47,
                 0.806,
                 0.058
             ],
             [
                 "Riyadh",
-                0.827,
+                0.828,
                 0.35,
                 0.488,
                 0.456
             ],
             [
+                "Washington, D.C.",
+                0.828,
+                0.32,
+                0.897,
+                0.077
+            ],
+            [
                 "King Khalid International Airport",
-                0.747,
+                0.75,
                 0.82,
                 0.0,
                 0.47
             ],
             [
                 "Toronto",
-                0.827,
+                0.828,
                 0.23,
                 0.941,
                 0.023
             ],
             [
+                "Wales national football team",
+                0.851,
+                0.46,
+                0.724,
+                -0.013
+            ],
+            [
+                "OMICS Publishing Group",
+                0.855,
+                0.28,
+                0.769,
+                0.103
+            ],
+            [
                 "Illinois",
-                0.845,
+                0.842,
                 0.22,
                 1.0,
                 -0.064
             ],
             [
-                "Karachi",
-                0.827,
-                0.23,
-                0.712,
-                0.224
-            ],
-            [
                 "Seoul",
-                0.827,
+                0.828,
                 0.18,
                 0.781,
                 0.202
-            ],
-            [
-                "Chicago",
-                0.827,
-                0.23,
-                0.891,
-                0.04
-            ],
-            [
-                "Kingston, Jamaica",
-                0.827,
-                0.31,
-                0.599,
-                0.085
             ]
         ]
     },
@@ -6802,42 +6960,42 @@
         "candidates": [
             [
                 "Chicago",
-                0.82,
+                0.853,
                 0.67,
                 0.875,
                 0.261
             ],
             [
-                "Chicago Bears",
-                0.813,
-                0.74,
-                0.656,
-                0.07
-            ],
-            [
                 "Illinois",
-                0.836,
+                0.852,
                 0.18,
                 1.0,
                 0.232
             ],
             [
+                "Chicago Bears",
+                0.662,
+                0.74,
+                0.656,
+                0.07
+            ],
+            [
                 "Malaysia",
-                0.835,
+                0.852,
                 0.18,
                 0.868,
                 -0.048
             ],
             [
                 "House music",
-                0.851,
+                0.846,
                 0.16,
                 0.672,
                 -0.01
             ],
             [
                 "O'Hare International Airport",
-                0.744,
+                0.801,
                 0.24,
                 0.083,
                 0.378
@@ -6881,35 +7039,35 @@
         "candidates": [
             [
                 "LaGuardia Airport",
-                0.747,
+                0.748,
                 0.67,
                 1.0,
                 0.406
             ],
             [
                 "Fiorello La Guardia",
-                0.915,
+                0.916,
                 0.69,
                 0.614,
                 0.062
             ],
             [
                 "La Guardia de Ja\u00e9n",
-                0.833,
+                0.834,
                 0.71,
                 0.224,
                 0.114
             ],
             [
                 "Ernesto de la Guardia",
-                0.901,
+                0.902,
                 0.58,
                 0.224,
                 -0.034
             ],
             [
                 "Holy Child of La Guardia",
-                0.918,
+                0.919,
                 0.59,
                 0.093,
                 -0.007
@@ -6960,56 +7118,56 @@
         "candidates": [
             [
                 "New York City",
-                0.828,
+                0.843,
                 0.76,
                 0.975,
                 0.274
             ],
             [
                 "New York (state)",
-                0.735,
+                0.745,
                 0.67,
                 1.0,
                 0.23
             ],
             [
                 "New York Jets",
-                0.863,
+                0.877,
                 0.76,
                 0.263,
                 0.244
             ],
             [
                 "New York Giants",
-                0.863,
+                0.877,
                 0.7,
                 0.308,
                 0.183
             ],
             [
                 "Buffalo, New York",
-                0.828,
+                0.843,
                 0.64,
                 0.24,
                 0.227
             ],
             [
                 "New York Rangers",
-                0.838,
+                0.851,
                 0.67,
                 0.187,
                 0.195
             ],
             [
                 "Rochester, New York",
-                0.828,
+                0.843,
                 0.59,
                 0.128,
                 0.221
             ],
             [
                 "Syracuse, New York",
-                0.828,
+                0.843,
                 0.62,
                 0.053,
                 0.254
@@ -7039,49 +7197,49 @@
         "candidates": [
             [
                 "Los Angeles",
-                0.836,
+                0.872,
                 0.61,
                 0.899,
                 0.175
             ],
             [
                 "Los Angeles International Airport",
-                0.775,
+                0.795,
                 0.86,
                 0.352,
                 0.264
             ],
             [
                 "California",
-                0.807,
+                0.844,
                 0.29,
                 1.0,
                 0.103
             ],
             [
                 "Aviation/LAX station",
-                0.774,
+                0.799,
                 0.4,
                 0.199,
                 0.262
             ],
             [
                 "UCLA School of Law",
-                0.718,
+                0.775,
                 0.28,
                 0.364,
                 0.079
             ],
             [
                 "International Bilingual School",
-                0.718,
+                0.775,
                 0.47,
                 0.117,
                 -0.003
             ],
             [
                 "LA Auto Show",
-                0.733,
+                0.785,
                 0.27,
                 0.171,
                 0.123
@@ -7118,63 +7276,63 @@
         "candidates": [
             [
                 "Burbank, California",
-                0.847,
+                0.848,
                 0.54,
                 1.0,
                 0.077
             ],
             [
                 "The Burbank Studios",
-                0.858,
+                0.86,
                 0.54,
                 0.455,
                 0.078
             ],
             [
                 "Hollywood Burbank Airport",
-                0.845,
+                0.846,
                 0.44,
                 0.212,
                 0.279
             ],
             [
                 "Russet Burbank",
-                0.914,
+                0.915,
                 0.67,
                 0.139,
                 0.016
             ],
             [
                 "Burbank, Illinois",
-                0.847,
+                0.848,
                 0.58,
                 0.156,
                 0.14
             ],
             [
                 "Burbank Airport\u2013South station",
-                0.843,
+                0.844,
                 0.39,
                 0.212,
                 0.246
             ],
             [
                 "Daniel C. Burbank",
-                0.992,
+                0.994,
                 0.58,
                 0.0,
                 -0.01
             ],
             [
                 "Burbank, Washington",
-                0.857,
+                0.858,
                 0.54,
                 0.03,
                 0.08
             ],
             [
                 "Stone Sour",
-                0.888,
+                0.891,
                 0.24,
                 0.468,
                 -0.108
@@ -7197,28 +7355,28 @@
         "candidates": [
             [
                 "John Wayne Airport",
-                0.719,
+                0.739,
                 1.0,
                 0.338,
                 0.209
             ],
             [
                 "Chicago",
-                0.784,
+                0.796,
                 0.24,
                 1.0,
                 0.177
             ],
             [
                 "Detroit",
-                0.784,
+                0.796,
                 0.32,
                 0.927,
                 0.027
             ],
             [
                 "Seoul",
-                0.784,
+                0.796,
                 0.17,
                 0.921,
                 0.174
@@ -7232,14 +7390,14 @@
             ],
             [
                 "Karachi",
-                0.784,
+                0.796,
                 0.16,
                 0.872,
                 0.016
             ],
             [
                 "Detroit Metropolitan Airport",
-                0.719,
+                0.739,
                 0.52,
                 0.404,
                 0.175
@@ -7276,70 +7434,70 @@
         "candidates": [
             [
                 "Orange County, California",
-                0.745,
+                0.748,
                 0.68,
                 0.877,
                 0.12
             ],
             [
                 "Orange County SC",
-                0.909,
+                0.915,
                 0.9,
                 0.468,
                 0.028
             ],
             [
                 "Orange County Blue Star",
-                0.909,
+                0.915,
                 0.72,
                 0.541,
                 0.049
             ],
             [
-                "Orange County, New York",
-                0.745,
-                0.72,
-                0.374,
-                0.163
-            ],
-            [
                 "Orange, New Jersey",
-                0.835,
+                0.848,
                 0.52,
                 0.543,
                 0.102
             ],
             [
+                "Orange County, New York",
+                0.748,
+                0.72,
+                0.374,
+                0.163
+            ],
+            [
                 "Ska",
-                0.89,
+                0.899,
                 0.12,
                 1.0,
                 -0.027
             ],
             [
                 "Middletown, Orange County, New York",
-                0.834,
+                0.848,
                 0.54,
                 0.294,
                 0.12
             ],
             [
                 "Orange County, Florida",
-                0.745,
+                0.748,
                 0.74,
                 0.07,
                 0.111
             ],
             [
                 "Orange County, Indiana",
-                0.745,
+                0.748,
                 0.74,
                 0.022,
                 0.085
             ],
             [
                 "Orange County, Virginia",
-                0.745,
+                0.748,
                 0.72,
                 0.0,
                 0.062
@@ -7355,70 +7513,70 @@
         "candidates": [
             [
                 "California",
-                0.743,
+                0.747,
                 0.67,
                 1.0,
                 0.103
             ],
             [
                 "Los Angeles",
-                0.838,
+                0.855,
                 0.12,
                 0.814,
                 0.175
             ],
             [
                 "Oakland, California",
-                0.83,
+                0.846,
                 0.42,
                 0.434,
                 0.082
             ],
             [
                 "San Francisco",
-                0.83,
+                0.846,
                 0.22,
                 0.589,
                 0.109
             ],
             [
                 "Columbia Pictures",
-                0.875,
+                0.866,
                 0.27,
                 0.57,
                 0.007
             ],
             [
                 "Santa Monica, California",
-                0.83,
+                0.846,
                 0.34,
                 0.388,
                 0.108
             ],
             [
                 "Burbank, California",
-                0.83,
+                0.846,
                 0.42,
                 0.271,
                 0.077
             ],
             [
                 "San Diego",
-                0.838,
+                0.855,
                 0.29,
                 0.42,
                 0.039
             ],
             [
                 "Santa Barbara, California",
-                0.83,
+                0.846,
                 0.33,
                 0.293,
                 0.077
             ],
             [
                 "Stanford, California",
-                0.838,
+                0.855,
                 0.4,
                 0.0,
                 0.004
@@ -7429,57 +7587,50 @@
         "entity_label": "Westchester County Airport",
         "start_position": 697,
         "end_position": 723,
-        "correct_prediction": true,
-        "matching_candidate_index": 0,
+        "correct_prediction": false,
+        "matching_candidate_index": 1,
         "candidates": [
             [
+                "Westchester County, New York",
+                0.84,
+                0.78,
+                0.539,
+                0.163
+            ],
+            [
                 "Westchester County Airport",
-                0.732,
+                0.749,
                 1.0,
                 0.217,
                 0.219
             ],
             [
                 "California",
-                0.78,
+                0.84,
                 0.22,
                 1.0,
                 0.103
             ],
             [
                 "Chicago",
-                0.789,
+                0.826,
                 0.18,
                 0.862,
                 0.177
             ],
             [
-                "Seoul",
-                0.789,
-                0.19,
-                0.794,
-                0.174
-            ],
-            [
-                "Gothenburg",
-                0.789,
-                0.28,
-                0.687,
-                0.182
-            ],
-            [
                 "The Bronx",
-                0.796,
+                0.838,
                 0.29,
                 0.679,
                 0.105
             ],
             [
-                "Karachi",
-                0.789,
-                0.18,
-                0.751,
-                0.016
+                "White Plains, New York",
+                0.826,
+                0.38,
+                0.552,
+                0.091
             ],
             [
                 "Unincorporated area",
@@ -7487,6 +7638,13 @@
                 0.31,
                 0.976,
                 0.07
+            ],
+            [
+                "Civil township",
+                0,
+                0.25,
+                0.84,
+                0.081
             ],
             [
                 "Westchester County Airport",
@@ -7508,47 +7666,47 @@
         "entity_label": "JFK",
         "start_position": 735,
         "end_position": 738,
-        "correct_prediction": true,
-        "matching_candidate_index": 0,
+        "correct_prediction": false,
+        "matching_candidate_index": 1,
         "candidates": [
             [
-                "John F. Kennedy International Airport",
-                0.96,
-                0.15,
-                0.727,
-                0.386
-            ],
-            [
                 "John F. Kennedy",
-                0.707,
+                0.843,
                 0.33,
                 1.0,
                 0.186
             ],
             [
+                "John F. Kennedy International Airport",
+                0.811,
+                0.15,
+                0.727,
+                0.386
+            ],
+            [
                 "JFK Olimps",
-                0.925,
+                0.737,
                 0.46,
                 0.543,
                 0.104
             ],
             [
                 "AirTrain JFK",
-                0.964,
+                0.844,
                 0.4,
                 0.304,
                 0.276
             ],
             [
                 "JFK/UMass station",
-                0.956,
+                0.815,
                 0.3,
                 0.033,
                 0.164
             ],
             [
                 "Ramada Plaza JFK Hotel",
-                0.951,
+                0.821,
                 0.24,
                 0.0,
                 0.229
@@ -7599,14 +7757,14 @@
             ],
             [
                 "Cairo University",
-                0.865,
+                0.866,
                 0.48,
                 0.456,
                 0.437
             ],
             [
                 "Al Ahly SC",
-                0.915,
+                0.916,
                 0.13,
                 0.778,
                 0.295
@@ -7627,7 +7785,7 @@
             ],
             [
                 "Al Nasr SC (Egypt)",
-                0.915,
+                0.916,
                 0.17,
                 0.283,
                 0.311
@@ -7671,49 +7829,49 @@
         "candidates": [
             [
                 "Egypt",
-                0.826,
+                0.835,
                 1.0,
                 1.0,
                 0.497
             ],
             [
                 "Egypt national football team",
-                0.903,
+                0.914,
                 0.3,
                 0.679,
                 0.368
             ],
             [
                 "Cairo",
-                0.838,
+                0.847,
                 0.0,
                 0.773,
                 0.472
             ],
             [
                 "Kingdom of Egypt",
-                0.826,
+                0.835,
                 0.48,
                 0.177,
                 0.444
             ],
             [
                 "Egypt Eyalet",
-                0.826,
+                0.835,
                 0.59,
                 0.0,
                 0.324
             ],
             [
                 "Alexandria",
-                0.838,
+                0.847,
                 0.0,
                 0.472,
                 0.386
             ],
             [
                 "Egypt national under-23 football team",
-                0.903,
+                0.914,
                 0.24,
                 0.142,
                 0.283
@@ -7750,28 +7908,28 @@
         "candidates": [
             [
                 "Andhra Pradesh",
-                0.898,
+                0.883,
                 0.25,
                 1.0,
                 0.065
             ],
             [
                 "Hyderabad",
-                0.877,
+                0.864,
                 0.0,
                 0.747,
                 0.089
             ],
             [
                 "Telugu cinema",
-                0.653,
+                0.655,
                 0.0,
                 0.666,
                 0.065
             ],
             [
                 "Leamington F.C.",
-                0.697,
+                0.699,
                 0.0,
                 0.495,
                 -0.074
@@ -7785,14 +7943,14 @@
             ],
             [
                 "Santos Futebol Clube (AP)",
-                0.697,
+                0.699,
                 0.15,
                 0.124,
                 0.077
             ],
             [
                 "Llywelyn ap Gruffudd",
-                0.878,
+                0.864,
                 0.0,
                 0.137,
                 0.024
@@ -7836,7 +7994,7 @@
             ],
             [
                 "Syria national football team",
-                0.915,
+                0.916,
                 0.3,
                 0.498,
                 0.349
@@ -7850,28 +8008,28 @@
             ],
             [
                 "Syria (region)",
-                0.857,
+                0.858,
                 0.53,
                 0.038,
                 0.381
             ],
             [
                 "Al-Jaish SC (Syria)",
-                0.915,
+                0.916,
                 0.42,
                 0.144,
                 0.297
             ],
             [
                 "Syria national under-20 football team",
-                0.915,
+                0.916,
                 0.24,
                 0.325,
                 0.273
             ],
             [
                 "Arab Socialist Ba'ath Party \u2013 Syria Region",
-                0.863,
+                0.864,
                 0.21,
                 0.226,
                 0.425
@@ -7922,14 +8080,14 @@
             ],
             [
                 "Iraq War",
-                0.943,
+                0.944,
                 0.67,
                 0.378,
                 0.32
             ],
             [
                 "Iran\u2013Iraq War",
-                0.943,
+                0.944,
                 0.47,
                 0.185,
                 0.275
@@ -7957,7 +8115,7 @@
             ],
             [
                 "2003 invasion of Iraq",
-                0.943,
+                0.944,
                 0.32,
                 0.043,
                 0.254
@@ -7979,6 +8137,85 @@
         ]
     },
     {
+        "entity_label": "West Bank",
+        "start_position": 457,
+        "end_position": 466,
+        "correct_prediction": false,
+        "matching_candidate_index": 4,
+        "candidates": [
+            [
+                "State of Palestine",
+                0.825,
+                0.3,
+                0.933,
+                0.349
+            ],
+            [
+                "Beirut",
+                0.837,
+                0.27,
+                1.0,
+                0.298
+            ],
+            [
+                "Palestine national football team",
+                0.902,
+                0.29,
+                0.705,
+                0.286
+            ],
+            [
+                "Glam metal",
+                0.888,
+                0.32,
+                0.917,
+                -0.052
+            ],
+            [
+                "West Bank",
+                0,
+                1.0,
+                0.621,
+                0.318
+            ],
+            [
+                "West Bank Premier League",
+                0.902,
+                0.55,
+                0.171,
+                0.25
+            ],
+            [
+                "Jordanian annexation of the West Bank",
+                0.825,
+                0.39,
+                0.334,
+                0.298
+            ],
+            [
+                "Ipswich",
+                0.837,
+                0.12,
+                0.824,
+                -0.019
+            ],
+            [
+                "Israeli West Bank barrier",
+                0,
+                0.53,
+                0.317,
+                0.229
+            ],
+            [
+                "Israeli occupation of the West Bank",
+                0,
+                0.41,
+                0.0,
+                0.33
+            ]
+        ]
+    },
+    {
         "entity_label": "Gaza Strip",
         "start_position": 467,
         "end_position": 477,
@@ -7987,21 +8224,21 @@
         "candidates": [
             [
                 "Gaza Strip",
-                0.819,
+                0.833,
                 1.0,
                 0.684,
                 0.341
             ],
             [
                 "State of Palestine",
-                0.819,
+                0.833,
                 0.29,
                 1.0,
                 0.349
             ],
             [
                 "Gaza War (2008\u20132009)",
-                0.925,
+                0.942,
                 0.4,
                 0.478,
                 0.044
@@ -8115,7 +8352,7 @@
             ],
             [
                 "Anglican Diocese of Jerusalem",
-                0.732,
+                0.731,
                 0.47,
                 0.063,
                 0.184
@@ -8137,6 +8374,85 @@
         ]
     },
     {
+        "entity_label": "America",
+        "start_position": 36,
+        "end_position": 43,
+        "correct_prediction": false,
+        "matching_candidate_index": 1,
+        "candidates": [
+            [
+                "Americans",
+                0.907,
+                0.88,
+                0.443,
+                0.044
+            ],
+            [
+                "United States",
+                0.849,
+                0.2,
+                1.0,
+                0.185
+            ],
+            [
+                "California",
+                0.796,
+                0.35,
+                0.68,
+                -0.021
+            ],
+            [
+                "Democratic Party (United States)",
+                0.854,
+                0.26,
+                0.634,
+                -0.068
+            ],
+            [
+                "North America",
+                0.845,
+                0.7,
+                0.0,
+                0.127
+            ],
+            [
+                "British America",
+                0.849,
+                0.64,
+                0.015,
+                0.056
+            ],
+            [
+                "Confederate States of America",
+                0.849,
+                0.39,
+                0.075,
+                -0.05
+            ],
+            [
+                "Eastern Time Zone",
+                0,
+                0.25,
+                0.608,
+                0.078
+            ],
+            [
+                "Central Time Zone",
+                0,
+                0.25,
+                0.503,
+                0.017
+            ],
+            [
+                "Parade All-America Boys Basketball Team",
+                0,
+                0.3,
+                0.105,
+                -0.046
+            ]
+        ]
+    },
+    {
         "entity_label": "Madeleine Albright",
         "start_position": 126,
         "end_position": 144,
@@ -8145,35 +8461,35 @@
         "candidates": [
             [
                 "Madeleine Albright",
-                0.702,
+                0.703,
                 1.0,
                 0.727,
                 0.389
             ],
             [
                 "Bas-Saint-Laurent",
-                1.023,
+                1.026,
                 0.29,
                 1.0,
                 0.046
             ],
             [
                 "Gasp\u00e9sie\u2013\u00celes-de-la-Madeleine",
-                1.023,
+                1.026,
                 0.38,
                 0.832,
                 0.056
             ],
             [
                 "Condoleezza Rice",
-                0.702,
+                0.703,
                 0.35,
                 0.722,
                 0.346
             ],
             [
                 "Madeleine Korbel Albright Institute for Global Affairs",
-                0.914,
+                0.916,
                 0.5,
                 0.218,
                 0.079
@@ -8273,7 +8589,7 @@
             ],
             [
                 "Yale Bulldogs",
-                0.627,
+                0.628,
                 0.43,
                 0.23,
                 0.064
@@ -8303,35 +8619,35 @@
         "candidates": [
             [
                 "Richard Levinson",
-                0.703,
+                0.708,
                 0.9,
                 0.434,
                 0.206
             ],
             [
                 "Rick Levin",
-                0.701,
+                0.703,
                 0.78,
                 0.143,
                 0.488
             ],
             [
                 "Richard Levine",
-                0.727,
+                0.737,
                 0.96,
                 0.0,
                 0.215
             ],
             [
                 "Richard Levins",
-                0.727,
+                0.737,
                 0.96,
                 0.0,
                 0.204
             ],
             [
                 "Sir Richard Levinge, 1st Baronet",
-                0.76,
+                0.766,
                 0.58,
                 0.0,
                 0.19
@@ -8382,56 +8698,56 @@
         "candidates": [
             [
                 "Soviet Union",
-                0.843,
+                0.838,
                 1.0,
                 1.0,
                 -0.094
             ],
             [
                 "Soviet Army",
-                0.888,
+                0.885,
                 0.61,
                 0.27,
                 0.019
             ],
             [
                 "Moscow",
-                0.771,
+                0.756,
                 0.22,
                 0.873,
                 -0.096
             ],
             [
                 "Communist Party of the Soviet Union",
-                0.864,
+                0.863,
                 0.51,
                 0.363,
                 -0.039
             ],
             [
                 "Soviet Union national football team",
-                0.922,
+                0.917,
                 0.51,
                 0.198,
                 0.044
             ],
             [
                 "Operation Barbarossa",
-                0.94,
+                0.943,
                 0.31,
                 0.34,
                 0.062
             ],
             [
                 "Eastern Front (World War II)",
-                0.94,
+                0.943,
                 0.2,
                 0.42,
                 0.047
             ],
             [
                 "Red Army",
-                0.888,
+                0.885,
                 0.2,
                 0.496,
                 -0.08
@@ -8547,14 +8863,14 @@
             ],
             [
                 "Amsterdamsche FC",
-                0.916,
+                0.915,
                 0.72,
                 0.429,
                 -0.003
             ],
             [
                 "AFC Ajax",
-                0.916,
+                0.915,
                 0.24,
                 0.878,
                 -0.04
@@ -8568,14 +8884,14 @@
             ],
             [
                 "FC Amsterdam",
-                0.916,
+                0.915,
                 0.86,
                 0.0,
                 -0.027
             ],
             [
                 "Blauw-Wit Amsterdam",
-                0.916,
+                0.915,
                 0.64,
                 0.203,
                 -0.014
@@ -8589,7 +8905,7 @@
             ],
             [
                 "AFC DWS",
-                0.916,
+                0.915,
                 0.12,
                 0.346,
                 0.06
@@ -8626,7 +8942,7 @@
             ],
             [
                 "F.C. Copenhagen",
-                0.915,
+                0.916,
                 0.8,
                 0.627,
                 0.006
@@ -8640,21 +8956,21 @@
             ],
             [
                 "Boldklubben Frem",
-                0.915,
+                0.916,
                 0.31,
                 0.511,
                 0.092
             ],
             [
                 "Boldklubben af 1893",
-                0.915,
+                0.916,
                 0.28,
                 0.457,
                 0.13
             ],
             [
                 "Akademisk Boldklub",
-                0.915,
+                0.916,
                 0.14,
                 0.555,
                 0.097
@@ -8668,14 +8984,14 @@
             ],
             [
                 "Battle of Copenhagen (1807)",
-                0.945,
+                0.946,
                 0.54,
                 0.0,
                 0.064
             ],
             [
                 "F.C. Copenhagen Reserves and Youth Team",
-                0.915,
+                0.916,
                 0.41,
                 0.167,
                 -0.008
@@ -8777,42 +9093,42 @@
         "candidates": [
             [
                 "Iran",
-                0.968,
+                0.967,
                 0.16,
                 0.961,
                 -0.016
             ],
             [
                 "United Arab Emirates",
-                0.968,
+                0.967,
                 0.34,
                 0.493,
                 0.133
             ],
             [
                 "Syria",
-                0.968,
+                0.967,
                 0.15,
                 0.597,
                 0.074
             ],
             [
                 "Morocco",
-                0.968,
+                0.967,
                 0.14,
                 0.564,
                 0.086
             ],
             [
                 "Lebanon",
-                0.968,
+                0.967,
                 0.14,
                 0.526,
                 0.088
             ],
             [
                 "Yemen",
-                0.968,
+                0.967,
                 0.0,
                 0.502,
                 0.093
@@ -8927,6 +9243,85 @@
         ]
     },
     {
+        "entity_label": "Grosse Pointe Park",
+        "start_position": 42,
+        "end_position": 60,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "Grosse Pointe Park, Michigan",
+                0.754,
+                0.78,
+                0.365,
+                0.381
+            ],
+            [
+                "Queen's Park F.C.",
+                0.775,
+                0.4,
+                0.848,
+                0.154
+            ],
+            [
+                "Scotland national football team",
+                0.775,
+                0.29,
+                0.968,
+                0.096
+            ],
+            [
+                "Brentford F.C.",
+                0.775,
+                0.31,
+                0.956,
+                0.043
+            ],
+            [
+                "Sydney",
+                0.754,
+                0.17,
+                1.0,
+                -0.007
+            ],
+            [
+                "Innisfil",
+                0.759,
+                0.15,
+                0.442,
+                0.105
+            ],
+            [
+                "Grosse Pointe Park",
+                0,
+                1.0,
+                0.0,
+                0.1
+            ],
+            [
+                "Grosse Pointe Park",
+                0,
+                1.0,
+                0.0,
+                0.1
+            ],
+            [
+                "List of named highway junctions in Utah",
+                0,
+                0.28,
+                0.542,
+                0.098
+            ],
+            [
+                "Grosse Pointe Park (Michigan)",
+                0,
+                0.77,
+                0.0,
+                0.1
+            ]
+        ]
+    },
+    {
         "entity_label": "New York",
         "start_position": 595,
         "end_position": 603,
@@ -8935,56 +9330,56 @@
         "candidates": [
             [
                 "New York City",
-                0.84,
+                0.848,
                 0.76,
                 0.975,
                 0.053
             ],
             [
                 "New York (state)",
-                0.745,
+                0.748,
                 0.67,
                 1.0,
                 0.101
             ],
             [
                 "New York Jets",
-                0.875,
+                0.882,
                 0.76,
                 0.263,
                 0.066
             ],
             [
                 "New York Giants",
-                0.875,
+                0.882,
                 0.7,
                 0.308,
                 0.073
             ],
             [
                 "Buffalo, New York",
-                0.84,
+                0.848,
                 0.64,
                 0.24,
                 0.232
             ],
             [
                 "New York Rangers",
-                0.849,
+                0.854,
                 0.67,
                 0.187,
                 0.131
             ],
             [
                 "Rochester, New York",
-                0.84,
+                0.848,
                 0.59,
                 0.128,
                 0.186
             ],
             [
                 "Syracuse, New York",
-                0.84,
+                0.848,
                 0.62,
                 0.053,
                 0.158
@@ -9028,7 +9423,7 @@
             ],
             [
                 "Harrisburg, Pennsylvania",
-                0.857,
+                0.858,
                 0.67,
                 0.103,
                 0.029
@@ -9093,70 +9488,70 @@
         "candidates": [
             [
                 "Detroit",
-                0.828,
+                0.847,
                 1.0,
                 1.0,
                 -0.021
             ],
             [
                 "Detroit Lions",
-                0.837,
+                0.881,
                 0.7,
                 0.89,
                 0.092
             ],
             [
                 "Detroit Tigers",
-                0.829,
+                0.871,
                 0.67,
                 0.704,
                 0.075
             ],
             [
                 "Detroit Red Wings",
-                0.814,
+                0.854,
                 0.58,
                 0.755,
                 0.015
             ],
             [
                 "Detroit Pistons",
-                0.814,
+                0.854,
                 0.64,
                 0.621,
                 -0.03
             ],
             [
                 "Detroit Express",
-                0.871,
+                0.915,
                 0.64,
                 0.21,
                 0.026
             ],
             [
                 "Detroit City FC",
-                0.871,
+                0.915,
                 0.64,
                 0.09,
                 0.064
             ],
             [
                 "Metro Detroit",
-                0.838,
+                0.857,
                 0.7,
                 0.145,
                 -0.019
             ],
             [
                 "Detroit Shock",
-                0.814,
+                0.854,
                 0.7,
                 0.155,
                 -0.044
             ],
             [
                 "Detroit Diesel",
-                0.824,
+                0.865,
                 0.67,
                 0.0,
                 -0.006
@@ -9172,42 +9567,42 @@
         "candidates": [
             [
                 "Washington, D.C.",
-                0.845,
+                0.848,
                 0.77,
                 1.0,
                 0.076
             ],
             [
                 "Washington (state)",
-                0.746,
+                0.748,
                 0.71,
                 0.786,
                 0.06
             ],
             [
                 "Washington Capitals",
-                0.852,
+                0.855,
                 0.69,
                 0.418,
                 -0.056
             ],
             [
                 "Tacoma, Washington",
-                0.845,
+                0.848,
                 0.71,
                 0.346,
                 -0.014
             ],
             [
                 "Spokane, Washington",
-                0.845,
+                0.848,
                 0.69,
                 0.338,
                 -0.105
             ],
             [
                 "Seattle",
-                0.845,
+                0.848,
                 0.24,
                 0.647,
                 -0.019
@@ -9251,35 +9646,35 @@
         "candidates": [
             [
                 "Baltimore",
-                0.846,
+                0.849,
                 1.0,
                 1.0,
                 0.05
             ],
             [
                 "Baltimore Ravens",
-                0.879,
+                0.873,
                 0.72,
                 0.803,
                 -0.03
             ],
             [
                 "Baltimore Orioles",
-                0.87,
+                0.864,
                 0.69,
                 0.602,
                 0.097
             ],
             [
                 "Baltimore Blast",
-                0.913,
+                0.908,
                 0.75,
                 0.308,
                 0.028
             ],
             [
                 "Baltimore County, Maryland",
-                0.747,
+                0.752,
                 0.51,
                 0.183,
                 0.059
@@ -9330,7 +9725,7 @@
         "candidates": [
             [
                 "Johns Hopkins University Press",
-                0.676,
+                0.693,
                 0.89,
                 0.559,
                 0.069
@@ -9344,28 +9739,28 @@
             ],
             [
                 "Johns Hopkins Hospital",
-                0.797,
+                0.822,
                 0.74,
                 0.291,
                 0.051
             ],
             [
                 "Johns Hopkins School of Medicine",
-                0.713,
+                0.731,
                 0.57,
                 0.523,
                 0.053
             ],
             [
                 "The Johns Hopkins University SAIS Europe",
-                0.713,
+                0.731,
                 0.75,
                 0.0,
                 -0.072
             ],
             [
                 "Paul H. Nitze School of Advanced International Studies",
-                0.713,
+                0.731,
                 0.26,
                 0.463,
                 -0.059
@@ -9409,28 +9804,28 @@
         "candidates": [
             [
                 "English language",
-                0.865,
+                0.889,
                 0.2,
                 1.0,
                 -0.032
             ],
             [
                 "San Lorenzo de Almagro",
-                0.914,
+                0.952,
                 0.39,
                 0.651,
                 -0.081
             ],
             [
                 "Lower Canada",
-                0.931,
+                0.965,
                 0.31,
                 0.553,
                 -0.018
             ],
             [
                 "Mordella",
-                0.918,
+                0.95,
                 0.18,
                 0.592,
                 0.042
@@ -9451,7 +9846,7 @@
             ],
             [
                 "Robert Tripe",
-                0.7,
+                0.706,
                 0.46,
                 0.0,
                 -0.038
@@ -9488,7 +9883,7 @@
         "candidates": [
             [
                 "Montenegro",
-                0.968,
+                0.969,
                 0.29,
                 1.0,
                 -0.174
@@ -9646,49 +10041,49 @@
         "candidates": [
             [
                 "Gaza City",
-                0.787,
+                0.848,
                 0.62,
                 0.828,
                 0.46
             ],
             [
                 "Gaza Strip",
-                0.767,
+                0.827,
                 0.57,
                 1.0,
                 0.335
             ],
             [
                 "Gaza\u2013Israel conflict",
-                0.86,
+                0.934,
                 0.33,
                 0.215,
                 0.386
             ],
             [
                 "Second Battle of Gaza",
-                0.86,
+                0.934,
                 0.32,
                 0.14,
                 0.413
             ],
             [
-                "Gaza Province",
-                0.694,
-                0.47,
-                0.124,
-                0.371
-            ],
-            [
                 "First Battle of Gaza",
-                0.86,
+                0.934,
                 0.33,
                 0.108,
                 0.36
             ],
             [
+                "Gaza Province",
+                0.741,
+                0.47,
+                0.124,
+                0.371
+            ],
+            [
                 "Gaza War (2008\u20132009)",
-                0.86,
+                0.934,
                 0.33,
                 0.321,
                 0.059
@@ -9725,42 +10120,42 @@
         "candidates": [
             [
                 "AFC Ajax",
-                0.703,
+                0.748,
                 0.36,
                 0.937,
                 -0.011
             ],
             [
                 "Sunderland A.F.C.",
-                0.703,
+                0.748,
                 0.2,
                 1.0,
                 -0.057
             ],
             [
                 "AFC Wimbledon",
-                0.703,
+                0.748,
                 0.25,
                 0.806,
                 -0.021
             ],
             [
                 "Armed Forces of the Philippines",
-                0.7,
+                0.77,
                 0.18,
                 0.463,
                 0.168
             ],
             [
                 "Alpha-fetoprotein",
-                0.893,
+                0.889,
                 0.1,
                 0.345,
                 0.155
             ],
             [
                 "Agence France-Presse",
-                0.66,
+                0.742,
                 0.26,
                 0.356,
                 0.06
@@ -9883,35 +10278,35 @@
         "candidates": [
             [
                 "Time Warner Cable",
-                0.652,
+                0.651,
                 0.79,
                 0.102,
                 0.429
             ],
             [
                 "Time Warner Interactive",
-                0.652,
+                0.651,
                 0.65,
                 0.095,
                 0.439
             ],
             [
                 "Cartoon Network",
-                0.782,
+                0.779,
                 0.38,
                 0.383,
                 0.276
             ],
             [
                 "Spectrum SportsNet (Los Angeles)",
-                0.782,
+                0.779,
                 0.23,
                 0.008,
                 0.366
             ],
             [
                 "Hachette Book Group",
-                0.692,
+                0.69,
                 0.2,
                 0.174,
                 0.27
@@ -9932,7 +10327,7 @@
             ],
             [
                 "Spectrum Sports",
-                0.782,
+                0.779,
                 0.23,
                 0.0,
                 0.228
@@ -9969,49 +10364,49 @@
             ],
             [
                 "Boston Bruins",
-                0.853,
+                0.855,
                 0.63,
                 0.719,
                 0.046
             ],
             [
                 "Boston United F.C.",
-                0.914,
+                0.916,
                 0.5,
                 0.703,
                 0.039
             ],
             [
                 "Boston Celtics",
-                0.853,
+                0.855,
                 0.6,
                 0.547,
                 0.113
             ],
             [
                 "Boston Red Sox",
-                0.871,
+                0.872,
                 0.6,
                 0.594,
                 0.039
             ],
             [
                 "Boston Breakers",
-                0.914,
+                0.916,
                 0.57,
                 0.193,
                 0.031
             ],
             [
                 "Boston River",
-                0.914,
+                0.916,
                 0.67,
                 0.0,
                 0.044
             ],
             [
                 "Massachusetts Bay Transportation Authority",
-                0.846,
+                0.847,
                 0.21,
                 0.34,
                 0.156
@@ -10041,35 +10436,35 @@
         "candidates": [
             [
                 "United States",
-                0.892,
+                0.902,
                 0.3,
                 1.0,
                 -0.048
             ],
             [
                 "AllianceBernstein",
-                0.775,
+                0.739,
                 0.59,
                 0.0,
                 0.321
             ],
             [
                 "Nepal",
-                0.892,
+                0.902,
                 0.08,
                 0.662,
                 -0.074
             ],
             [
                 "C (programming language)",
-                0.89,
+                0.911,
                 0.23,
                 0.479,
                 -0.063
             ],
             [
                 "C++",
-                0.89,
+                0.911,
                 0.09,
                 0.485,
                 0.01
@@ -10120,56 +10515,56 @@
         "candidates": [
             [
                 "United States",
-                0.85,
+                0.861,
                 0.39,
                 1.0,
                 0.008
             ],
             [
                 "Australia",
-                0.85,
+                0.861,
                 0.3,
                 0.859,
                 0.016
             ],
             [
                 "Masovian Voivodeship",
-                0.873,
+                0.884,
                 0.37,
                 0.706,
                 0.018
             ],
             [
                 "Italy",
-                0.85,
+                0.861,
                 0.26,
                 0.848,
                 -0.058
             ],
             [
                 "Poland",
-                0.85,
+                0.861,
                 0.08,
                 0.915,
                 0.018
             ],
             [
                 "Czech Republic",
-                0.85,
+                0.861,
                 0.25,
                 0.705,
                 -0.124
             ],
             [
                 "Finland",
-                0.85,
+                0.861,
                 0.16,
                 0.68,
                 -0.08
             ],
             [
                 "Moscow",
-                0.849,
+                0.861,
                 0.08,
                 0.675,
                 0.003
@@ -10199,7 +10594,7 @@
         "candidates": [
             [
                 "Roger Waters",
-                0.811,
+                0.812,
                 0.64,
                 0.727,
                 0.095
@@ -10213,42 +10608,42 @@
             ],
             [
                 "Providence, Rhode Island",
-                0.949,
+                0.951,
                 0.27,
                 1.0,
                 0.016
             ],
             [
                 "Spinnin' Records",
-                0.935,
+                0.936,
                 0.21,
                 0.763,
                 0.204
             ],
             [
                 "The Who",
-                0.934,
+                0.935,
                 0.2,
                 0.776,
                 0.148
             ],
             [
                 "Farrar, Straus and Giroux",
-                0.932,
+                0.933,
                 0.16,
                 0.768,
                 0.192
             ],
             [
                 "Queen (band)",
-                0.934,
+                0.935,
                 0.24,
                 0.761,
                 0.022
             ],
             [
                 "Shrewsbury",
-                0.955,
+                0.956,
                 0.17,
                 0.773,
                 -0.03
@@ -10285,28 +10680,28 @@
             ],
             [
                 "Merrill Lynch, Pierce, Fenner & Smith, Inc. v. Dabit",
-                0.872,
+                0.873,
                 0.4,
                 0.406,
                 0.229
             ],
             [
                 "BofA Securities",
-                0.695,
+                0.694,
                 0.21,
                 0.256,
                 0.322
             ],
             [
                 "Merrill Lynch, Pierce, Fenner & Smith Inc. v. Manning",
-                0.872,
+                0.873,
                 0.39,
                 0.0,
                 0.153
             ],
             [
                 "QBE Shootout",
-                0.758,
+                0.757,
                 0.16,
                 0.555,
                 -0.073
@@ -10327,7 +10722,7 @@
             ],
             [
                 "Euro-Cup",
-                0.807,
+                0.806,
                 0.1,
                 0.338,
                 0.007
@@ -10436,7 +10831,7 @@
         "candidates": [
             [
                 "Washington, D.C.",
-                0.847,
+                0.848,
                 0.77,
                 1.0,
                 -0.019
@@ -10450,28 +10845,28 @@
             ],
             [
                 "Washington Capitals",
-                0.851,
+                0.854,
                 0.69,
                 0.418,
                 0.141
             ],
             [
                 "Tacoma, Washington",
-                0.847,
+                0.848,
                 0.71,
                 0.346,
                 0.014
             ],
             [
                 "Spokane, Washington",
-                0.847,
+                0.848,
                 0.69,
                 0.338,
                 -0.008
             ],
             [
                 "Seattle",
-                0.847,
+                0.848,
                 0.24,
                 0.647,
                 0.065
@@ -10515,56 +10910,56 @@
         "candidates": [
             [
                 "United States",
-                0.876,
+                0.875,
                 0.31,
                 1.0,
                 0.019
             ],
             [
                 "Australia",
-                0.876,
+                0.875,
                 0.45,
                 0.876,
                 0.001
             ],
             [
                 "Canada",
-                0.876,
+                0.875,
                 0.42,
                 0.858,
                 0.003
             ],
             [
                 "California",
-                0.875,
+                0.874,
                 0.35,
                 0.833,
                 0.03
             ],
             [
                 "Poland",
-                0.876,
+                0.875,
                 0.21,
                 0.925,
                 0.013
             ],
             [
                 "Italy",
-                0.876,
+                0.875,
                 0.33,
                 0.866,
                 -0.068
             ],
             [
                 "Masovian Voivodeship",
-                0.901,
+                0.899,
                 0.24,
                 0.741,
                 0.043
             ],
             [
                 "Janus Capital Group, Inc. v. First Derivative Traders",
-                0.872,
+                0.871,
                 0.39,
                 0.0,
                 0.188
@@ -10608,7 +11003,7 @@
             ],
             [
                 "Comcast Network",
-                0.784,
+                0.785,
                 0.64,
                 0.041,
                 0.341
@@ -10643,14 +11038,14 @@
             ],
             [
                 "Comcast/Charter Sports Southeast",
-                0.784,
+                0.785,
                 0.36,
                 0.022,
                 0.315
             ],
             [
                 "NBC Sports Regional Networks",
-                0.784,
+                0.785,
                 0.23,
                 0.159,
                 0.291
@@ -10673,21 +11068,21 @@
         "candidates": [
             [
                 "Bandar Seri Begawan",
-                0.926,
+                0.949,
                 1.0,
                 0.839,
                 0.22
             ],
             [
                 "Pusat Bandar, Brunei",
-                0.921,
+                0.943,
                 0.46,
                 0.289,
                 0.119
             ],
             [
                 "1999 Southeast Asian Games",
-                0.926,
+                0.947,
                 0.27,
                 0.349,
                 0.19
@@ -10910,70 +11305,70 @@
         "candidates": [
             [
                 "BBC News",
-                0.65,
+                0.656,
                 1.0,
                 0.919,
                 0.095
             ],
             [
                 "BBC World News",
-                0.777,
+                0.785,
                 0.73,
                 0.887,
                 0.135
             ],
             [
                 "BBC World Service",
-                0.741,
+                0.748,
                 0.4,
                 1.0,
                 0.121
             ],
             [
                 "BBC News (TV channel)",
-                0.777,
+                0.785,
                 0.55,
                 0.736,
                 0.124
             ],
             [
                 "BBC Online",
-                0.831,
+                0.838,
                 0.56,
                 0.618,
                 0.075
             ],
             [
                 "BBC News Online",
-                0.831,
+                0.838,
                 0.7,
                 0.335,
                 0.065
             ],
             [
                 "BBC News at Ten",
-                0.876,
+                0.883,
                 0.7,
                 0.227,
                 0.074
             ],
             [
                 "BBC News at Six",
-                0.876,
+                0.883,
                 0.7,
                 0.145,
                 0.136
             ],
             [
                 "BBC News at One",
-                0.876,
+                0.883,
                 0.7,
                 0.114,
                 0.1
             ],
             [
                 "BBC News at Five",
-                0.876,
+                0.883,
                 0.67,
                 0.0,
                 0.108
@@ -11147,28 +11542,28 @@
         "candidates": [
             [
                 "Los Angeles",
-                0.857,
+                0.858,
                 1.0,
                 1.0,
                 0.127
             ],
             [
                 "Los Angeles Kings",
-                0.854,
+                0.855,
                 0.79,
                 0.388,
                 0.031
             ],
             [
                 "Los Angeles Rams",
-                0.881,
+                0.882,
                 0.81,
                 0.333,
                 -0.008
             ],
             [
                 "Los Angeles Lakers",
-                0.854,
+                0.855,
                 0.76,
                 0.276,
                 0.001
@@ -11182,28 +11577,28 @@
             ],
             [
                 "Los Angeles Aztecs",
-                0.915,
+                0.916,
                 0.76,
                 0.0,
                 0.13
             ],
             [
                 "Los Angeles Clippers",
-                0.854,
+                0.855,
                 0.71,
                 0.191,
                 0.025
             ],
             [
                 "Los Angeles County, California",
-                0.747,
+                0.748,
                 0.54,
                 0.339,
                 0.066
             ],
             [
                 "Los Angeles Chargers",
-                0.881,
+                0.882,
                 0.71,
                 0.03,
                 -0.032
@@ -11218,85 +11613,6 @@
         ]
     },
     {
-        "entity_label": "Chattanooga",
-        "start_position": 282,
-        "end_position": 293,
-        "correct_prediction": true,
-        "matching_candidate_index": 0,
-        "candidates": [
-            [
-                "Chattanooga, Tennessee",
-                0.846,
-                0.67,
-                1.0,
-                0.109
-            ],
-            [
-                "Chattanooga FC",
-                0.875,
-                0.88,
-                0.388,
-                -0.01
-            ],
-            [
-                "Chattanooga Mocs",
-                0.814,
-                0.81,
-                0.306,
-                0.073
-            ],
-            [
-                "Chattanooga Times Free Press",
-                0.955,
-                0.56,
-                0.078,
-                0.304
-            ],
-            [
-                "Chattanooga Red Wolves SC",
-                0.875,
-                0.61,
-                0.404,
-                -0.001
-            ],
-            [
-                "Chattanooga campaign",
-                0.918,
-                0.71,
-                0.0,
-                0.197
-            ],
-            [
-                "University of Tennessee at Chattanooga",
-                0,
-                0.45,
-                0.554,
-                0.122
-            ],
-            [
-                "Chattanooga Mocs men's basketball",
-                0,
-                0.5,
-                0.267,
-                0.1
-            ],
-            [
-                "Chattanooga Mocs football",
-                0,
-                0.61,
-                0.189,
-                0.062
-            ],
-            [
-                "Chattanooga metropolitan area",
-                0,
-                0.55,
-                0.042,
-                0.174
-            ]
-        ]
-    },
-    {
         "entity_label": "Washington",
         "start_position": 497,
         "end_position": 507,
@@ -11305,42 +11621,42 @@
         "candidates": [
             [
                 "Washington, D.C.",
-                0.856,
+                0.851,
                 0.77,
                 1.0,
                 0.147
             ],
             [
                 "Washington (state)",
-                0.787,
+                0.759,
                 0.71,
                 0.786,
                 0.21
             ],
             [
                 "Spokane, Washington",
-                0.856,
+                0.851,
                 0.69,
                 0.338,
                 0.121
             ],
             [
                 "Tacoma, Washington",
-                0.856,
+                0.851,
                 0.71,
                 0.346,
                 0.084
             ],
             [
                 "Washington Capitals",
-                0.782,
+                0.836,
                 0.69,
                 0.418,
                 -0.074
             ],
             [
                 "Seattle",
-                0.856,
+                0.851,
                 0.24,
                 0.647,
                 0.047
@@ -11384,63 +11700,63 @@
         "candidates": [
             [
                 "Arkansas",
-                0.745,
+                0.747,
                 1.0,
                 1.0,
                 0.207
             ],
             [
                 "Little Rock, Arkansas",
-                0.845,
+                0.847,
                 0.55,
                 0.623,
                 0.1
             ],
             [
                 "Fayetteville, Arkansas",
-                0.845,
+                0.847,
                 0.53,
                 0.225,
                 0.12
             ],
             [
                 "Hot Springs, Arkansas",
-                0.845,
+                0.847,
                 0.55,
                 0.211,
                 0.085
             ],
             [
                 "Pine Bluff, Arkansas",
-                0.845,
+                0.847,
                 0.57,
                 0.166,
                 0.088
             ],
             [
                 "Fort Smith, Arkansas",
-                0.845,
+                0.847,
                 0.57,
                 0.192,
                 0.019
             ],
             [
                 "Jonesboro, Arkansas",
-                0.845,
+                0.847,
                 0.59,
                 0.0,
                 0.064
             ],
             [
                 "Washington County, Arkansas",
-                0.745,
+                0.747,
                 0.46,
                 0.027,
                 0.217
             ],
             [
                 "Arkansas Activities Association",
-                0.846,
+                0.848,
                 0.41,
                 0.058,
                 -0.015
@@ -11498,7 +11814,7 @@
             ],
             [
                 "Wausau, Wisconsin",
-                0.857,
+                0.858,
                 0.69,
                 0.0,
                 0.134
@@ -11779,38 +12095,38 @@
         "candidates": [
             [
                 "Green Bay Packers",
-                0.853,
+                0.886,
                 0.69,
                 1.0,
                 0.012
             ],
             [
                 "Green Bay, Wisconsin",
-                0.807,
+                0.812,
                 0.62,
                 0.669,
                 0.067
             ],
             [
                 "Green Bay Phoenix",
-                0.833,
+                0.871,
                 0.69,
                 0.246,
                 -0.001
             ],
             [
-                "Green Bay (Lake Michigan)",
-                0.84,
-                0.53,
-                0.138,
-                0.082
-            ],
-            [
                 "University of Wisconsin\u2013Green Bay",
-                0.848,
+                0.891,
                 0.43,
                 0.21,
                 0.095
+            ],
+            [
+                "Green Bay (Lake Michigan)",
+                0.831,
+                0.53,
+                0.138,
+                0.082
             ],
             [
                 "Greenland",
@@ -11850,6 +12166,85 @@
         ]
     },
     {
+        "entity_label": "Washington",
+        "start_position": 67,
+        "end_position": 77,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "Washington, D.C.",
+                0.848,
+                0.77,
+                1.0,
+                0.166
+            ],
+            [
+                "Washington (state)",
+                0.75,
+                0.71,
+                0.786,
+                0.148
+            ],
+            [
+                "Tacoma, Washington",
+                0.848,
+                0.71,
+                0.346,
+                0.075
+            ],
+            [
+                "Washington Capitals",
+                0.851,
+                0.69,
+                0.418,
+                0.002
+            ],
+            [
+                "Spokane, Washington",
+                0.848,
+                0.69,
+                0.338,
+                0.041
+            ],
+            [
+                "Seattle",
+                0.848,
+                0.24,
+                0.647,
+                0.103
+            ],
+            [
+                "Washington",
+                0,
+                1.0,
+                0.0,
+                0.161
+            ],
+            [
+                "University of Washington",
+                0,
+                0.59,
+                0.47,
+                0.072
+            ],
+            [
+                "George Washington University",
+                0,
+                0.53,
+                0.411,
+                0.1
+            ],
+            [
+                "Washington University in St. Louis",
+                0,
+                0.45,
+                0.224,
+                0.134
+            ]
+        ]
+    },
+    {
         "entity_label": "Ralph Nader",
         "start_position": 78,
         "end_position": 89,
@@ -11858,7 +12253,7 @@
         "candidates": [
             [
                 "Ralph Nader",
-                0.697,
+                0.704,
                 1.0,
                 0.491,
                 0.378
@@ -11937,14 +12332,14 @@
         "candidates": [
             [
                 "Americans",
-                0.936,
+                0.937,
                 0.88,
                 0.443,
                 0.022
             ],
             [
                 "United States",
-                0.835,
+                0.836,
                 0.2,
                 1.0,
                 0.032
@@ -11958,28 +12353,28 @@
             ],
             [
                 "California",
-                0.748,
+                0.749,
                 0.35,
                 0.68,
                 0.038
             ],
             [
                 "British America",
-                0.835,
+                0.836,
                 0.64,
                 0.015,
                 0.033
             ],
             [
                 "North America",
-                0.827,
+                0.828,
                 0.7,
                 0.0,
                 -0.032
             ],
             [
                 "Confederate States of America",
-                0.835,
+                0.836,
                 0.39,
                 0.075,
                 -0.016
@@ -12095,56 +12490,56 @@
         "candidates": [
             [
                 "Oregon",
-                0.747,
+                0.748,
                 1.0,
                 1.0,
                 0.157
             ],
             [
                 "Portland, Oregon",
-                0.847,
+                0.848,
                 0.55,
                 0.9,
                 0.166
             ],
             [
                 "Eugene, Oregon",
-                0.847,
+                0.848,
                 0.6,
                 0.322,
                 0.05
             ],
             [
                 "Salem, Oregon",
-                0.847,
+                0.848,
                 0.63,
                 0.264,
                 0.078
             ],
             [
                 "Bend, Oregon",
-                0.847,
+                0.848,
                 0.67,
                 0.046,
                 0.114
             ],
             [
                 "Corvallis, Oregon",
-                0.847,
+                0.848,
                 0.52,
                 0.039,
                 0.065
             ],
             [
                 "Hillsboro, Oregon",
-                0.847,
+                0.848,
                 0.52,
                 0.0,
                 0.079
             ],
             [
                 "Medford, Oregon",
-                0.847,
+                0.848,
                 0.57,
                 0.013,
                 0.004
@@ -12174,63 +12569,63 @@
         "candidates": [
             [
                 "Poland",
-                0.829,
+                0.836,
                 0.86,
                 1.0,
                 -0.064
             ],
             [
                 "Portland, Oregon",
-                0.841,
+                0.848,
                 0.67,
                 0.513,
                 0.132
             ],
             [
                 "Portland, Maine",
-                0.841,
+                0.848,
                 0.7,
                 0.239,
                 0.114
             ],
             [
                 "Portland Timbers",
-                0.907,
+                0.916,
                 0.67,
                 0.168,
                 0.032
             ],
             [
                 "Portland Trail Blazers",
-                0.848,
+                0.855,
                 0.53,
                 0.231,
                 0.108
             ],
             [
                 "Portland Timbers 2",
-                0.907,
+                0.916,
                 0.62,
                 0.122,
                 0.05
             ],
             [
                 "Portland Thorns FC",
-                0.907,
+                0.916,
                 0.62,
                 0.072,
                 0.037
             ],
             [
                 "Portland Pirates",
-                0.847,
+                0.855,
                 0.67,
                 0.02,
                 0.045
             ],
             [
                 "Portland Timbers (2001\u20132010)",
-                0.907,
+                0.916,
                 0.44,
                 0.03,
                 0.108
@@ -12288,7 +12683,7 @@
             ],
             [
                 "Gainesville, Virginia",
-                0.858,
+                0.857,
                 0.69,
                 0.077,
                 0.058
@@ -12374,7 +12769,7 @@
             ],
             [
                 "Freeform (TV channel)",
-                0.785,
+                0.784,
                 0.0,
                 0.265,
                 0.274
@@ -12411,42 +12806,42 @@
         "candidates": [
             [
                 "Fox Sports Radio",
-                0.73,
+                0.745,
                 0.77,
                 0.463,
                 0.163
             ],
             [
                 "Fox Sports 1",
-                0.765,
+                0.782,
                 0.91,
                 0.201,
                 0.234
             ],
             [
                 "Fox Sports 2",
-                0.765,
+                0.782,
                 0.91,
                 0.009,
                 0.202
             ],
             [
                 "Fox Sports Networks",
-                0.765,
+                0.782,
                 0.69,
                 0.14,
                 0.219
             ],
             [
                 "Dublin",
-                0.857,
+                0.879,
                 0.0,
                 1.0,
                 -0.067
             ],
             [
                 "Aspire Academy",
-                0.794,
+                0.812,
                 0.17,
                 0.382,
                 -0.051
@@ -12490,21 +12885,21 @@
         "candidates": [
             [
                 "Sun Microsystems",
-                0.652,
+                0.671,
                 1.0,
                 1.0,
                 0.058
             ],
             [
                 "Soledad O'Brien",
-                0.83,
+                0.876,
                 0.26,
                 0.374,
                 0.125
             ],
             [
                 "Jonathan I. Schwartz",
-                0.83,
+                0.876,
                 0.28,
                 0.147,
                 0.251
@@ -12569,7 +12964,7 @@
         "candidates": [
             [
                 "Reno, Nevada",
-                0.865,
+                0.882,
                 0.19,
                 0.838,
                 0.049
@@ -12719,6 +13114,85 @@
         ]
     },
     {
+        "entity_label": "Jack Nicholson",
+        "start_position": 560,
+        "end_position": 574,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "Jack Nicholson",
+                0.706,
+                1.0,
+                1.0,
+                0.072
+            ],
+            [
+                "John Robert Nicholson",
+                0.704,
+                0.63,
+                0.377,
+                0.131
+            ],
+            [
+                "Leslie Spit Treeo",
+                0.902,
+                0.19,
+                0.429,
+                0.228
+            ],
+            [
+                "Joker (Jack Napier)",
+                0.779,
+                0.42,
+                0.314,
+                0.178
+            ],
+            [
+                "Jack Nichols (basketball)",
+                0.761,
+                0.62,
+                0.0,
+                0.005
+            ],
+            [
+                "Jack Nichols",
+                0,
+                0.92,
+                0.139,
+                0.178
+            ],
+            [
+                "John W. Nicholson",
+                0,
+                0.71,
+                0.238,
+                0.085
+            ],
+            [
+                "Jack Nicholson filmography",
+                0,
+                0.7,
+                0.0,
+                0.211
+            ],
+            [
+                "Jack Nichols (painter)",
+                0,
+                0.72,
+                0.0,
+                0.019
+            ],
+            [
+                "List of awards and nominations received by Jack Nicholson",
+                0,
+                0.39,
+                0.238,
+                0.017
+            ]
+        ]
+    },
+    {
         "entity_label": "Helen Hunt",
         "start_position": 575,
         "end_position": 585,
@@ -12727,35 +13201,35 @@
         "candidates": [
             [
                 "Helen Hunt",
-                0.705,
+                0.708,
                 1.0,
                 0.387,
                 0.051
             ],
             [
                 "Helen Hunt Jackson",
-                0.754,
+                0.757,
                 0.71,
                 0.293,
                 0.011
             ],
             [
                 "Helen LaKelly Hunt",
-                0.705,
+                0.708,
                 0.71,
                 0.0,
                 0.022
             ],
             [
                 "Helen Huntington Hull",
-                0.705,
+                0.708,
                 0.65,
                 0.0,
                 0.025
             ],
             [
                 "Huntress (Helena Bertinelli)",
-                0.815,
+                0.817,
                 0.37,
                 0.113,
                 0.045
@@ -12801,33 +13275,33 @@
         "entity_label": "Greg Kinnear",
         "start_position": 586,
         "end_position": 598,
-        "correct_prediction": false,
-        "matching_candidate_index": 1,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
         "candidates": [
             [
-                "Acclaim Entertainment",
-                0.923,
-                0.24,
-                0.806,
-                0.195
-            ],
-            [
                 "Greg Kinnear",
-                0.706,
+                0.709,
                 1.0,
                 0.345,
                 0.08
             ],
             [
+                "Acclaim Entertainment",
+                0.879,
+                0.24,
+                0.806,
+                0.195
+            ],
+            [
                 "Toronto FC",
-                0.948,
+                0.91,
                 0.18,
                 1.0,
                 -0.011
             ],
             [
                 "Later (talk show)",
-                1.022,
+                0.963,
                 0.21,
                 0.217,
                 0.103
@@ -12885,21 +13359,21 @@
         "candidates": [
             [
                 "United States",
-                0.867,
+                0.874,
                 0.21,
                 1.0,
                 -0.031
             ],
             [
                 "German language",
-                0.849,
+                0.861,
                 0.19,
                 0.697,
                 -0.166
             ],
             [
                 "Soap (TV series)",
-                0.879,
+                0.881,
                 0.25,
                 0.221,
                 0.17
@@ -12913,7 +13387,7 @@
             ],
             [
                 "Doom 3",
-                0.883,
+                0.888,
                 0.18,
                 0.27,
                 -0.081
@@ -12964,35 +13438,35 @@
         "candidates": [
             [
                 "Times Square",
-                0.819,
+                0.834,
                 1.0,
                 0.529,
                 0.204
             ],
             [
                 "Times Square Ball",
-                0.797,
+                0.86,
                 0.83,
                 0.375,
                 0.184
             ],
             [
                 "The Cricket in Times Square",
-                0.892,
+                0.925,
                 0.62,
                 0.106,
                 0.222
             ],
             [
                 "One Times Square",
-                0.747,
+                0.736,
                 0.86,
                 0.074,
                 0.095
             ],
             [
                 "Times Square Studios",
-                0.747,
+                0.736,
                 0.75,
                 0.0,
                 0.25
@@ -13039,28 +13513,42 @@
         "start_position": 638,
         "end_position": 642,
         "correct_prediction": false,
-        "matching_candidate_index": 3,
+        "matching_candidate_index": 5,
         "candidates": [
             [
                 "Primo Levi",
-                0.715,
+                0.903,
                 0.57,
                 0.631,
                 0.044
             ],
             [
                 "Levi Eshkol",
-                0.669,
+                0.847,
                 0.53,
                 0.479,
                 -0.005
             ],
             [
                 "Levi P. Morton",
-                0.669,
+                0.847,
                 0.44,
                 0.392,
                 0.094
+            ],
+            [
+                "Levi Lincoln Jr.",
+                0.847,
+                0.4,
+                0.244,
+                0.064
+            ],
+            [
+                "Levi Woodbury",
+                0.847,
+                0.47,
+                0.13,
+                0.105
             ],
             [
                 "Levi Strauss & Co.",
@@ -13070,29 +13558,15 @@
                 0.189
             ],
             [
-                "Levi Lincoln Jr.",
-                0.669,
-                0.4,
-                0.244,
-                0.064
-            ],
-            [
-                "Levi Woodbury",
-                0.669,
-                0.47,
-                0.13,
-                0.105
-            ],
-            [
                 "Levi Lincoln Sr.",
-                0.669,
+                0.847,
                 0.4,
                 0.067,
                 0.137
             ],
             [
                 "Tullio Levi-Civita",
-                0.695,
+                0.876,
                 0.36,
                 0.0,
                 0.008
@@ -13201,35 +13675,35 @@
         "candidates": [
             [
                 "Land Rover",
-                0.78,
+                0.804,
                 1.0,
                 0.812,
                 0.14
             ],
             [
                 "Land Rover Discovery",
-                0.742,
+                0.723,
                 0.67,
                 0.836,
                 0.168
             ],
             [
                 "Land Rover Defender",
-                0.742,
+                0.723,
                 0.69,
                 0.836,
                 0.097
             ],
             [
                 "Land Rover series",
-                0.742,
+                0.723,
                 0.74,
                 0.48,
                 0.046
             ],
             [
                 "Land Rover Freelander",
-                0.742,
+                0.723,
                 0.65,
                 0.432,
                 0.116
@@ -13243,14 +13717,14 @@
             ],
             [
                 "Snatch Land Rover",
-                0.777,
+                0.761,
                 0.74,
                 0.0,
                 0.076
             ],
             [
                 "Land Rover Discovery Sport",
-                0.742,
+                0.723,
                 0.56,
                 0.1,
                 0.18
@@ -13359,7 +13833,7 @@
         "candidates": [
             [
                 "Spirit of Communication",
-                0.9,
+                0.901,
                 0.81,
                 0.283,
                 0.228
@@ -13373,7 +13847,7 @@
             ],
             [
                 "Sprint Communications, Inc. v. Jacobs",
-                0.874,
+                0.875,
                 0.75,
                 0.089,
                 0.265
@@ -13438,14 +13912,14 @@
         "candidates": [
             [
                 "John Corbett",
-                0.707,
+                0.708,
                 1.0,
                 1.0,
                 0.266
             ],
             [
                 "James J. Corbett",
-                0.783,
+                0.784,
                 0.64,
                 0.827,
                 -0.002
@@ -13466,7 +13940,7 @@
             ],
             [
                 "John Rooke Corbett",
-                0.707,
+                0.708,
                 0.8,
                 0.356,
                 0.035
@@ -13517,35 +13991,35 @@
         "candidates": [
             [
                 "Houston",
-                0.859,
+                0.838,
                 0.54,
                 0.753,
                 0.071
             ],
             [
                 "Contemporary R&B",
-                0.84,
+                0.824,
                 0.34,
                 0.879,
                 0.048
             ],
             [
                 "Houston Texans",
-                0.623,
+                0.625,
                 0.61,
                 0.695,
                 0.118
             ],
             [
                 "Republican Party (United States)",
-                0.699,
+                0.695,
                 0.31,
                 1.0,
                 -0.116
             ],
             [
                 "Tennessee Titans",
-                0.623,
+                0.625,
                 0.23,
                 0.694,
                 0.066
@@ -13675,42 +14149,42 @@
         "candidates": [
             [
                 "Brooklyn",
-                0.834,
+                0.835,
                 1.0,
                 1.0,
                 0.197
             ],
             [
                 "Brooklyn Nets",
-                0.854,
+                0.855,
                 0.76,
                 0.332,
                 0.016
             ],
             [
                 "Brooklyn Knights",
-                0.914,
+                0.915,
                 0.67,
                 0.127,
                 0.06
             ],
             [
                 "Brooklyn Italians",
-                0.914,
+                0.915,
                 0.64,
                 0.0,
                 0.147
             ],
             [
                 "Los Angeles Dodgers",
-                0.871,
+                0.872,
                 0.15,
                 0.537,
                 0.028
             ],
             [
                 "Williamsburg, Brooklyn",
-                0.834,
+                0.835,
                 0.53,
                 0.015,
                 0.018
