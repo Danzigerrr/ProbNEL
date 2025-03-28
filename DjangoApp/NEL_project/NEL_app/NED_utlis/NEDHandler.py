@@ -37,6 +37,8 @@ class NEDHandler:
 
             self.select_best_candidate_for_entity(text, entity)
 
+        return text
+
     def select_best_candidate_for_entity(self, text, entity: Entity):
         """
         Chooses the best candidate for an entity based on the calculated scores.

@@ -19,12 +19,12 @@ def index(request: HttpRequest) -> HttpResponse:
         try:
             text_obj = Text(user_input)
 
-            ner = NERHandler("flair/ner-english-ontonotes-fast")
-            ner.perform_ner(text_obj)
+            ner = NERHandler("flair/ner-english-ontonotes")
+            text_obj = ner.perform_ner(text_obj)
 
             if knowledge_graph in ["dbpedia", "wikidata"]:
                 ned = NEDHandler(knowledge_graph)
-                ned.perform_ned(text_obj)
+                text_obj = ned.perform_ned(text_obj)
             else:
                 return JsonResponse({"error": "Invalid knowledge_graph specified. Allowed values: dbpedia, wikidata"}, status=400)
 
@@ -69,7 +69,7 @@ def run_test_on_dataset(request: HttpRequest) -> HttpResponse:
             dataset_loader.print_dataset_info(dataset)
 
             # Initialize handlers
-            ner_handler = NERHandler("flair/ner-english-ontonotes-fast")
+            ner_handler = NERHandler("flair/ner-english-ontonotes")
             ned_handler = NEDHandler("dbpedia")
 
             # Run evaluation
