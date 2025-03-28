@@ -189,7 +189,7 @@
 
             // Create an AbortController for the timeout mechanism
             const controller = new AbortController();
-            const timeout = setTimeout(() => controller.abort(), 300000); // 300000ms = 5 minutes
+            const timeout = setTimeout(() => controller.abort(), 60*60000); // 60 minutes
 
             fetch("run_test_on_dataset/", {
                 method: "POST",
@@ -240,14 +240,12 @@
         resultsContainer.innerHTML = ""; // Clear previous results
 
         const resultsHTML = `
-        <h4>NER Evaluation Results</h4>
+        <h4>Evaluation Results</h4>
         <ul>
-            <li><strong>Total Ground Truth:</strong> ${evaluationResults.total_ground_truth_entities}</li>
-            <li><strong>Correct Predictions:</strong> ${evaluationResults.correct_predicted_entities}</li>
+            <li><strong>Accuracy:</strong> ${evaluationResults.accuracy}</li>
             <li><strong>Precision:</strong> ${evaluationResults.precision}</li>
             <li><strong>Recall:</strong> ${evaluationResults.recall}</li>
             <li><strong>F1 Score:</strong> ${evaluationResults.f1_score}</li>
-            <li><strong>Accuracy:</strong> ${evaluationResults.accuracy}</li>
         </ul>
         `;
 

@@ -3,49 +3,55 @@ from flair.data import Sentence
 from ..Models.Text import Text
 from ..Models.Entity import Entity
 
-tagger = SequenceTagger.load("flair/ner-english-ontonotes-fast")
 
 
 class NERHandler:
-    found_entities = []  # list of FoundEntity
-    sentence = None  # Flair sentence object
 
-    ignored_ner_types = []
+    def __init__(self, ner_tagger_model_name: str = "flair/ner-english-ontonotes"):
+        pass
 
-    def __init__(self, ner_tagger_model_name: str = "flair/ner-english-ontonotes-fast"):
+
+    def load_NER_tagger(self, ner_tagger_model_name: str = "flair/ner-english-ontonotes"):
         """
         Initializes the NERHandler with a specified model.
+        :param ner_tagger_model_name:
         :param model: The name of the Flair NER model to load.
         """
         print(f"Loading NER model: {ner_tagger_model_name}")
         # self.tagger = SequenceTagger.load(ner_tagger_model_name)
-        self.tagger = tagger
-        if ner_tagger_model_name == "flair/ner-english-ontonotes-fast":
-            self.ignored_ner_types = ["DATE", "TIME", "PERCENT", "MONEY", "QUANTITY", "ORDINAL", "CARDINAL", "LANGUAGE"]
-        print(f"Model NER \'{ner_tagger_model_name}\' loaded successfully")
+        tagger = SequenceTagger.load("flair/ner-english-ontonotes")
+        ignored_ner_types = []
+        if ner_tagger_model_name == "flair/ner-english-ontonotes":
+            ignored_ner_types = ["DATE", "TIME", "PERCENT", "MONEY", "QUANTITY", "ORDINAL", "CARDINAL", "LANGUAGE"]
+        print("NER model loaded")
+
+        return tagger, ignored_ner_types
+
 
     def perform_ner(self, text_obj: Text):
         """
         Processes the given text using the Flair NER model.
         :param text_obj: A Flair Sentence object annotated with NER tags.
         """
-        self.sentence = Sentence(text_obj.content)
-        self.tagger.predict(self.sentence, return_probabilities_for_all_classes=True)
-        text_obj.entities = self.extract_entities(text_obj)
+        sentence = Sentence(text_obj.content)
+        tagger, ignored_ner_types = self.load_NER_tagger()
+        tagger.predict(sentence, return_probabilities_for_all_classes=True)
+        text_obj.entities = self.extract_entities(sentence, ignored_ner_types)
+        return text_obj
 
-    def extract_entities(self, text_obj):
+    def extract_entities(self, sentence, ignored_ner_types):
         """
         Extracts entities from the NER-annotated text and associates them with a Text object.
-        :param text_obj: Text object to associate found entities with.
         :return: List of FoundEntity objects.
         """
         found_entities = []
 
-        for entity in self.sentence.get_spans("ner"):
+        for entity in sentence.get_spans("ner"):
             probabilities = self.extract_entity_probabilities(entity=entity)
             top_ner_type_name = probabilities[0][0]
-            if top_ner_type_name in self.ignored_ner_types:
-                print(f"ignoring entity with typ ner type {top_ner_type_name}")
+            if top_ner_type_name in ignored_ner_types:
+                # print(f"ignoring entity with typ ner type {top_ner_type_name}")
+                pass
             else:
                 found_entities.append(
                     Entity(
@@ -58,7 +64,7 @@ class NERHandler:
                     )
                 )
 
-        self.found_entities = found_entities
+        found_entities = found_entities
         return found_entities
 
     def extract_entity_probabilities(self, entity, number_of_top_probabilities=3):

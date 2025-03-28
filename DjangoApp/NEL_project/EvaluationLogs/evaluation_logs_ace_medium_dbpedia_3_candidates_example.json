@@ -1,0 +1,1262 @@
+[
+    {
+        "entity_label": "Bandar Seri Begawan",
+        "start_position": 0,
+        "end_position": 19,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "Bandar Seri Begawan",
+                0.928,
+                1.0,
+                1.0,
+                0.354
+            ],
+            [
+                "Pusat Bandar, Brunei",
+                0.923,
+                0.46,
+                0.23,
+                0.348
+            ],
+            [
+                "Embassy of the Philippines, Bandar Seri Begawan",
+                0,
+                0.58,
+                0.0,
+                0.45
+            ]
+        ]
+    },
+    {
+        "entity_label": "AFP",
+        "start_position": 26,
+        "end_position": 29,
+        "correct_prediction": false,
+        "matching_candidate_index": 1,
+        "candidates": [
+            [
+                "AFC Ajax",
+                0.697,
+                0.36,
+                1.0,
+                -0.12
+            ],
+            [
+                "Agence France-Presse",
+                0.654,
+                0.26,
+                0.0,
+                0.226
+            ],
+            [
+                "Armed Forces of the Philippines Medal of Valor",
+                0,
+                0.12,
+                0.115,
+                0.126
+            ]
+        ]
+    },
+    {
+        "entity_label": "NPR NEWS",
+        "start_position": 16,
+        "end_position": 24,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "NPR",
+                0.744,
+                0.55,
+                1.0,
+                0.067
+            ],
+            [
+                "News-Press & Gazette Company",
+                0.653,
+                0.17,
+                0.459,
+                0.068
+            ],
+            [
+                "Weekend Edition",
+                0.961,
+                0.17,
+                0.0,
+                0.033
+            ]
+        ]
+    },
+    {
+        "entity_label": "Washington",
+        "start_position": 28,
+        "end_position": 38,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "Washington, D.C.",
+                0.848,
+                0.77,
+                1.0,
+                -0.011
+            ],
+            [
+                "Washington (state)",
+                0.748,
+                0.71,
+                0.596,
+                0.11
+            ],
+            [
+                "University of Washington",
+                0,
+                0.59,
+                0.0,
+                0.017
+            ]
+        ]
+    },
+    {
+        "entity_label": "Miami Dade County",
+        "start_position": 500,
+        "end_position": 517,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "Miami-Dade County, Florida",
+                0.747,
+                0.74,
+                1.0,
+                0.286
+            ],
+            [
+                "Metrorail (Miami-Dade County)",
+                0.846,
+                0.7,
+                0.0,
+                0.135
+            ],
+            [
+                "Miami-Dade County Public Schools",
+                0,
+                0.65,
+                0.633,
+                0.296
+            ]
+        ]
+    },
+    {
+        "entity_label": "Democrats",
+        "start_position": 586,
+        "end_position": 595,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "Democratic Party (United States)",
+                0.871,
+                0.44,
+                1.0,
+                0.018
+            ],
+            [
+                "Liberal Democrats (UK)",
+                0.871,
+                0.58,
+                0.0,
+                0.054
+            ],
+            [
+                "Social democracy",
+                0,
+                0.48,
+                0.225,
+                -0.095
+            ]
+        ]
+    },
+    {
+        "entity_label": "Palm Beach County",
+        "start_position": 653,
+        "end_position": 670,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "Palm Beach County, Florida",
+                0.747,
+                0.79,
+                1.0,
+                0.185
+            ],
+            [
+                "Wellington, Florida",
+                0.857,
+                0.17,
+                0.32,
+                0.19
+            ],
+            [
+                "School District of Palm Beach County",
+                0,
+                0.64,
+                0.0,
+                0.217
+            ]
+        ]
+    },
+    {
+        "entity_label": "Al Gore",
+        "start_position": 567,
+        "end_position": 574,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "Al Gore",
+                0.7,
+                1.0,
+                1.0,
+                0.193
+            ],
+            [
+                "Albert Gore Sr.",
+                0.7,
+                0.64,
+                0.289,
+                0.158
+            ],
+            [
+                "Al Gore and information technology",
+                0,
+                0.34,
+                0.0,
+                0.177
+            ]
+        ]
+    },
+    {
+        "entity_label": "Washington State",
+        "start_position": 557,
+        "end_position": 573,
+        "correct_prediction": false,
+        "matching_candidate_index": 1,
+        "candidates": [
+            [
+                "Washington, D.C.",
+                0.804,
+                0.69,
+                1.0,
+                -0.003
+            ],
+            [
+                "Washington (state)",
+                0.716,
+                0.88,
+                0.772,
+                0.062
+            ],
+            [
+                "Washington State University",
+                0,
+                0.74,
+                0.0,
+                0.087
+            ]
+        ]
+    },
+    {
+        "entity_label": "Seattle",
+        "start_position": 704,
+        "end_position": 711,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "Seattle",
+                0.848,
+                1.0,
+                1.0,
+                0.095
+            ],
+            [
+                "Seattle Seahawks",
+                0.881,
+                0.61,
+                0.884,
+                -0.039
+            ],
+            [
+                "Seattle SuperSonics",
+                0.854,
+                0.54,
+                0.0,
+                -0.054
+            ]
+        ]
+    },
+    {
+        "entity_label": "AFP",
+        "start_position": 14,
+        "end_position": 17,
+        "correct_prediction": false,
+        "matching_candidate_index": 1,
+        "candidates": [
+            [
+                "AFC Ajax",
+                0.698,
+                0.36,
+                1.0,
+                0.068
+            ],
+            [
+                "Agence France-Presse",
+                0.656,
+                0.26,
+                0.0,
+                0.346
+            ],
+            [
+                "Armed Forces of the Philippines Medal of Valor",
+                0,
+                0.12,
+                0.115,
+                -0.015
+            ]
+        ]
+    },
+    {
+        "entity_label": "Iraq",
+        "start_position": 119,
+        "end_position": 123,
+        "correct_prediction": false,
+        "matching_candidate_index": 1,
+        "candidates": [
+            [
+                "Iran",
+                0.836,
+                0.75,
+                1.0,
+                0.169
+            ],
+            [
+                "Iraq",
+                0.836,
+                1.0,
+                0.136,
+                0.432
+            ],
+            [
+                "Iraq War",
+                0.946,
+                0.67,
+                0.0,
+                0.357
+            ]
+        ]
+    },
+    {
+        "entity_label": "Florida",
+        "start_position": 57,
+        "end_position": 64,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "Florida",
+                0.748,
+                1.0,
+                1.0,
+                0.338
+            ],
+            [
+                "Tampa, Florida",
+                0.848,
+                0.67,
+                0.024,
+                0.275
+            ],
+            [
+                "Orlando, Florida",
+                0.848,
+                0.61,
+                0.0,
+                0.259
+            ]
+        ]
+    },
+    {
+        "entity_label": "AFP",
+        "start_position": 12,
+        "end_position": 15,
+        "correct_prediction": false,
+        "matching_candidate_index": 1,
+        "candidates": [
+            [
+                "AFC Ajax",
+                0.697,
+                0.36,
+                1.0,
+                -0.124
+            ],
+            [
+                "Agence France-Presse",
+                0.653,
+                0.26,
+                0.0,
+                0.216
+            ],
+            [
+                "Armed Forces of the Philippines Medal of Valor",
+                0,
+                0.12,
+                0.115,
+                0.099
+            ]
+        ]
+    },
+    {
+        "entity_label": "Lebanon",
+        "start_position": 16,
+        "end_position": 23,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "Lebanon",
+                0.836,
+                1.0,
+                1.0,
+                0.48
+            ],
+            [
+                "2006 Lebanon War",
+                0.945,
+                0.61,
+                0.0,
+                0.534
+            ],
+            [
+                "Lebanon national football team",
+                0.915,
+                0.38,
+                0.397,
+                0.376
+            ]
+        ]
+    },
+    {
+        "entity_label": "Israel",
+        "start_position": 133,
+        "end_position": 139,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "Israel",
+                0.836,
+                1.0,
+                1.0,
+                0.368
+            ],
+            [
+                "Israel national football team",
+                0.916,
+                0.34,
+                0.165,
+                0.19
+            ],
+            [
+                "Israel national under-21 football team",
+                0.916,
+                0.27,
+                0.0,
+                0.222
+            ]
+        ]
+    },
+    {
+        "entity_label": "Yemen",
+        "start_position": 92,
+        "end_position": 97,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "Yemen",
+                0.836,
+                1.0,
+                1.0,
+                0.128
+            ],
+            [
+                "South Yemen",
+                0.946,
+                0.62,
+                0.0,
+                0.094
+            ],
+            [
+                "Yemen national football team",
+                0.916,
+                0.3,
+                0.243,
+                0.193
+            ]
+        ]
+    },
+    {
+        "entity_label": "Ralph Nader",
+        "start_position": 78,
+        "end_position": 89,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "Ralph Nader",
+                0.697,
+                1.0,
+                1.0,
+                0.378
+            ],
+            [
+                "Ralph Nader 2008 presidential campaign",
+                0,
+                0.45,
+                0.098,
+                0.492
+            ],
+            [
+                "Ralph Nader 2004 presidential campaign",
+                0,
+                0.45,
+                0.0,
+                0.513
+            ]
+        ]
+    },
+    {
+        "entity_label": "America",
+        "start_position": 427,
+        "end_position": 434,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "United States",
+                0.835,
+                0.2,
+                1.0,
+                0.032
+            ],
+            [
+                "California",
+                0.748,
+                0.35,
+                0.68,
+                0.038
+            ],
+            [
+                "North America",
+                0.827,
+                0.7,
+                0.0,
+                -0.032
+            ]
+        ]
+    },
+    {
+        "entity_label": "Florida",
+        "start_position": 503,
+        "end_position": 510,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "Florida",
+                0.748,
+                1.0,
+                1.0,
+                0.024
+            ],
+            [
+                "Tampa, Florida",
+                0.848,
+                0.67,
+                0.024,
+                0.01
+            ],
+            [
+                "Orlando, Florida",
+                0.848,
+                0.61,
+                0.0,
+                -0.01
+            ]
+        ]
+    },
+    {
+        "entity_label": "Oregon",
+        "start_position": 528,
+        "end_position": 534,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "Oregon",
+                0.747,
+                1.0,
+                1.0,
+                0.157
+            ],
+            [
+                "Portland, Oregon",
+                0.847,
+                0.55,
+                0.852,
+                0.166
+            ],
+            [
+                "Eugene, Oregon",
+                0.847,
+                0.6,
+                0.0,
+                0.05
+            ]
+        ]
+    },
+    {
+        "entity_label": "Portland",
+        "start_position": 514,
+        "end_position": 522,
+        "correct_prediction": false,
+        "matching_candidate_index": 1,
+        "candidates": [
+            [
+                "Poland",
+                0.829,
+                0.86,
+                1.0,
+                -0.064
+            ],
+            [
+                "Portland, Oregon",
+                0.841,
+                0.67,
+                0.361,
+                0.132
+            ],
+            [
+                "Portland, Maine",
+                0.841,
+                0.7,
+                0.0,
+                0.114
+            ]
+        ]
+    },
+    {
+        "entity_label": "Gainesville",
+        "start_position": 570,
+        "end_position": 581,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "Gainesville, Florida",
+                0.848,
+                0.71,
+                1.0,
+                0.064
+            ],
+            [
+                "Gainesville, Georgia",
+                0.848,
+                0.71,
+                0.338,
+                0.014
+            ],
+            [
+                "Gainesville, Texas",
+                0.848,
+                0.76,
+                0.0,
+                -0.006
+            ]
+        ]
+    },
+    {
+        "entity_label": "ABC",
+        "start_position": 248,
+        "end_position": 251,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "American Broadcasting Company",
+                0.747,
+                0.19,
+                1.0,
+                0.317
+            ],
+            [
+                "ABC Futebol Clube",
+                0.697,
+                0.3,
+                0.295,
+                0.145
+            ],
+            [
+                "ABC Records",
+                0.719,
+                0.43,
+                0.0,
+                0.117
+            ]
+        ]
+    },
+    {
+        "entity_label": "Fox Sports",
+        "start_position": 596,
+        "end_position": 606,
+        "correct_prediction": false,
+        "matching_candidate_index": 2,
+        "candidates": [
+            [
+                "Fox Sports Radio",
+                0.73,
+                0.77,
+                1.0,
+                0.163
+            ],
+            [
+                "Fox Sports 1",
+                0.765,
+                0.91,
+                0.124,
+                0.234
+            ],
+            [
+                "Fox Sports (United States)",
+                0,
+                0.56,
+                0.0,
+                0.179
+            ]
+        ]
+    },
+    {
+        "entity_label": "Sun Microsystems",
+        "start_position": 620,
+        "end_position": 636,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "Sun Microsystems",
+                0.652,
+                1.0,
+                1.0,
+                0.058
+            ],
+            [
+                "Acquisition of Sun Microsystems by Oracle Corporation",
+                0,
+                0.46,
+                0.244,
+                0.154
+            ],
+            [
+                "List of Sun Microsystems employees",
+                0,
+                0.64,
+                0.0,
+                0.113
+            ]
+        ]
+    },
+    {
+        "entity_label": "Fidelity Investments",
+        "start_position": 757,
+        "end_position": 777,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "Fidelity Investments",
+                0,
+                1.0,
+                1.0,
+                0.084
+            ],
+            [
+                "Fidelity International",
+                0,
+                0.71,
+                0.506,
+                0.058
+            ],
+            [
+                "Fidelity Investments",
+                0,
+                1.0,
+                0.0,
+                0.154
+            ]
+        ]
+    },
+    {
+        "entity_label": "PepsiCo",
+        "start_position": 754,
+        "end_position": 761,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "PepsiCo",
+                0.654,
+                1.0,
+                1.0,
+                0.314
+            ],
+            [
+                "List of assets owned by PepsiCo",
+                0,
+                0.37,
+                0.109,
+                0.283
+            ],
+            [
+                "Leonard v. Pepsico, Inc.",
+                0,
+                0.39,
+                0.0,
+                0.371
+            ]
+        ]
+    },
+    {
+        "entity_label": "Helen Hunt",
+        "start_position": 575,
+        "end_position": 585,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "Helen Hunt",
+                0.705,
+                1.0,
+                1.0,
+                0.051
+            ],
+            [
+                "Helen Hunt Jackson",
+                0.754,
+                0.71,
+                0.757,
+                0.011
+            ],
+            [
+                "Helen LaKelly Hunt",
+                0.705,
+                0.71,
+                0.0,
+                0.022
+            ]
+        ]
+    },
+    {
+        "entity_label": "Greg Kinnear",
+        "start_position": 586,
+        "end_position": 598,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "Greg Kinnear",
+                0.706,
+                1.0,
+                1.0,
+                0.08
+            ],
+            [
+                "Later (talk show)",
+                1.022,
+                0.21,
+                0.631,
+                0.103
+            ],
+            [
+                "Greg Kinnear",
+                0,
+                1.0,
+                0.0,
+                0.178
+            ]
+        ]
+    },
+    {
+        "entity_label": "Campbell Soup Co",
+        "start_position": 644,
+        "end_position": 660,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "Campbell Soup Company",
+                0,
+                0.86,
+                1.0,
+                0.336
+            ],
+            [
+                "Doom 3",
+                0.883,
+                0.18,
+                0.729,
+                -0.081
+            ],
+            [
+                "Soap (TV series)",
+                0.879,
+                0.25,
+                0.0,
+                0.17
+            ]
+        ]
+    },
+    {
+        "entity_label": "Times Square",
+        "start_position": 549,
+        "end_position": 561,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "Times Square",
+                0.819,
+                1.0,
+                0.246,
+                0.204
+            ],
+            [
+                "Times Square Ball",
+                0.797,
+                0.83,
+                0.0,
+                0.184
+            ],
+            [
+                "Times Square\u201342nd Street/Port Authority Bus Terminal station",
+                0,
+                0.33,
+                1.0,
+                0.107
+            ]
+        ]
+    },
+    {
+        "entity_label": "Levi",
+        "start_position": 638,
+        "end_position": 642,
+        "correct_prediction": false,
+        "matching_candidate_index": 1,
+        "candidates": [
+            [
+                "Primo Levi",
+                0.715,
+                0.57,
+                0.292,
+                0.044
+            ],
+            [
+                "Levi Strauss & Co.",
+                0,
+                0.36,
+                1.0,
+                0.189
+            ],
+            [
+                "Levi Eshkol",
+                0.669,
+                0.53,
+                0.0,
+                -0.005
+            ]
+        ]
+    },
+    {
+        "entity_label": "Microsoft",
+        "start_position": 613,
+        "end_position": 622,
+        "correct_prediction": false,
+        "matching_candidate_index": 1,
+        "candidates": [
+            [
+                "Microsoft Windows",
+                0.905,
+                0.69,
+                1.0,
+                0.091
+            ],
+            [
+                "Microsoft",
+                0.654,
+                1.0,
+                0.0,
+                0.123
+            ],
+            [
+                "Xbox 360",
+                0.882,
+                0.12,
+                0.263,
+                0.076
+            ]
+        ]
+    },
+    {
+        "entity_label": "Land Rover",
+        "start_position": 754,
+        "end_position": 764,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "Land Rover",
+                0.78,
+                1.0,
+                0.0,
+                0.14
+            ],
+            [
+                "Jaguar Land Rover",
+                0,
+                0.74,
+                1.0,
+                0.16
+            ],
+            [
+                "Land Rover Defender",
+                0.742,
+                0.69,
+                0.13,
+                0.097
+            ]
+        ]
+    },
+    {
+        "entity_label": "Volvo",
+        "start_position": 769,
+        "end_position": 774,
+        "correct_prediction": false,
+        "matching_candidate_index": 2,
+        "candidates": [
+            [
+                "Volvo Cars",
+                0.654,
+                0.67,
+                1.0,
+                0.198
+            ],
+            [
+                "Volvo Buses",
+                0.654,
+                0.62,
+                0.536,
+                0.181
+            ],
+            [
+                "Volvo",
+                0.654,
+                1.0,
+                0.0,
+                0.172
+            ]
+        ]
+    },
+    {
+        "entity_label": "Sprint Communications Co",
+        "start_position": 616,
+        "end_position": 640,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "Sprint Corporation",
+                0.654,
+                0.67,
+                0.0,
+                0.163
+            ],
+            [
+                "Entrepreneurship",
+                0,
+                0.25,
+                1.0,
+                -0.058
+            ],
+            [
+                "Mediumship",
+                0,
+                0.18,
+                0.329,
+                0.033
+            ]
+        ]
+    },
+    {
+        "entity_label": "John Corbett",
+        "start_position": 787,
+        "end_position": 799,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "John Corbett",
+                0.707,
+                1.0,
+                1.0,
+                0.266
+            ],
+            [
+                "John Corbett (coach)",
+                0.842,
+                0.75,
+                0.0,
+                -0.033
+            ],
+            [
+                "John Corbett O'Meara",
+                0.703,
+                0.75,
+                0.0,
+                0.069
+            ]
+        ]
+    },
+    {
+        "entity_label": "Houston Grand Opera",
+        "start_position": 551,
+        "end_position": 570,
+        "correct_prediction": false,
+        "matching_candidate_index": 1,
+        "candidates": [
+            [
+                "Republican Party (United States)",
+                0.699,
+                0.31,
+                1.0,
+                -0.116
+            ],
+            [
+                "Houston Grand Opera",
+                0,
+                1.0,
+                0.142,
+                0.139
+            ],
+            [
+                "Houston Grand Opera",
+                0,
+                1.0,
+                0.0,
+                0.229
+            ]
+        ]
+    },
+    {
+        "entity_label": "CBS",
+        "start_position": 733,
+        "end_position": 736,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "CBS",
+                0.747,
+                1.0,
+                0.858,
+                0.172
+            ],
+            [
+                "Columbia Records",
+                0.719,
+                0.11,
+                1.0,
+                -0.035
+            ],
+            [
+                "CBS Sports Radio",
+                0.747,
+                0.32,
+                0.0,
+                0.254
+            ]
+        ]
+    },
+    {
+        "entity_label": "Brooklyn",
+        "start_position": 602,
+        "end_position": 610,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "Brooklyn",
+                0.834,
+                1.0,
+                1.0,
+                0.197
+            ],
+            [
+                "Brooklyn Dodgers",
+                0,
+                0.67,
+                0.0,
+                0.197
+            ],
+            [
+                "Brooklyn College",
+                0,
+                0.67,
+                0.016,
+                0.036
+            ]
+        ]
+    },
+    {
+        "entity_label": "Slobodan Milosevic",
+        "start_position": 319,
+        "end_position": 337,
+        "correct_prediction": true,
+        "matching_candidate_index": 0,
+        "candidates": [
+            [
+                "Slobodan Milo\u0161evi\u0107",
+                0.731,
+                0.89,
+                1.0,
+                0.699
+            ],
+            [
+                "Overthrow of Slobodan Milo\u0161evi\u0107",
+                0,
+                0.65,
+                0.688,
+                0.559
+            ],
+            [
+                "Death of Slobodan Milo\u0161evi\u0107",
+                0,
+                0.71,
+                0.0,
+                0.428
+            ]
+        ]
+    }
+]

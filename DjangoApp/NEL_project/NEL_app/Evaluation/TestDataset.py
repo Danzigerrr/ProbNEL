@@ -1,10 +1,7 @@
 from ..Models.Text import Text
-
+from typing import List
 
 class TestDataset:
     def __init__(self, name: str):
-        self.texts = []
+        self.texts: List[Text] = []
         self.name = name
-
-    def add_text(self, text: Text):
-        self.texts.append(text)

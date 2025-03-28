@@ -17,7 +17,7 @@ class ContextScorer:
         self.model = SentenceTransformer(model_name)
         self.round_to_decimal_places = round_to_decimal_places
 
-    def calculate_score(self, text: Text, entity: Entity):
+    def calculate_score(self, text, entity: Entity):
         """
         Calculates context similarity scores for candidates using SBERT embeddings and cosine similarity.
 

@@ -1,43 +1,57 @@
 import requests
+import json
+from functools import lru_cache
 from DjangoApp.NEL_project.NEL_app.NED_utlis.Candidate.Candidate import *
 
 
 class DBpediaSearch:
     """
-    A class for searching DBpedia using the Lookup API.
+    A class for searching DBpedia using the Lookup API with caching.
     """
 
     DBPEDIA_LOOKUP_ENDPOINT = "https://lookup.dbpedia.org/api/search"
 
     def __init__(self):
-        """
-        Initializes the DBPediaSearch object.
-        """
+        """Initializes the DBPediaSearch object."""
         pass  # No specific initialization needed for this class
 
-    def search_by_entity_surface_form(self, entity_surface_form, max_results=3):
+    @staticmethod
+    @lru_cache(maxsize=500)  # Cache up to 500 unique queries
+    def cached_request(entity_surface_form, max_results=3):
         """
-        Fetches search results from the DBpedia Lookup API.
+        Cached method to fetch search results from the DBpedia Lookup API.
 
         :param entity_surface_form: The text to search for.
         :param max_results: Maximum number of results to return.
-        :return: The JSON response from the DBpedia Lookup API, or None if an error occurs.
+        :return: The formatted list of Candidate objects or None if an error occurs.
         """
         params = {
-            "query": entity_surface_form,
+            "query": entity_surface_form[:25],  # Limit to 25 characters
             "format": "JSON_FULL",
             "maxResults": max_results,
         }
 
         try:
-            response = requests.get(self.DBPEDIA_LOOKUP_ENDPOINT, params=params)
+            response = requests.get(DBpediaSearch.DBPEDIA_LOOKUP_ENDPOINT, params=params)
             response.raise_for_status()
-            list_of_candidates = format_candidates_list(response.json())
-            return list_of_candidates
-
+            return json.dumps(response.json())  # Convert to a hashable string
         except requests.exceptions.RequestException as e:
             print(f"Error querying DBpedia: {e}")
             return None
+
+    def search_by_entity_surface_form(self, entity_surface_form, max_results=3):
+        """
+        Fetches search results using the cached request method.
+
+        :param entity_surface_form: The text to search for.
+        :param max_results: Maximum number of results to return.
+        :return: The list of Candidate objects or None if an error occurs.
+        """
+        cached_response = self.cached_request(entity_surface_form, max_results)
+        if cached_response:
+            return format_candidates_list(json.loads(cached_response))  # Convert back to dict
+        return None
+
 
 
 def format_candidates_list(search_results):
