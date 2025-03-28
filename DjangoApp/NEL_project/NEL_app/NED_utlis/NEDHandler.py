@@ -3,7 +3,7 @@ from .Wikidata.WikidataSearch import WikidataSearch
 from ..Models.Text import Text
 from ..Models.Entity import Entity
 from .Scores.EntityCandidateScorer import EntityCandidateScorer
-
+from .Candidate_Selector.CandidateSelector import CandidateSelector
 
 class NEDHandler:
     def __init__(self, knowledge_base: str = "dbpedia"):
@@ -17,6 +17,7 @@ class NEDHandler:
         self.DBPediaSearch = DBpediaSearch()
         self.WikidataSearch = WikidataSearch()
         self.EntityCandidateScorer = EntityCandidateScorer()
+        self.CandidateSelector = CandidateSelector()
 
     def perform_ned(self, text):
         """
@@ -46,10 +47,7 @@ class NEDHandler:
         self.EntityCandidateScorer.calculate_scores_for_candidates(text, entity)
 
         if entity.candidates:
-            entity.candidates.sort(key=lambda x: x.score_final, reverse=True)
-            entity.best_candidate_uri = entity.candidates[0].uri
-
-            # self.print_top_candidates(entity)
+            self.CandidateSelector.select_best_candidate_for_entity(entity=entity, use_types_score=True)
 
     def print_top_candidates(self, entity, top_n_candidates_to_print = 3):
         print(f"\n### Best candidate(s) for entity '{entity.entity_label}'({entity.start_position}, {entity.end_position}):")
