@@ -1,6 +1,9 @@
 import torch
 import torch.nn as nn
 
+from DjangoApp.NEL_project.NEL_app.Models.Entity import Entity
+
+
 # Define the class for selecting the best candidate
 class CandidateSelector:
     def __init__(self):
@@ -9,7 +12,7 @@ class CandidateSelector:
         self.model.load_state_dict(torch.load("./NEL_app/NED_utlis/Candidate_Selector/model.pth"))
         self.model.eval()  # Set the model to evaluation mode
 
-    def select_best_candidate_for_entity(self, entity):
+    def select_best_candidate_for_entity(self, entity: Entity):
         """
         Chooses the best candidate for an entity based on the calculated scores.
         """

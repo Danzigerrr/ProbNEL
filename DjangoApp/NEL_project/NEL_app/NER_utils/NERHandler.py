@@ -1,15 +1,11 @@
+from typing import List
 from flair.models import SequenceTagger
-from flair.data import Sentence
+from flair.data import Sentence, Span
 from ..Models.Text import Text
 from ..Models.Entity import Entity
 
 
-
 class NERHandler:
-
-    def __init__(self, ner_tagger_model_name: str = "flair/ner-english-ontonotes"):
-        pass
-
 
     def load_NER_tagger(self, ner_tagger_model_name: str = "flair/ner-english-ontonotes"):
         """
@@ -39,7 +35,7 @@ class NERHandler:
         text_obj.entities = self.extract_entities(sentence, ignored_ner_types)
         return text_obj
 
-    def extract_entities(self, sentence, ignored_ner_types):
+    def extract_entities(self, sentence: Sentence, ignored_ner_types: List[str]):
         """
         Extracts entities from the NER-annotated text and associates them with a Text object.
         :return: List of FoundEntity objects.
@@ -67,9 +63,10 @@ class NERHandler:
         found_entities = found_entities
         return found_entities
 
-    def extract_entity_probabilities(self, entity, number_of_top_probabilities=3):
+    def extract_entity_probabilities(self, entity: Span, number_of_top_probabilities=3):
         """
         Extracts the top probabilities for a given entity.
+        :param number_of_top_probabilities:
         :param entity: A Flair entity object.
         :return: A sorted list of the top 3 probabilities as tuples (label, score).
         """

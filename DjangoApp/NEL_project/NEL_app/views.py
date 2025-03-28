@@ -19,7 +19,7 @@ def index(request: HttpRequest) -> HttpResponse:
         try:
             text_obj = Text(user_input)
 
-            ner = NERHandler("flair/ner-english-ontonotes")
+            ner = NERHandler()
             text_obj = ner.perform_ner(text_obj)
 
             if knowledge_graph in ["dbpedia", "wikidata"]:
@@ -65,11 +65,11 @@ def run_test_on_dataset(request: HttpRequest) -> HttpResponse:
             dataset_loader = DatasetLoader()
             dataset = dataset_loader.load_dataset(request.FILES["dataset"])
 
-            # Print dataset informationevaluate_predicted_entities
+            # Print dataset information
             dataset_loader.print_dataset_info(dataset)
 
             # Initialize handlers
-            ner_handler = NERHandler("flair/ner-english-ontonotes")
+            ner_handler = NERHandler()
             ned_handler = NEDHandler("dbpedia")
 
             # Run evaluation

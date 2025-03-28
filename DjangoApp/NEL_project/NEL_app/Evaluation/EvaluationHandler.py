@@ -1,21 +1,23 @@
 import time
 from tqdm import tqdm
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from .EvaluationResults import EvaluationResults
+from .EvaluationNED import EvaluationNED
 from .EvaluationLogs import EvaluationLogs
 from .EvaluationNER import NEREvaluator
 from ..Models.Text import Text
 from .TestDataset import TestDataset
+from ..NED_utlis.NEDHandler import NEDHandler
+from ..NER_utils.NERHandler import NERHandler
 
 
 class EvaluationHandler:
-    def __init__(self, ner_handler, ned_handler):
+    def __init__(self, ner_handler: NERHandler, ned_handler: NEDHandler):
         """
         Initialize the EvaluationHandler with handlers for NER and NED.
         """
         self.ner = ner_handler
         self.ned = ned_handler
-        self.evaluation_results = EvaluationResults()
+        self.evaluation_results = EvaluationNED()
         self.evaluation_logs = EvaluationLogs()
         self.ner_evaluation = NEREvaluator()
         self.dataset = None
@@ -41,7 +43,7 @@ class EvaluationHandler:
 
         return self.evaluation_results
 
-    def process_texts_parallel(self, dataset):
+    def process_texts_parallel(self, dataset: TestDataset):
         """Processes texts in parallel, collecting results for sequential evaluation."""
         texts = dataset.texts
         results = []
@@ -59,7 +61,7 @@ class EvaluationHandler:
         # Sort results by index to maintain original order before sequential processing
         return sorted(results, key=lambda x: x[0])
 
-    def process_text(self, text_ground_truth):
+    def process_text(self, text_ground_truth: Text):
         """
         Process a single text with NER and NED.
         """
