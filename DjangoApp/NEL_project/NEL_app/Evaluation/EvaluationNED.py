@@ -1,9 +1,13 @@
 import json
+from typing import List
+
 from sklearn.metrics import precision_score, recall_score, f1_score, confusion_matrix
 
-from ..Models.Text import Text
+from DjangoApp.NEL_project.NEL_app.Evaluation.TestEntity import TestEntity
+from DjangoApp.NEL_project.NEL_app.Models.Entity import Entity
 
-class EvaluationResults:
+
+class EvaluationNED:
     def __init__(self):
         # Initialize evaluation metrics and lists for storing true and predicted labels
         self.precision = 0.0
@@ -13,12 +17,12 @@ class EvaluationResults:
         self.y_true = []  # List to store ground truth labels (1 for entity, 0 for non-entity)
         self.y_pred = []  # List to store predicted labels
 
-    def calculate_scores(self, text_to_analyse: Text, predicted_entities, ground_truth_entities):
+    def evaluate_ned_process(self, predicted_entities: List[Entity], ground_truth_entities: List[TestEntity]):
         """Calculates precision, recall, F1 score, and accuracy."""
-        self.evaluate_ground_truth_entities(text_to_analyse, predicted_entities, ground_truth_entities)
+        self.evaluate_ground_truth_entities(predicted_entities, ground_truth_entities)
         self.evaluate_predicted_entities(predicted_entities, ground_truth_entities)
 
-    def evaluate_ground_truth_entities(self, text_to_analyse: Text, predicted_entities, ground_truth_entities):
+    def evaluate_ground_truth_entities(self, predicted_entities: List[Entity], ground_truth_entities: List[TestEntity]):
         """Iterate through ground truth entities and evaluate if they are correctly predicted."""
 
         for gt_entity in ground_truth_entities:
@@ -34,14 +38,13 @@ class EvaluationResults:
             self.y_true.append(1)  # Ground truth entity exists
             self.y_pred.append(1 if found_match else 0)  # Correct prediction (1) or incorrect prediction (0)
 
-    def evaluate_predicted_entities(self, predicted_entities, ground_truth_entities):
+    def evaluate_predicted_entities(self, predicted_entities: List[Entity], ground_truth_entities: List[TestEntity]):
         """Iterate through predicted entities to identify false positives."""
         for pred_entity in predicted_entities:
             gt_match = False
 
             for gt_entity in ground_truth_entities:
-                if (gt_entity.start_position == pred_entity.start_position and
-                        gt_entity.end_position == pred_entity.end_position):
+                if check_ner_matching(gt_entity, pred_entity):
                     gt_match = True
                     break  # Stop searching once a matching ground truth entity is found
 
@@ -63,10 +66,11 @@ class EvaluationResults:
             # Display the confusion matrix
             self.show_confusion_matrix()
 
+
     def show_confusion_matrix(self):
         """Displays the confusion matrix for predictions."""
         cm = confusion_matrix(self.y_true, self.y_pred)
-        print(f"Confusion Matrix:\n{cm}")
+        print(f"Confusion Matrix for NED Predictions:\n{cm}")
 
 
     def to_json(self):
@@ -87,14 +91,14 @@ class EvaluationResults:
         print(f"Recall: {self.recall:.4f}")
         print(f"F1 Score: {self.f1_score:.4f}")
 
-def check_ned_matching(gt_entity, pred_entity):
+def check_ned_matching(gt_entity: TestEntity, pred_entity: Entity):
     """Checks if a predicted entity matches a ground truth entity based on NED criteria."""
     return (
             check_ner_matching(gt_entity, pred_entity) and
             gt_entity.target_uri == pred_entity.best_candidate_uri
     )
 
-def check_ner_matching(gt_entity, pred_entity):
+def check_ner_matching(gt_entity: TestEntity, pred_entity: Entity):
     """Checks if a predicted entity matches a ground truth entity based on NER criteria."""
     return (
             gt_entity.start_position == pred_entity.start_position and

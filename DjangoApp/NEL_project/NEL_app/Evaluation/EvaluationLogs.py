@@ -7,6 +7,7 @@ class EvaluationLogs:
     def __init__(self):
         self.logs = []
 
+
     def create_logs(self, predicted_entities, ground_truth_entities):
         """Iterate through ground truth entities and evaluate if they are correctly predicted."""
         print("$$ Iterating through Ground Truth entities:")
