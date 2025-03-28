@@ -1,7 +1,6 @@
 import json
 from sklearn.metrics import precision_score, recall_score, f1_score, confusion_matrix
 
-from ..Models.Text import Text
 
 class EvaluationResults:
     def __init__(self):
@@ -13,12 +12,12 @@ class EvaluationResults:
         self.y_true = []  # List to store ground truth labels (1 for entity, 0 for non-entity)
         self.y_pred = []  # List to store predicted labels
 
-    def calculate_scores(self, text_to_analyse: Text, predicted_entities, ground_truth_entities):
+    def evaluate_ned_process(self, predicted_entities, ground_truth_entities):
         """Calculates precision, recall, F1 score, and accuracy."""
-        self.evaluate_ground_truth_entities(text_to_analyse, predicted_entities, ground_truth_entities)
+        self.evaluate_ground_truth_entities(predicted_entities, ground_truth_entities)
         self.evaluate_predicted_entities(predicted_entities, ground_truth_entities)
 
-    def evaluate_ground_truth_entities(self, text_to_analyse: Text, predicted_entities, ground_truth_entities):
+    def evaluate_ground_truth_entities(self, predicted_entities, ground_truth_entities):
         """Iterate through ground truth entities and evaluate if they are correctly predicted."""
 
         for gt_entity in ground_truth_entities:
@@ -40,8 +39,7 @@ class EvaluationResults:
             gt_match = False
 
             for gt_entity in ground_truth_entities:
-                if (gt_entity.start_position == pred_entity.start_position and
-                        gt_entity.end_position == pred_entity.end_position):
+                if check_ner_matching(gt_entity, pred_entity):
                     gt_match = True
                     break  # Stop searching once a matching ground truth entity is found
 
@@ -63,10 +61,11 @@ class EvaluationResults:
             # Display the confusion matrix
             self.show_confusion_matrix()
 
+
     def show_confusion_matrix(self):
         """Displays the confusion matrix for predictions."""
         cm = confusion_matrix(self.y_true, self.y_pred)
-        print(f"Confusion Matrix:\n{cm}")
+        print(f"Confusion Matrix for NED Predictions:\n{cm}")
 
 
     def to_json(self):

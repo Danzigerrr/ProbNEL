@@ -3,6 +3,7 @@ from tqdm import tqdm
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from .EvaluationResults import EvaluationResults
 from .EvaluationLogs import EvaluationLogs
+from .EvaluationNER import NEREvaluator
 from ..Models.Text import Text
 from .TestDataset import TestDataset
 
@@ -16,6 +17,7 @@ class EvaluationHandler:
         self.ned = ned_handler
         self.evaluation_results = EvaluationResults()
         self.evaluation_logs = EvaluationLogs()
+        self.ner_evaluation = NEREvaluator()
         self.dataset = None
         self.max_threads = 4  # Set maximum number of threads
 
@@ -78,5 +80,6 @@ class EvaluationHandler:
 
     def evaluate_entity_linking_in_text(self, text_to_analyse: Text, text_ground_truth: Text):
         """Evaluate NED by comparing ground truth entities with predicted entities."""
-        self.evaluation_results.calculate_scores(text_to_analyse, text_to_analyse.entities, text_ground_truth.entities)
+        self.evaluation_results.evaluate_ned_process(text_to_analyse.entities, text_ground_truth.entities)
         self.evaluation_logs.create_logs(text_to_analyse.entities, text_ground_truth.entities)
+        self.ner_evaluation.evaluate_ner(text_to_analyse.entities, text_ground_truth.entities)
