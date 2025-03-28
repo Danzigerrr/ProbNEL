@@ -9,15 +9,11 @@ class CandidateSelector:
         self.model.load_state_dict(torch.load("./NEL_app/NED_utlis/Candidate_Selector/model.pth"))
         self.model.eval()  # Set the model to evaluation mode
 
-    def select_best_candidate_for_entity(self, entity, use_types_score = True):
+    def select_best_candidate_for_entity(self, entity):
         """
         Chooses the best candidate for an entity based on the calculated scores.
         """
         for candidate in entity.candidates:
-
-            if not use_types_score:
-                candidate.score_types_embeddings_similarity = 0.0
-            
             features = torch.tensor([candidate.score_types_embeddings_similarity,
                                      candidate.score_levenshtein_distance,
                                      candidate.score_popularity,
