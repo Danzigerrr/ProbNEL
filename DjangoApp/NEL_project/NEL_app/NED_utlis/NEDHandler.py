@@ -55,10 +55,10 @@ class NEDHandler:
         """
         Chooses the best candidate for an entity based on the calculated scores.
         """
+        self.EntityCandidateScorer.calculate_scores_for_candidates(text, entity)
+
         if not self.use_types_score:
             for candidate in entity.candidates: candidate.score_types_embeddings_similarity = 0.0
-
-        self.EntityCandidateScorer.calculate_scores_for_candidates(text, entity)
 
         if entity.candidates:
             if self.candidate_selection_strategy == self.ALLOWED_CANDIDATE_SELECTION_STRATEGIES[0]:

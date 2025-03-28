@@ -68,7 +68,7 @@ class EvaluationHandler:
         text_content = text_ground_truth.content
         text_with_pred = Text(text_content)
 
-        text_with_pred = self.ner.perform_ner(text_with_pred)
+        text_with_pred = self.ner.perform_ner(text_with_pred, "flair/ner-english-ontonotes")
         text_with_pred = self.ned.perform_ned(text_with_pred)
 
         return text_with_pred

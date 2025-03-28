@@ -20,7 +20,7 @@ def index(request: HttpRequest) -> HttpResponse:
             text_obj = Text(user_input)
 
             ner = NERHandler()
-            text_obj = ner.perform_ner(text_obj)
+            text_obj = ner.perform_ner(text_obj, "flair/ner-english-ontonotes")
 
             if knowledge_graph in ["dbpedia", "wikidata"]:
                 ned = NEDHandler(knowledge_graph)
