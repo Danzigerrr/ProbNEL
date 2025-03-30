@@ -1,7 +1,7 @@
 import requests
 import json
 from functools import lru_cache
-from DjangoApp.NEL_project.NEL_app.NED_utlis.Candidate.Candidate import *
+from DjangoApp.NEL_project.NEL_app.NED_utlis.Candidate.Candidate import Candidate
 
 
 class DBpediaSearch:

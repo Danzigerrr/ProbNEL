@@ -9,7 +9,7 @@ class CandidateSelector:
     def __init__(self):
         # Load the pre-trained model
         self.model = CandidateSelectorNN()
-        self.model.load_state_dict(torch.load("./NEL_app/NED_utlis/Candidate_Selector/model.pth"))
+        self.model.load_state_dict(torch.load("./NEL_app/NED_utlis/Candidate_Selector/model.pth", weights_only=False))
         self.model.eval()  # Set the model to evaluation mode
 
     def select_best_candidate_for_entity(self, entity: Entity):

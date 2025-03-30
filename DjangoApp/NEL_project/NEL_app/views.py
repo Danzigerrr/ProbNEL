@@ -3,6 +3,7 @@ from django.http import JsonResponse, HttpRequest, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from .Models.Text import Text
 from .NED_utlis.NEDHandler import NEDHandler
+from .NER_utils.NERConfig import NERConfig
 from .NER_utils.NERHandler import NERHandler
 from .Evaluation.EvaluationHandler import EvaluationHandler
 from .Evaluation.DatasetLoader import DatasetLoader
@@ -19,11 +20,18 @@ def index(request: HttpRequest) -> HttpResponse:
         try:
             text_obj = Text(user_input)
 
-            ner = NERHandler()
-            text_obj = ner.perform_ner(text_obj, "flair/ner-english-ontonotes")
+            # ner_tagger_name = "tomaarsen/span-marker-xlm-roberta-large-conllpp-doc-context"
+            # ner_tagger_name = "tomaarsen/span-marker-roberta-large-ontonotes5"
+            ner_tagger_name = "tomaarsen/span-marker-bert-base-fewnerd-fine-super"
+
+            ner_config = NERConfig(ner_tagger_name)
+
+            ner = NERHandler(ner_config)
+
+            text_obj = ner.perform_ner(text_obj)
 
             if knowledge_graph in ["dbpedia", "wikidata"]:
-                ned = NEDHandler(knowledge_graph)
+                ned = NEDHandler(ner_config, knowledge_graph)
                 text_obj = ned.perform_ned(text_obj)
             else:
                 return JsonResponse({"error": "Invalid knowledge_graph specified. Allowed values: dbpedia, wikidata"}, status=400)
@@ -69,8 +77,13 @@ def run_test_on_dataset(request: HttpRequest) -> HttpResponse:
             dataset_loader.print_dataset_info(dataset)
 
             # Initialize handlers
-            ner_handler = NERHandler()
-            ned_handler = NEDHandler("dbpedia")
+            # ner_tagger_name = "tomaarsen/span-marker-xlm-roberta-large-conllpp-doc-context"
+            # ner_tagger_name = "tomaarsen/span-marker-roberta-large-ontonotes5"
+            ner_tagger_name = "tomaarsen/span-marker-bert-base-fewnerd-fine-super"
+
+            ner_config = NERConfig(ner_tagger_name)
+            ner_handler = NERHandler(ner_config)
+            ned_handler = NEDHandler(ner_config, "dbpedia")
 
             # Run evaluation
             evaluation_handler = EvaluationHandler(ner_handler, ned_handler)
