@@ -19,9 +19,8 @@ class NERHandler:
 
     def perform_ner(self, text_obj: Text):
         """
-        Processes the given text using the Flair NER model.
-        :param tagger_name: name of the model used for NER tagging
-        :param text_obj: A Flair Sentence object annotated with NER tags.
+        Processes the given text using the NER model.
+        :param text_obj: A Text object (with original text)
         """
 
         self.ner_config.load_tagger_model()
