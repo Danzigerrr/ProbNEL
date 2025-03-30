@@ -20,7 +20,8 @@ def index(request: HttpRequest) -> HttpResponse:
         try:
             text_obj = Text(user_input)
 
-            ner_config = NERConfig("flair/ner-english")
+            ner_tagger_name = "tomaarsen/span-marker-roberta-large-ontonotes5"
+            ner_config = NERConfig(ner_tagger_name)
 
             ner = NERHandler(ner_config)
 
@@ -73,7 +74,8 @@ def run_test_on_dataset(request: HttpRequest) -> HttpResponse:
             dataset_loader.print_dataset_info(dataset)
 
             # Initialize handlers
-            ner_config = NERConfig("flair/ner-english")
+            ner_tagger_name = "tomaarsen/span-marker-roberta-large-ontonotes5"
+            ner_config = NERConfig(ner_tagger_name)
             ner_handler = NERHandler(ner_config)
             ned_handler = NEDHandler(ner_config, "dbpedia")
 
