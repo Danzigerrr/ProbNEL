@@ -126,5 +126,5 @@ class NERConfig:
     def load_tagger_model(self):
         """Load the SequenceTagger model."""
         self.tagger_model = SpanMarkerModel.from_pretrained(self.tagger_name)
-        self.tagger_model.cuda()  # or try_cuda()
+        self.tagger_model.try_cuda()
 
