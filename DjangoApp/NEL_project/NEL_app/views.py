@@ -87,10 +87,11 @@ def run_test_on_dataset(request: HttpRequest) -> HttpResponse:
 
             # Run evaluation
             evaluation_handler = EvaluationHandler(ner_handler, ned_handler)
-            evaluation_results = evaluation_handler.run_test_on_dataset(dataset)
-            evaluation_results.print_results()
+            ned_evaluation_results, ner_evaluation_results = evaluation_handler.run_test_on_dataset(dataset)
+            ned_evaluation_results.print_results()
+            ner_evaluation_results.print_results()
 
-            serialised_evaluation_results = serialize_the_evaluation_results_to_json(evaluation_results)
+            serialised_evaluation_results = serialize_the_evaluation_results_to_json(ned_evaluation_results, ner_evaluation_results)
 
             return serialised_evaluation_results
 
@@ -100,10 +101,11 @@ def run_test_on_dataset(request: HttpRequest) -> HttpResponse:
     return JsonResponse({"success": False, "error": "Invalid request."}, status=400)
 
 
-def serialize_the_evaluation_results_to_json(evaluation_results):
+def serialize_the_evaluation_results_to_json(ned_evaluation_results, ner_evaluation_results):
     serialised_evaluation_results = JsonResponse({
         "success": True,
-        "evaluation_results": evaluation_results.to_json()
+        "ned_evaluation_results": ned_evaluation_results.to_json(),
+        "ner_evaluation_results": ner_evaluation_results.to_json()
     })
     return serialised_evaluation_results
 
