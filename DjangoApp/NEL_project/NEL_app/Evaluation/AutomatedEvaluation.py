@@ -71,7 +71,7 @@ class AutomatedEvaluation:
             },
             "ner_results": ner_results.to_json_dict(),
             "ned_results": ned_results.to_json_dict(),
-            "ned_efficiency": round(ned_results.recall/ner_results.ner_accuracy, 2)
+            "ned_efficiency": round(ned_results.recall/ner_results.ner_accuracy, 2) if ner_results.ner_accuracy != 0 else 0
         }
 
         with open(output_filename, "w", encoding="utf-8") as file:
