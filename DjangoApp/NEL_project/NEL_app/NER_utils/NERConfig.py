@@ -121,10 +121,6 @@ class NERConfig:
 
         self.ignored_ner_types = self.IGNORED_TYPES.get(self.tagger_name, [])
         self.classes_definitions = self.CLASS_DEFINITIONS.get(self.tagger_name, {})
-        self.tagger_model = None
 
-    def load_tagger_model(self):
-        """Load the SequenceTagger model."""
         self.tagger_model = SpanMarkerModel.from_pretrained(self.tagger_name)
-        self.tagger_model.try_cuda()
 

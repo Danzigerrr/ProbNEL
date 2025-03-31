@@ -1,9 +1,9 @@
 from typing import List
-
+import json
 from DjangoApp.NEL_project.NEL_app.Models.Entity import Entity
 
 
-class NEREvaluator:
+class EvaluationNER:
     def __init__(self):
         self.ner_count_of_identified_entities = 0
         self.ner_count_of_total_number_of_entities = 0
@@ -48,3 +48,15 @@ class NEREvaluator:
         print(f"Total number of ground truth entities: {self.ner_count_of_total_number_of_entities}")
         print(f"Total number of correctly identified entities: {self.ner_count_of_identified_entities}")
         print(f"NER Accuracy: {self.ner_accuracy * 100:.2f}%")
+
+    def to_json_dict(self):
+        """Convert the NER evaluation results into a JSON-serializable dictionary."""
+        return {
+            "total_ground_truth_entities": self.ner_count_of_total_number_of_entities,
+            "correctly_identified_entities": self.ner_count_of_identified_entities,
+            "accuracy": round(self.ner_accuracy, 4)
+        }
+
+    def to_json(self):
+        """Return a pretty JSON string of the NER evaluation results."""
+        return json.dumps(self.to_json_dict(), indent=4)

@@ -209,8 +209,9 @@
 
                     console.log(data);
                     if (data.success) {
-                        const evaluationResults = data.evaluation_results;
-                        displayEvaluationResults(evaluationResults);
+                        const ner_results = data.ner_evaluation_results;
+                        const ned_results = data.ned_evaluation_results;
+                        displayEvaluationResults(ner_results, ned_results);
                     } else {
                         alert("Failed to upload dataset: " + data.error);
                     }
@@ -232,24 +233,28 @@
         }
     }
 
-    function displayEvaluationResults(evaluationResultsString) {
-        const evaluationResults = JSON.parse(evaluationResultsString);
+    function displayEvaluationResults(ner_results_string, ned_results_string) {
+        const ner_results = JSON.parse(ner_results_string);
+        const ned_results = JSON.parse(ned_results_string);
 
         // Create the container where evaluation results will be displayed
         const resultsContainer = document.getElementById("results-container");
         resultsContainer.innerHTML = ""; // Clear previous results
 
-        const resultsHTML = `
+        resultsContainer.innerHTML = `
         <h4>Evaluation Results</h4>
         <ul>
-            <li><strong>Accuracy:</strong> ${evaluationResults.accuracy}</li>
-            <li><strong>Precision:</strong> ${evaluationResults.precision}</li>
-            <li><strong>Recall:</strong> ${evaluationResults.recall}</li>
-            <li><strong>F1 Score:</strong> ${evaluationResults.f1_score}</li>
+            <li><strong>NER total GT entities in text:</strong> ${ner_results.total_ground_truth_entities}</li>
+            <li><strong>NER correctly identified entities in text:</strong> ${ner_results.correctly_identified_entities}</li>
+            <li><strong>NER Accuracy:</strong> ${ner_results.accuracy}</li>
+            <br>
+            <li><strong>NED Accuracy:</strong> ${ned_results.accuracy}</li>
+            <li><strong>NED Precision:</strong> ${ned_results.precision}</li>
+            <li><strong>NED Recall:</strong> ${ned_results.recall}</li>
+            <li><strong>NED F1 Score:</strong> ${ned_results.f1_score}</li>
         </ul>
         `;
 
-        resultsContainer.innerHTML = resultsHTML;
     }
 
 
