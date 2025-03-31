@@ -18,11 +18,13 @@ class NERHandler:
         :param text_obj: A Text object (with original text)
         """
 
-        self.ner_config.load_tagger_model()
-
         tokenized_text = word_tokenize(text_obj.content)
 
+        self.ner_config.tagger_model.try_cuda()
+
         predictions = predict_named_entities(self.ner_config.tagger_model, tokenized_text)
+
+        self.ner_config.tagger_model.cpu()
 
         predictions = map_word_indices_to_char_indices(text_obj.content, predictions)
 
