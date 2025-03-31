@@ -1,9 +1,11 @@
 import time
+from typing import List
+
 from tqdm import tqdm
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from .EvaluationNED import EvaluationNED
 from .EvaluationLogs import EvaluationLogs
-from .EvaluationNER import NEREvaluator
+from .EvaluationNER import EvaluationNER
 from ..Models.Text import Text
 from .TestDataset import TestDataset
 from ..NED_utlis.NEDHandler import NEDHandler
@@ -17,9 +19,9 @@ class EvaluationHandler:
         """
         self.ner = ner_handler
         self.ned = ned_handler
-        self.evaluation_results = EvaluationNED()
+        self.ned_evaluation = EvaluationNED()
+        self.ner_evaluation = EvaluationNER()
         self.evaluation_logs = EvaluationLogs()
-        self.ner_evaluation = NEREvaluator()
         self.dataset = None
         self.max_threads = 4  # Set maximum number of threads
 
@@ -30,58 +32,60 @@ class EvaluationHandler:
         self.dataset = dataset
         start_time = time.time()
 
-        processed_texts = self.process_texts_parallel(dataset)
+        texts_with_pred = self.perform_ner_on_texts(dataset)
+        texts_with_pred = self.perform_ned_on_texts(texts_with_pred)
 
         # Evaluation should be done sequentially
-        self.process_results_sequential(processed_texts)
-        self.evaluation_results.finalize_scores()
-        self.evaluation_logs.save_logs_to_files()
+        self.evaluate_predictions(texts_with_pred, dataset)
+
 
         end_time = time.time()
         elapsed_time = end_time - start_time
         print(f"Evaluation completed in {elapsed_time:.2f} seconds.")
 
-        return self.evaluation_results
+        return self.ned_evaluation, self.ner_evaluation
 
-    def process_texts_parallel(self, dataset: TestDataset):
-        """Processes texts in parallel, collecting results for sequential evaluation."""
-        texts = dataset.texts
-        results = []
-
-        with ThreadPoolExecutor(max_workers=self.max_threads) as executor:
-            future_to_text = {executor.submit(self.process_text, text): (idx, text) for idx, text in enumerate(texts)}
-
-            with tqdm(total=len(texts), desc="Processing texts") as pbar:
-                for future in as_completed(future_to_text):
-                    idx, text_ground_truth = future_to_text[future]
-                    text_to_analyse = future.result()
-                    results.append((idx, text_to_analyse, text_ground_truth))
-                    pbar.update(1)
-
-        # Sort results by index to maintain original order before sequential processing
-        return sorted(results, key=lambda x: x[0])
-
-    def process_text(self, text_ground_truth: Text):
+    def perform_ner_on_texts(self, dataset: TestDataset):
         """
         Process a single text with NER and NED.
         """
-        text_content = text_ground_truth.content
-        text_with_pred = Text(text_content)
+        self.ner.ner_config.tagger_model.try_cuda()
 
-        text_with_pred = self.ner.perform_ner(text_with_pred)
-        text_with_pred = self.ned.perform_ned(text_with_pred)
+        texts_with_pred = []
 
-        return text_with_pred
+        for text in dataset.texts:
+            text_content = text.content
+            text_with_pred = self.ner.perform_ner(Text(text_content))
+            texts_with_pred.append(text_with_pred)
 
-    def process_results_sequential(self, processed_texts):
+        self.ner.ner_config.tagger_model.cpu()
+
+        return texts_with_pred
+
+    def perform_ned_on_texts(self, texts_with_pred: List[Text]):
+        """
+        Process a single text with NER and NED.
+        """
+        texts_with_ned = []
+        for text in texts_with_pred:
+            text_with_pred = self.ned.perform_ned(text)
+            texts_with_ned.append(text_with_pred)
+
+        return texts_with_ned
+
+
+    def evaluate_predictions(self, processed_texts: List[Text], dataset: TestDataset):
         """Evaluates entity linking results sequentially."""
         with tqdm(total=len(processed_texts), desc="Evaluating results") as pbar:
-            for _, text_to_analyse, text_ground_truth in processed_texts:
+            for text_to_analyse, text_ground_truth in zip(processed_texts, dataset.texts):
                 self.evaluate_entity_linking_in_text(text_to_analyse, text_ground_truth)
                 pbar.update(1)
 
+        self.ned_evaluation.finalize_scores()
+        self.evaluation_logs.save_logs_to_files()
+
     def evaluate_entity_linking_in_text(self, text_to_analyse: Text, text_ground_truth: Text):
         """Evaluate NED by comparing ground truth entities with predicted entities."""
-        self.evaluation_results.evaluate_ned_process(text_to_analyse.entities, text_ground_truth.entities)
+        self.ned_evaluation.evaluate_ned_process(text_to_analyse.entities, text_ground_truth.entities)
         self.evaluation_logs.create_logs(text_to_analyse.entities, text_ground_truth.entities)
         self.ner_evaluation.evaluate_ner(text_to_analyse.entities, text_ground_truth.entities)

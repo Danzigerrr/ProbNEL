@@ -72,15 +72,24 @@ class EvaluationNED:
         cm = confusion_matrix(self.y_true, self.y_pred)
         print(f"Confusion Matrix for NED Predictions:\n{cm}")
 
+    def confusion_matrix_to_json(self):
+        """Convert the confusion matrix into a JSON-serializable dictionary."""
+        cm = confusion_matrix(self.y_true, self.y_pred)
+        return {"confusion_matrix": cm.tolist()}
+
+    def to_json_dict(self):
+        """Convert the evaluation results into a JSON-serializable dictionary."""
+        return {
+            "accuracy": round(self.accuracy, 4),
+            "precision": round(self.precision, 4),
+            "recall": round(self.recall, 4),
+            "f1_score": round(self.f1_score, 4),
+            "confusion_matrix": confusion_matrix(self.y_true, self.y_pred).tolist()
+        }
 
     def to_json(self):
-        """Convert the evaluation results into a JSON-serializable dictionary."""
-        return json.dumps({
-            "accuracy": f"{self.accuracy:.4f}",
-            "precision": f"{self.precision:.4f}",
-            "recall": f"{self.recall:.4f}",
-            "f1_score": f"{self.f1_score:.4f}"
-        })
+        """Return a pretty JSON string of the evaluation results."""
+        return json.dumps(self.to_json_dict(), indent=4)
 
     def print_results(self):
         """Prints the evaluation results to the console in a formatted way."""
