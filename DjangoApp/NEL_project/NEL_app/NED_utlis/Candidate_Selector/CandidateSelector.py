@@ -1,15 +1,15 @@
+import os
 import torch
 import torch.nn as nn
-
 from DjangoApp.NEL_project.NEL_app.Models.Entity import Entity
 
 
-# Define the class for selecting the best candidate
 class CandidateSelector:
     def __init__(self):
         # Load the pre-trained model
         self.model = CandidateSelectorNN()
-        self.model.load_state_dict(torch.load("/home/student/184698/DjangoApp/NEL_project/NEL_app/NED_utlis/Candidate_Selector/model.pth", weights_only=False))
+        model_path = os.path.join(os.path.dirname(__file__), "model.pth")
+        self.model.load_state_dict(torch.load(model_path, weights_only=False))
         self.model.eval()  # Set the model to evaluation mode
 
     def select_best_candidate_for_entity(self, entity: Entity):
