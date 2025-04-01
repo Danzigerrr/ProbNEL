@@ -1,8 +1,7 @@
+from concurrent.futures import ProcessPoolExecutor, as_completed
 import time
-from typing import List
-
 from tqdm import tqdm
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from typing import List
 from .EvaluationNED import EvaluationNED
 from .EvaluationLogs import EvaluationLogs
 from .EvaluationNER import EvaluationNER
@@ -23,7 +22,7 @@ class EvaluationHandler:
         self.ner_evaluation = EvaluationNER()
         self.evaluation_logs = EvaluationLogs()
         self.dataset = None
-        self.max_threads = 16
+        self.max_processes = 8  # For ProcessPoolExecutor
 
     def run_test_on_dataset(self, dataset: TestDataset):
         """
@@ -42,7 +41,6 @@ class EvaluationHandler:
 
         # Evaluation should be done sequentially
         self.evaluate_predictions(texts_with_pred, dataset)
-
 
         end_time = time.time()
         elapsed_time = end_time - start_time
@@ -69,11 +67,11 @@ class EvaluationHandler:
 
     def perform_ned_on_texts(self, texts_with_pred: List[Text]) -> List[Text]:
         """
-        Process multiple texts with NED in parallel.
+        Process multiple texts with NED in parallel using ProcessPoolExecutor.
         """
         texts_with_ned = []
-        with ThreadPoolExecutor(max_workers=self.max_threads) as executor:
-            # Submit all tasks concurrently.
+        with ProcessPoolExecutor(max_workers=self.max_processes) as executor:
+            # Submit all tasks concurrently to separate processes.
             futures = {executor.submit(self.ned.perform_ned, text): idx for idx, text in enumerate(texts_with_pred)}
             # If order is important, collect results in a dict.
             results = {}

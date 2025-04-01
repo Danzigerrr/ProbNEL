@@ -1,5 +1,4 @@
 import requests
-from requests_cache import CachedSession
 from DjangoApp.NEL_project.NEL_app.NED_utlis.Candidate.Candidate import Candidate
 
 
@@ -8,29 +7,27 @@ class DBpediaSearch:
     A class for searching DBpedia using the Lookup API with caching.
     """
     DBPEDIA_LOOKUP_ENDPOINT = "https://lookup.dbpedia.org/api/search"
+    _cache = {}  # Simple dictionary-based cache
 
-    def __init__(self, cache_name='dbpedia_cache', backend='sqlite'):
-        """
-        Initializes the DBpediaSearch object with a CachedSession.
-        """
-        self.session = CachedSession(cache_name, backend=backend)
-        print("DBpediaSearch caching enabled. CachedSession instantiated.")
+    def __init__(self):
+        print("DBpediaSearch simple caching enabled (in-memory dictionary).")
 
     def cached_request(self, entity_surface_form, max_results=3):
-        """
-        Cached method to fetch search results from the DBpedia Lookup API.
-        Uses requests_cache to cache responses.
-        """
+        key = f"{entity_surface_form[:25]}_{max_results}"
+        if key in DBpediaSearch._cache:
+            print(f"Cache hit for '{entity_surface_form[:25]}'")
+            return DBpediaSearch._cache[key]
         params = {
-            "query": entity_surface_form[:25],  # Limit to 25 characters
+            "query": entity_surface_form[:25],
             "format": "JSON_FULL",
             "maxResults": max_results,
         }
         try:
-            response = self.session.get(DBpediaSearch.DBPEDIA_LOOKUP_ENDPOINT, params=params)
+            response = requests.get(DBpediaSearch.DBPEDIA_LOOKUP_ENDPOINT, params=params)
             response.raise_for_status()
-            # print_cache_hit_or_miss_info(entity_surface_form, response)
-            return response.json()
+            json_response = response.json()
+            DBpediaSearch._cache[key] = json_response
+            return json_response
         except requests.exceptions.RequestException as e:
             print(f"Error querying DBpedia: {e}")
             return None
@@ -44,7 +41,6 @@ class DBpediaSearch:
         if cached_response:
             return format_candidates_list(cached_response)
         return None
-
 
 
 def print_cache_hit_or_miss_info(entity_surface_form, response):

@@ -6,10 +6,14 @@ from .Candidate_Selector.CandidateSelector import CandidateSelector
 from ..Models.Text import Text
 from ..NER_utils.NERConfig import NERConfig
 
+import os
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 class NEDHandler:
     ALLOWED_KNOWLEDGE_BASES = ["dbpedia", "wikidata"]
-    ALLOWED_CANDIDATE_SELECTION_STRATEGIES = ["sum_of_metrics", "candidate_selector_neural_network"]
+    ALLOWED_CANDIDATE_SELECTION_STRATEGIES = ["sum_of_metrics",
+                                              "candidate_selector_neural_network",
+                                              "candidate_selector_random_forest_classifier"]
 
     def __init__(self,
                  ner_config: NERConfig,
@@ -24,11 +28,10 @@ class NEDHandler:
             raise ValueError(f"Error: knowledge_base value must be on of the options: {self.ALLOWED_KNOWLEDGE_BASES}")
         self.knowledge_base = knowledge_base.lower()
         self.DBPediaSearch = DBpediaSearch()
-        self.WikidataSearch = WikidataSearch()
         self.EntityCandidateScorer = EntityCandidateScorer()
-        self.CandidateSelector = CandidateSelector()
-        if candidate_selection_strategy.lower() not in self.ALLOWED_CANDIDATE_SELECTION_STRATEGIES:
+        if candidate_selection_strategy not in self.ALLOWED_CANDIDATE_SELECTION_STRATEGIES:
             raise ValueError(f"Error: candidate_selection_strategy value must be on of the options: {self.ALLOWED_CANDIDATE_SELECTION_STRATEGIES}")
+        self.CandidateSelector = CandidateSelector(candidate_selection_strategy)
         self.candidate_selection_strategy = candidate_selection_strategy
         self.use_types_score = use_types_score
         self.ner_config = ner_config
@@ -47,8 +50,6 @@ class NEDHandler:
             if self.knowledge_base == self.ALLOWED_KNOWLEDGE_BASES[0]:
                 entity.candidates = self.DBPediaSearch.search_by_entity_surface_form(entity_label, 10)
 
-            elif self.knowledge_base == self.ALLOWED_KNOWLEDGE_BASES[1]:
-                entity.candidates = self.WikidataSearch.search_by_entity_surface_form(entity_label)
 
             self.select_best_candidate_for_entity(text, entity)
 
@@ -64,11 +65,7 @@ class NEDHandler:
             for candidate in entity.candidates: candidate.score_types_embeddings_similarity = 0.0
 
         if entity.candidates:
-            if self.candidate_selection_strategy == self.ALLOWED_CANDIDATE_SELECTION_STRATEGIES[0]:
-                entity.candidates.sort(key=lambda x: x.score_final, reverse=True)
-                entity.best_candidate_uri = entity.candidates[0].uri
-            elif self.candidate_selection_strategy == self.ALLOWED_CANDIDATE_SELECTION_STRATEGIES[1]:
-                self.CandidateSelector.select_best_candidate_for_entity(entity=entity)
+                self.CandidateSelector.model.select_best_candidate_for_entity(entity=entity)
 
     def print_top_candidates(self, entity: Entity, top_n_candidates_to_print = 3):
         print(f"\n### Best candidate(s) for entity '{entity.entity_label}'({entity.start_position}, {entity.end_position}):")
