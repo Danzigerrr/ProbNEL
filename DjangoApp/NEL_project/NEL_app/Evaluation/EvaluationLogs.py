@@ -1,6 +1,7 @@
 import os
 import csv
 import json
+from datetime import datetime
 
 
 class EvaluationLogs:
@@ -59,21 +60,24 @@ class EvaluationLogs:
 
     def save_logs_to_files(self):
         os.makedirs("Evaluation_Logs", exist_ok=True)  # Ensure directory exists
-        self.save_logs_to_json()
-        self.save_logs_to_csv()
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        output_filename = f"evaluation_logs_{timestamp}"
+        self.save_logs_to_json(output_filename)
+        self.save_logs_to_csv(output_filename)
 
-    def save_logs_to_csv(self):
+    def save_logs_to_csv(self, output_filename):
         """Saves the logs to a CSV file."""
-        with open(f"Evaluation_Logs/evaluation_logs.csv", mode='w', newline='', encoding='utf-16') as file:
+
+        with open(f"Evaluation_Logs/{output_filename}.csv", mode='w', newline='', encoding='utf-16') as file:
             writer = csv.writer(file)
             writer.writerow(["entity_label", "start_position", "end_position", "correct_prediction", "candidates", "matching_candidate_index"])
             for log in self.logs:
                 candidates_str = json.dumps(log["candidates"])
                 writer.writerow([log["entity_label"], log["start_position"], log["end_position"], log["correct_prediction"], candidates_str, log.get("matching_candidate_index", None)])
 
-    def save_logs_to_json(self):
+    def save_logs_to_json(self, output_filename):
         """Saves the logs to a JSON file."""
-        with open(f"Evaluation_Logs/evaluation_logs.json", 'w', encoding='utf-16') as file:
+        with open(f"Evaluation_Logs/{output_filename}.json", 'w', encoding='utf-16') as file:
             json.dump(self.logs, file, indent=4)
 
 def check_ned_matching(gt_entity, pred_entity):

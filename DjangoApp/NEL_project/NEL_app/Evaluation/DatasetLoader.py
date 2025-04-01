@@ -5,6 +5,10 @@ import json
 
 
 class DatasetLoader:
+    def __init__(self):
+        self.total_texts = 0
+        self.total_mentions = 0
+
     def load_dataset(self, dataset_file):
         """
         Load the dataset from a file object.
@@ -18,7 +22,7 @@ class DatasetLoader:
     def load_dataset_content(self, dataset_content, dataset_name):
         """
         Parse the dataset content and create a TestDataset object.
-
+`
         :param dataset_content: JSON content of the dataset.
         :param dataset_name: Name of the dataset file.
         :return: A TestDataset object.
@@ -40,6 +44,10 @@ class DatasetLoader:
                 text_object.entities.append(entity_mention)
 
             dataset.texts.append(text_object)
+
+        self.total_texts = len(dataset.texts)
+        self.total_mentions = sum(len(text_obj.entities) for text_obj in dataset.texts)
+
         return dataset
 
     def print_dataset_info(self, dataset):
@@ -48,11 +56,9 @@ class DatasetLoader:
 
         :param dataset: A TestDataset object.
         """
-        total_texts = len(dataset.texts)
-        total_mentions = sum(len(text_obj.entities) for text_obj in dataset.texts)
 
         print("-" * 30)
         print("Dataset Parsing Summary:")
-        print(f"Total number of texts: {total_texts}")
-        print(f"Total number of entity mentions: {total_mentions}")
+        print(f"Total number of texts: {self.total_texts}")
+        print(f"Total number of entity mentions: {self.total_mentions}")
         print("-" * 30)

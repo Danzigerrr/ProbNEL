@@ -1,6 +1,7 @@
 import json
 import time
 import os
+import itertools
 from datetime import datetime
 from DjangoApp.NEL_project.NEL_app.Evaluation.DatasetLoader import DatasetLoader
 from DjangoApp.NEL_project.NEL_app.Evaluation.EvaluationHandler import EvaluationHandler
@@ -12,11 +13,12 @@ from DjangoApp.NEL_project.NEL_app.NER_utils.NERHandler import NERHandler
 
 
 class AutomatedEvaluation:
-    def __init__(self, dataset_path, ner_model, knowledge_graph, use_ontology_mapping=True, output_dir="evaluation_results"):
+    def __init__(self, dataset_path, ner_model, ned_knowledge_graph, ned_candidate_selection_strategy: str = "candidate_selector_neural_network",  ned_use_ontology_mapping_score=True, output_dir="evaluation_results"):
         self.dataset_path = dataset_path
         self.ner_model = ner_model
-        self.knowledge_graph = knowledge_graph
-        self.use_ontology_mapping = use_ontology_mapping
+        self.ned_knowledge_graph = ned_knowledge_graph
+        self.ned_candidate_selection_strategy = ned_candidate_selection_strategy
+        self.ned_use_ontology_mapping_score = ned_use_ontology_mapping_score
         self.output_dir = output_dir
         os.makedirs(self.output_dir, exist_ok=True)  # Ensure output directory exists
 
@@ -45,7 +47,10 @@ class AutomatedEvaluation:
 
         ner_config = NERConfig(self.ner_model)
         ner_handler = NERHandler(ner_config)
-        ned_handler = NEDHandler(ner_config, self.knowledge_graph)
+        ned_handler = NEDHandler(ner_config,
+                                 self.ned_knowledge_graph,
+                                 self.ned_candidate_selection_strategy,
+                                 self.ned_use_ontology_mapping_score)
 
         # Run evaluation
         evaluation_handler = EvaluationHandler(ner_handler, ned_handler)
@@ -54,9 +59,9 @@ class AutomatedEvaluation:
         ned_evaluation_results.print_results()
         ner_evaluation_results.print_results()
         # Save results
-        self.save_results(ned_evaluation_results, ner_evaluation_results, start_time)
+        self.save_results(ned_evaluation_results, ner_evaluation_results, start_time, dataset_loader)
 
-    def save_results(self, ned_results: EvaluationNED, ner_results: EvaluationNER, start_time):
+    def save_results(self, ned_results: EvaluationNED, ner_results: EvaluationNER, start_time, dataset_loader):
         """Save evaluation results to a timestamped JSON file."""
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         output_filename = f"{self.output_dir}/evaluation_{timestamp}.json"
@@ -64,9 +69,12 @@ class AutomatedEvaluation:
         output_data = {
             "configuration": {
                 "dataset_path": self.dataset_path,
+                "dataset_total_texts": dataset_loader.total_texts,
+                "dataset_total_mentions": dataset_loader.total_mentions,
                 "ner_model": self.ner_model,
-                "knowledge_graph": self.knowledge_graph,
-                "use_ontology_mapping": self.use_ontology_mapping,
+                "ned_knowledge_graph": self.ned_knowledge_graph,
+                "ned_candidate_selection_strategy": self.ned_candidate_selection_strategy,
+                "ned_use_ontology_mapping_score": self.ned_use_ontology_mapping_score,
                 "execution_time_seconds": round(time.time() - start_time, 2)
             },
             "ner_results": ner_results.to_json_dict(),
@@ -81,11 +89,33 @@ class AutomatedEvaluation:
 
 
 if __name__ == "__main__":
-    dataset_path = "./EvaluationDatasets/ace2004_short.json"
-    ner_models = ["tomaarsen/span-marker-xlm-roberta-large-conllpp-doc-context",
-                  "tomaarsen/span-marker-roberta-large-ontonotes5",
-                  "tomaarsen/span-marker-bert-base-fewnerd-fine-super"]
-    knowledge_graph = "dbpedia"
-    for ner_model in ner_models:
-        evaluator = AutomatedEvaluation(dataset_path, ner_model, knowledge_graph)
+    dataset_path = "./EvaluationDatasets/ace2004_medium.json"
+    ner_models = [
+        "tomaarsen/span-marker-xlm-roberta-large-conllpp-doc-context",
+        "tomaarsen/span-marker-roberta-large-ontonotes5",
+        "tomaarsen/span-marker-bert-base-fewnerd-fine-super"
+    ]
+    ned_knowledge_graph = "dbpedia"
+    # ned_candidate_selection_strategies = ["candidate_selector_neural_network", "sum_of_metrics"]
+    ned_candidate_selection_strategies = ["candidate_selector_neural_network"]
+    # ned_use_ontology_mapping_scores = [True, False]
+    ned_use_ontology_mapping_scores = [True]
+
+    # Iterate over all possible combinations of parameters
+    for ner_model, ned_candidate_selection_strategy, ned_use_ontology_mapping_score in itertools.product(
+            ner_models, ned_candidate_selection_strategies, ned_use_ontology_mapping_scores
+    ):
+        print(f"Running evaluation with:")
+        print(f"NER Model: {ner_model}")
+        print(f"NED Candidate Selection Strategy: {ned_candidate_selection_strategy}")
+        print(f"Use Ontology Mapping Score: {ned_use_ontology_mapping_score}\n")
+
+        evaluator = AutomatedEvaluation(
+            dataset_path,
+            ner_model,
+            ned_knowledge_graph,
+            ned_candidate_selection_strategy,
+            ned_use_ontology_mapping_score
+        )
         evaluator.run_evaluation()
+
