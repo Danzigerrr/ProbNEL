@@ -1,0 +1,13 @@
+Filename,Dataset,NER Model,KG,Candidate Strategy,Use Ontology Mapping Score,Execution Time (s),NER Accuracy,NED Accuracy,NED Precision,NED Recall,NED F1 Score,NED Efficiency
+evaluation_20250401_120053.json,ace2004_full.json,tomaarsen/span-marker-bert-base-fewnerd-fine-super,dbpedia,candidate_selector_neural_network,False,1318.83,0.716,0.0847,0.091,0.5525,0.1562,0.77
+evaluation_20250401_090630.json,ace2004_full.json,tomaarsen/span-marker-xlm-roberta-large-conllpp-doc-context,dbpedia,candidate_selector_neural_network,False,1443.82,0.8521,0.086,0.0906,0.6304,0.1584,0.74
+evaluation_20250401_101221.json,ace2004_full.json,tomaarsen/span-marker-roberta-large-ontonotes5,dbpedia,candidate_selector_neural_network,True,1123.2,0.7704,0.0861,0.0907,0.6265,0.1585,0.81
+evaluation_20250401_093002.json,ace2004_full.json,tomaarsen/span-marker-xlm-roberta-large-conllpp-doc-context,dbpedia,sum_of_metrics,True,1412.11,0.8521,0.0728,0.0777,0.5331,0.1356,0.63
+evaluation_20250401_122251.json,ace2004_full.json,tomaarsen/span-marker-bert-base-fewnerd-fine-super,dbpedia,sum_of_metrics,True,1317.84,0.716,0.0692,0.0756,0.4514,0.1295,0.63
+evaluation_20250401_111811.json,ace2004_full.json,tomaarsen/span-marker-roberta-large-ontonotes5,dbpedia,sum_of_metrics,False,1368.8,0.7704,0.0732,0.0782,0.5331,0.1365,0.69
+evaluation_20250401_103500.json,ace2004_full.json,tomaarsen/span-marker-roberta-large-ontonotes5,dbpedia,candidate_selector_neural_network,False,1359.13,0.7704,0.0834,0.0881,0.607,0.1539,0.79
+evaluation_20250401_124411.json,ace2004_full.json,tomaarsen/span-marker-bert-base-fewnerd-fine-super,dbpedia,sum_of_metrics,False,1280.61,0.716,0.0692,0.0756,0.4514,0.1295,0.63
+evaluation_20250401_095338.json,ace2004_full.json,tomaarsen/span-marker-xlm-roberta-large-conllpp-doc-context,dbpedia,sum_of_metrics,False,1415.95,0.8521,0.0728,0.0777,0.5331,0.1356,0.63
+evaluation_20250401_113854.json,ace2004_full.json,tomaarsen/span-marker-bert-base-fewnerd-fine-super,dbpedia,candidate_selector_neural_network,True,1243.19,0.716,0.0877,0.0939,0.572,0.1613,0.8
+evaluation_20250401_084226.json,ace2004_full.json,tomaarsen/span-marker-xlm-roberta-large-conllpp-doc-context,dbpedia,candidate_selector_neural_network,True,1260.58,0.8521,0.0892,0.0936,0.6537,0.1638,0.77
+evaluation_20250401_105522.json,ace2004_full.json,tomaarsen/span-marker-roberta-large-ontonotes5,dbpedia,sum_of_metrics,True,1221.56,0.7704,0.0732,0.0782,0.5331,0.1365,0.69

@@ -25,8 +25,6 @@ class EvaluationNER:
 
         self.calculate_ner_accuracy()
 
-        self.print_results()
-
     def check_ner_matching(self, gt_entity: Entity, pred_entity: Entity):
         """Checks if a predicted entity matches a ground truth entity based on NER criteria."""
         return (

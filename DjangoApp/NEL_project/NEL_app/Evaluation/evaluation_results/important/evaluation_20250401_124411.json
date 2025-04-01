@@ -1,0 +1,34 @@
+{
+    "configuration": {
+        "dataset_path": "./EvaluationDatasets/ace2004_full.json",
+        "dataset_total_texts": 119,
+        "dataset_total_mentions": 257,
+        "ner_model": "tomaarsen/span-marker-bert-base-fewnerd-fine-super",
+        "ned_knowledge_graph": "dbpedia",
+        "ned_candidate_selection_strategy": "sum_of_metrics",
+        "ned_use_ontology_mapping_score": false,
+        "execution_time_seconds": 1280.61
+    },
+    "ner_results": {
+        "total_ground_truth_entities": 257,
+        "correctly_identified_entities": 184,
+        "accuracy": 0.716
+    },
+    "ned_results": {
+        "accuracy": 0.0692,
+        "precision": 0.0756,
+        "recall": 0.4514,
+        "f1_score": 0.1295,
+        "confusion_matrix": [
+            [
+                0,
+                1419
+            ],
+            [
+                141,
+                116
+            ]
+        ]
+    },
+    "ned_efficiency": 0.63
+}

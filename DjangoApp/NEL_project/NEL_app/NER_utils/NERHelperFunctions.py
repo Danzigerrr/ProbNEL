@@ -11,7 +11,7 @@ nltk.download('punkt_tab')  # Download tokenizer model (needed only once)
 
 def predict_named_entities(model_obj: SpanMarkerModel,
                            inputs: Union[str, List[str], List[List[str]], Dataset],
-                           top_n_types:int = 3,
+                           top_n_types: int = 3,
                            batch_size: int = 4,
                            show_progress_bar=False):
     # Disable dropout, etc.
