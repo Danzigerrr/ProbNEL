@@ -39,7 +39,7 @@ class NEDHandler:
         :param text: A Text object to associate with found entities.
         :return: None. Updates the text (Text instance) with found entities.
         """
-        print(f"Searching in knowledge_base: {self.knowledge_base}")
+        # print(f"Searching in knowledge_base: {self.knowledge_base}")
 
         for entity in text.entities:  # Iterate over found entities
             entity_label = entity.entity_label  # Use the FoundEntity object for labels
