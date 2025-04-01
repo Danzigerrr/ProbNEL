@@ -1,50 +1,86 @@
 import os
+import numpy as np
 import torch
 import torch.nn as nn
 from DjangoApp.NEL_project.NEL_app.Models.Entity import Entity
 
-
 class CandidateSelector:
-    def __init__(self):
-        # Load the pre-trained model
-        self.model = CandidateSelectorNN()
-        model_path = os.path.join(os.path.dirname(__file__), "model.pth")
-        self.model.load_state_dict(torch.load(model_path, weights_only=False))
-        self.model.eval()  # Set the model to evaluation mode
+    def __init__(self, candidate_selection_strategy):
+        self.candidate_selection_strategy = candidate_selection_strategy
 
+        if candidate_selection_strategy == "sum_of_metrics":
+            self.model = CandidateSelectorSumOfScores()
+        elif candidate_selection_strategy == "candidate_selector_neural_network":
+            self.model = CandidateSelectorNN()
+            model_path_nn = os.path.join(os.path.dirname(__file__), "neural_network_model.pth")
+            self.model.load_state_dict(torch.load(model_path_nn, map_location=torch.device('cpu')))
+            self.model.eval()
+        elif candidate_selection_strategy == "candidate_selector_random_forest_classifier":
+            self.model = CandidateSelectorRFC()
+        else:
+            raise ValueError("Invalid candidate selection strategy")
+
+
+class CandidateSelectorSumOfScores:
     def select_best_candidate_for_entity(self, entity: Entity):
-        """
-        Chooses the best candidate for an entity based on the calculated scores.
-        """
-        for candidate in entity.candidates:
-            features = torch.tensor([candidate.score_types_embeddings_similarity,
-                                     candidate.score_levenshtein_distance,
-                                     candidate.score_popularity,
-                                     candidate.score_context], dtype=torch.float32).unsqueeze(0)  # Shape: (1, 4)
-
-            # Get the model's prediction score for this candidate
-            with torch.no_grad():  # No need to track gradients during inference
-                score = self.model(features)
-
-            # Set the final score for the candidate
-            candidate.score_final = score.item()
-
-        # Sort candidates by their final score and select the best one
         entity.candidates.sort(key=lambda x: x.score_final, reverse=True)
-        entity.best_candidate_uri = entity.candidates[0].uri  # Best candidate URI
-
+        entity.best_candidate_uri = entity.candidates[0].uri
 
 
 class CandidateSelectorNN(nn.Module):
     def __init__(self):
         super(CandidateSelectorNN, self).__init__()
-        self.fc1 = nn.Linear(4, 16)  # Input: 4 metrics -> Hidden layer
-        self.fc2 = nn.Linear(16, 8)  # Hidden layer
-        self.fc3 = nn.Linear(8, 1)   # Output: Score for each candidate
+        self.fc1 = nn.Linear(4, 16)
+        self.fc2 = nn.Linear(16, 8)
+        self.fc3 = nn.Linear(8, 1)
 
     def forward(self, x):
         x = torch.relu(self.fc1(x))
         x = torch.relu(self.fc2(x))
         x = self.fc3(x)
-        return x.squeeze(-1)  # Shape: (batch_size, 1)
+        return x.squeeze(-1)
+
+    def select_best_candidate_for_entity(self, entity: Entity):
+        for candidate in entity.candidates:
+            features = [
+                candidate.score_types_embeddings_similarity,
+                candidate.score_levenshtein_distance,
+                candidate.score_popularity,
+                candidate.score_context
+            ]
+
+            # Ensure the feature vector is exactly 40 elements long
+            features.extend([0] * (40 - len(features)))
+            features = torch.tensor(features, dtype=torch.float32).unsqueeze(0)  # Reshape for model input
+
+            with torch.no_grad():
+                score = self.forward(features)
+            candidate.score_final = score.item()
+
+        entity.candidates.sort(key=lambda x: x.score_final, reverse=True)
+        entity.best_candidate_uri = entity.candidates[0].uri
+
+
+class CandidateSelectorRFC:
+    def __init__(self):
+        model_path_rfc = os.path.join(os.path.dirname(__file__), 'random_forest_model3.pth')
+        self.model = torch.load(model_path_rfc, weights_only=False)
+
+    def select_best_candidate_for_entity(self, entity: Entity):
+        features = [
+            attr for candidate in entity.candidates for attr in [
+                candidate.score_types_embeddings_similarity,
+                candidate.score_levenshtein_distance,
+                candidate.score_popularity,
+                candidate.score_context
+            ]
+        ]
+
+        # Ensure the feature vector is exactly 40 elements long
+        features.extend([0] * (40 - len(features)))
+        features = np.array(features).reshape(1, -1)  # Reshape for a single entity
+
+        best_candidate_index = int(self.model.predict(features))
+        entity.best_candidate_uri = entity.candidates[best_candidate_index].uri if best_candidate_index < len(entity.candidates) else None
+
 
