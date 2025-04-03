@@ -15,7 +15,7 @@ class DBpediaSearch:
     def cached_request(self, entity_surface_form, max_results=3):
         key = f"{entity_surface_form[:25]}_{max_results}"
         if key in DBpediaSearch._cache:
-            print(f"Cache hit for '{entity_surface_form[:25]}'")
+            # print(f"Cache hit for '{entity_surface_form[:25]}'")
             return DBpediaSearch._cache[key]
         params = {
             "query": entity_surface_form[:25],
