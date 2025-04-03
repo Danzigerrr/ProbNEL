@@ -164,4 +164,5 @@ DjangoApp/NEL_project/NEL_app/Evaluation/dbpedia_cache.sqlite
 DjangoApp/NEL_project/NEL_app/Evaluation/wikidata_cache.sqlite
 
 DjangoApp/NEL_project/NEL_app/Evaluation/Evaluation_Logs
-!DjangoApp/NEL_project/NEL_app/Evaluation/Evaluation_Logs/important
+DjangoApp/NEL_project/NEL_app/Evaluation/evaluation_results
+!DjangoApp/NEL_project/NEL_app/Evaluation/evaluation_results/important
