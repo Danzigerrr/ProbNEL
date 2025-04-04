@@ -1,36 +1,46 @@
 import requests
 from DjangoApp.NEL_project.NEL_app.NED_utlis.Candidate.Candidate import Candidate
-
+import threading
+import diskcache
 
 class DBpediaSearch:
     """
-    A class for searching DBpedia using the Lookup API with caching.
+    A class for searching DBpedia using the Lookup API with disk-based caching.
+    This implementation is thread-safe and addresses memory issues.
     """
     DBPEDIA_LOOKUP_ENDPOINT = "https://lookup.dbpedia.org/api/search"
-    _cache = {}  # Simple dictionary-based cache
+    _cache = diskcache.Cache("dbpedia_cache")  # Use diskcache for persistent and thread-safe caching
+    _lock = threading.Lock() #Add a class wide lock.
 
     def __init__(self):
-        print("DBpediaSearch simple caching enabled (in-memory dictionary).")
+        print("DBpediaSearch disk-based caching enabled.")
 
     def cached_request(self, entity_surface_form, max_results=3):
         key = f"{entity_surface_form[:25]}_{max_results}"
-        if key in DBpediaSearch._cache:
-            # print(f"Cache hit for '{entity_surface_form[:25]}'")
-            return DBpediaSearch._cache[key]
-        params = {
-            "query": entity_surface_form[:25],
-            "format": "JSON_FULL",
-            "maxResults": max_results,
-        }
+
+        DBpediaSearch._lock.acquire() #acquire the lock.
         try:
-            response = requests.get(DBpediaSearch.DBPEDIA_LOOKUP_ENDPOINT, params=params)
-            response.raise_for_status()
-            json_response = response.json()
-            DBpediaSearch._cache[key] = json_response
-            return json_response
-        except requests.exceptions.RequestException as e:
-            print(f"Error querying DBpedia: {e}")
-            return None
+            cached_result = DBpediaSearch._cache.get(key)
+            if cached_result is not None:
+                # print(f"Cache hit for '{entity_surface_form[:25]}'")
+                return cached_result
+
+            params = {
+                "query": entity_surface_form[:25],
+                "format": "JSON_FULL",
+                "maxResults": max_results,
+            }
+            try:
+                response = requests.get(DBpediaSearch.DBPEDIA_LOOKUP_ENDPOINT, params=params)
+                response.raise_for_status()
+                json_response = response.json()
+                DBpediaSearch._cache.set(key, json_response)
+                return json_response
+            except requests.exceptions.RequestException as e:
+                print(f"Error querying DBpedia: {e}")
+                return None
+        finally:
+            DBpediaSearch._lock.release() #release the lock.
 
     def search_by_entity_surface_form(self, entity_surface_form, max_results=3):
         """
@@ -39,9 +49,8 @@ class DBpediaSearch:
         """
         cached_response = self.cached_request(entity_surface_form, max_results)
         if cached_response:
-            return format_candidates_list(cached_response)
+            return format_candidates_list(cached_response) #Make sure you have this function defined
         return None
-
 
 def print_cache_hit_or_miss_info(entity_surface_form, response):
     from_cache = "hit" if getattr(response, "from_cache", False) else "miss"
