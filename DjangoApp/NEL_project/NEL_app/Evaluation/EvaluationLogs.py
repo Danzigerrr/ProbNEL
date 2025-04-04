@@ -11,7 +11,7 @@ class EvaluationLogs:
 
     def create_logs(self, predicted_entities, ground_truth_entities):
         """Iterate through ground truth entities and evaluate if they are correctly predicted."""
-        print("$$ Iterating through Ground Truth entities:")
+        # print("$$ Iterating through Ground Truth entities:")
 
         for gt_entity in ground_truth_entities:
             found_match = False
@@ -25,10 +25,10 @@ class EvaluationLogs:
                     break  # Stop searching once a correct match is found
 
             if found_match:
-                print(f"$ Correct prediction found for '{gt_entity.entity_label}'({gt_entity.start_position}, {gt_entity.end_position})")
+                # print(f"$ Correct prediction found for '{gt_entity.entity_label}'({gt_entity.start_position}, {gt_entity.end_position})")
                 self.create_log_entry(gt_entity, matched_pred_entity, True, 0)
             else:
-                print(f"$ No Correct prediction found for '{gt_entity.entity_label}'({gt_entity.start_position}, {gt_entity.end_position})")
+                # print(f"$ No Correct prediction found for '{gt_entity.entity_label}'({gt_entity.start_position}, {gt_entity.end_position})")
                 entity_with_cand, candidate_index = self.find_candidate_index(gt_entity, predicted_entities)
                 if entity_with_cand is not None:
                     self.create_log_entry(gt_entity, entity_with_cand, False, candidate_index)
@@ -45,7 +45,7 @@ class EvaluationLogs:
                             c.score_popularity, c.score_context) for c in matched_pred_entity.candidates]
         }
         self.logs.append(log_entry)
-        print(f"Logs updated ({len(self.logs)})")
+        # print(f"Logs updated ({len(self.logs)})")
 
     def find_candidate_index(self, gt_entity, predicted_entities):
         """Search for the target_uri in all predicted entities' candidate lists and return its index.
