@@ -22,7 +22,7 @@ class EvaluationHandler:
         self.ner_evaluation = EvaluationNER()
         self.evaluation_logs = EvaluationLogs()
         self.dataset = None
-        self.max_processes = 8  # For ProcessPoolExecutor
+        self.max_processes = 4  # For ProcessPoolExecutor
 
     def run_test_on_dataset(self, dataset: TestDataset):
         """
