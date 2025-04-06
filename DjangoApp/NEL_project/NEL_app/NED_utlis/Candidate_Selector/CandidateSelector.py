@@ -26,41 +26,6 @@ class CandidateSelector:
 
 class CandidateSelectorSumOfScores:
     def select_best_candidate_for_entity(self, entity: Entity):
-        entity.candidates.sort(key=lambda x: x.score_final, reverse=True)
-        entity.best_candidate_uri = entity.candidates[0].uri
-
-
-class CandidateSelectorNN(nn.Module):
-    def __init__(self):
-        super(CandidateSelectorNN, self).__init__()
-        self.fc1 = nn.Linear(4, 16)
-        self.fc2 = nn.Linear(16, 8)
-        self.fc3 = nn.Linear(8, 1)
-
-    def forward(self, x):
-        x = torch.relu(self.fc1(x))
-        x = torch.relu(self.fc2(x))
-        x = self.fc3(x)
-        return x.squeeze(-1)
-
-    def select_best_candidate_for_entity(self, entity: Entity):
-        for candidate in entity.candidates:
-            features = [
-                candidate.score_types_embeddings_similarity,
-                candidate.score_levenshtein_distance,
-                candidate.score_popularity,
-                candidate.score_context
-            ]
-
-            # Ensure the feature vector is exactly 40 elements long
-            features.extend([0] * (40 - len(features)))
-            features = torch.tensor(features, dtype=torch.float32).unsqueeze(0)  # Reshape for model input
-
-            with torch.no_grad():
-                score = self.forward(features)
-            candidate.score_final = score.item()
-
-        entity.candidates.sort(key=lambda x: x.score_final, reverse=True)
         entity.best_candidate_uri = entity.candidates[0].uri
 
 

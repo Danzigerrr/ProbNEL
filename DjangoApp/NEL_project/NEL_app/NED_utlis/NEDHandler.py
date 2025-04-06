@@ -38,7 +38,7 @@ class NEDHandler:
         self.use_types_score = use_types_score
         self.ner_config = ner_config
 
-    def perform_ned(self, text: Text):
+    def perform_ned(self, text: Text, use_score_types_embeddings_similarity):
         """
         Searches for entities in the given text using the specified knowledge base.
         :param text: A Text object to associate with found entities.
@@ -53,18 +53,18 @@ class NEDHandler:
                 entity.candidates = self.DBPediaSearch.search_by_entity_surface_form(entity_label, 10)
 
 
-            self.select_best_candidate_for_entity(text, entity)
+            self.select_best_candidate_for_entity(text, entity, use_score_types_embeddings_similarity)
 
         return text
 
-    def select_best_candidate_for_entity(self, text: Text, entity: Entity):
+    def select_best_candidate_for_entity(self, text: Text, entity: Entity, use_score_types_embeddings_similarity):
         """
         Chooses the best candidate for an entity based on the calculated scores.
         """
-        self.EntityCandidateScorer.calculate_scores_for_candidates(text, entity, self.ner_config)
+        self.EntityCandidateScorer.calculate_scores_for_candidates(text, entity, self.ner_config, use_score_types_embeddings_similarity)
 
-        if not self.use_types_score:
-            for candidate in entity.candidates: candidate.score_types_embeddings_similarity = 0.0
+        # sort candidates in the candidates list
+        entity.candidates.sort(key=lambda x: x.score_final, reverse=True)
 
         if entity.candidates:
                 self.CandidateSelector.model.select_best_candidate_for_entity(entity=entity)

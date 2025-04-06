@@ -32,7 +32,7 @@ def index(request: HttpRequest) -> HttpResponse:
 
             if knowledge_graph in ["dbpedia", "wikidata"]:
                 ned = NEDHandler(ner_config, knowledge_graph)
-                text_obj = ned.perform_ned(text_obj)
+                text_obj = ned.perform_ned(text_obj, use_score_types_embeddings_similarity = True)
             else:
                 return JsonResponse({"error": "Invalid knowledge_graph specified. Allowed values: dbpedia, wikidata"}, status=400)
 
@@ -87,7 +87,7 @@ def run_test_on_dataset(request: HttpRequest) -> HttpResponse:
 
             # Run evaluation
             evaluation_handler = EvaluationHandler(ner_handler, ned_handler)
-            ned_evaluation_results, ner_evaluation_results = evaluation_handler.run_test_on_dataset(dataset)
+            ned_evaluation_results, ner_evaluation_results = evaluation_handler.run_test_on_dataset(dataset, use_score_types_embeddings_similarity=True)
             ned_evaluation_results.print_results()
             ner_evaluation_results.print_results()
 
