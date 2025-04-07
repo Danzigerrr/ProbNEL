@@ -83,11 +83,11 @@ def run_test_on_dataset(request: HttpRequest) -> HttpResponse:
 
             ner_config = NERConfig(ner_tagger_name)
             ner_handler = NERHandler(ner_config)
-            ned_handler = NEDHandler(ner_config, "dbpedia")
+            ned_handler = NEDHandler(ner_config, "dbpedia", use_types_score=True)
 
             # Run evaluation
             evaluation_handler = EvaluationHandler(ner_handler, ned_handler)
-            ned_evaluation_results, ner_evaluation_results = evaluation_handler.run_test_on_dataset(dataset, use_score_types_embeddings_similarity=True)
+            ned_evaluation_results, ner_evaluation_results = evaluation_handler.run_test_on_dataset(dataset)
             ned_evaluation_results.print_results()
             ner_evaluation_results.print_results()
 

@@ -24,7 +24,7 @@ class EvaluationHandler:
         self.dataset = None
         self.max_processes = 4  # For ProcessPoolExecutor
 
-    def run_test_on_dataset(self, dataset: TestDataset, use_score_types_embeddings_similarity):
+    def run_test_on_dataset(self, dataset: TestDataset):
         """
         Run NER and NED on the dataset in parallel, then evaluate results sequentially.
         """
@@ -36,7 +36,7 @@ class EvaluationHandler:
         print("STATUS - finished NER\n")
 
         print("STATUS - start NED\n")
-        texts_with_pred = self.perform_ned_on_texts(texts_with_pred, use_score_types_embeddings_similarity)
+        texts_with_pred = self.perform_ned_on_texts(texts_with_pred)
         print("STATUS - finished NED\n")
 
         # Evaluation should be done sequentially
@@ -65,14 +65,14 @@ class EvaluationHandler:
 
         return texts_with_pred
 
-    def perform_ned_on_texts(self, texts_with_pred: List[Text], use_score_types_embeddings_similarity) -> List[Text]:
+    def perform_ned_on_texts(self, texts_with_pred: List[Text]) -> List[Text]:
         """
         Process multiple texts with NED in parallel using ProcessPoolExecutor.
         """
         texts_with_ned = []
         with ProcessPoolExecutor(max_workers=self.max_processes) as executor:
             # Submit all tasks concurrently to separate processes.
-            futures = {executor.submit(self.ned.perform_ned, text, use_score_types_embeddings_similarity): idx for idx, text in enumerate(texts_with_pred)}
+            futures = {executor.submit(self.ned.perform_ned, text): idx for idx, text in enumerate(texts_with_pred)}
             # If order is important, collect results in a dict.
             results = {}
             with tqdm(total=len(texts_with_pred), desc="Processing texts") as pbar:
