@@ -104,17 +104,20 @@ class CandidateSelectorSVM:
         Args:
             entity: An object with a `.candidates` list and `.best_candidate_uri` attribute.
         """
-        features = self._extract_features(entity)
-
-        # Choose the appropriate model
-        model = self.model_4_features if self.use_types_score else self.model_3_features
-        prediction = model.predict(features)
-
-        # The model is expected to return an index (0–9) of the best candidate
-        best_index = int(prediction[0])
-
-        if 0 <= best_index < len(entity.candidates):
-            entity.best_candidate_uri = entity.candidates[best_index].uri
+        if len(entity.candidates) == 1:
+            entity.best_candidate_uri = entity.candidates[0].uri
         else:
-            print(f"⚠️ Predicted index {best_index} is out of bounds.")
-            entity.best_candidate_uri = "URI not defined"
+            features = self._extract_features(entity)
+
+            # Choose the appropriate model
+            model = self.model_4_features if self.use_types_score else self.model_3_features
+            prediction = model.predict(features)
+
+            # The model is expected to return an index (0–9) of the best candidate
+            best_index = int(prediction[0])
+
+            if 0 <= best_index < len(entity.candidates):
+                entity.best_candidate_uri = entity.candidates[best_index].uri
+            else:
+                print(f"⚠️ Predicted index {best_index} is out of bounds.")
+                entity.best_candidate_uri = "URI not defined"

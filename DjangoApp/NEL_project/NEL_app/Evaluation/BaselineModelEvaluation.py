@@ -70,15 +70,21 @@ class BaselineModelEvaluation:
     def process_entity(self, entity):
         entity_label = entity.entity_label
         candidates = self.DBPediaSearch.search_by_entity_surface_form(entity_label, 10)
+
         if candidates:
-            uris = [c.uri for c in candidates]
-            if entity.target_uri in uris:
-                rank = uris.index(entity.target_uri) + 1  # 1-based index
-                return 'TP', rank
+            top_candidate_uri = candidates[0].uri  # Only the top-ranked candidate is considered
+            if top_candidate_uri == entity.target_uri:
+                return 'TP', 1  # Correct linking, rank is 1
             else:
-                return 'FP', None
+                # The target URI is somewhere in the list, but not at the top
+                uris = [c.uri for c in candidates]
+                if entity.target_uri in uris:
+                    rank = uris.index(entity.target_uri) + 1
+                    return 'FP', rank  # Incorrect linking, but still present
+                else:
+                    return 'FP', None  # Incorrect linking, not even in candidate list
         else:
-            return 'FN', None
+            return 'FN', None  # No candidates returned
 
     def save_results(self, ned_results, start_time, dataset_loader):
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -150,7 +156,7 @@ class BaselineModelEvaluation:
 
 if __name__ == "__main__":
     multiprocessing.set_start_method('spawn', force=True)
-    dataset_path = "./EvaluationDatasets/aida_test_full.json"
+    dataset_path = "./EvaluationDatasets/ace2004_full.json"
 
     print("Running baseline candidate selection evaluation...")
     evaluation = BaselineModelEvaluation(dataset_path)
