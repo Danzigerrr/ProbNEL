@@ -11,7 +11,7 @@ class EvaluationNER:
 
     def evaluate_ner(self, predicted_entities: List[Entity], ground_truth_entities: List[Entity]):
         """Iterate through ground truth entities and evaluate if they are correctly predicted."""
-        print("$$ Iterating through Ground Truth entities:")
+        # print("$$ Iterating through Ground Truth entities:")
 
         for gt_entity in ground_truth_entities:
             # Increment the total number of entities

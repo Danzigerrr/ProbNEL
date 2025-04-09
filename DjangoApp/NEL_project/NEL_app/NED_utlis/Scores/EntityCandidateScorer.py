@@ -25,11 +25,13 @@ class EntityCandidateScorer:
         self.ContextScorer = ContextScorer()
         self.context_score_factor = 1
 
-    def calculate_scores_for_candidates(self, text: Text, entity: Entity, ner_config: NERConfig):
+    def calculate_scores_for_candidates(self, text: Text, entity: Entity, ner_config: NERConfig, use_score_types_embeddings_similarity = True):
         """
         Calculates scores for candidates of an entity from a text.
         """
-        self.typesEmbeddingScorer.calculate_score(entity, ner_config)
+        if use_score_types_embeddings_similarity:
+            self.typesEmbeddingScorer.calculate_score(entity, ner_config)
+
         self.LevenshteinDistanceScorer.calculate_score(entity)
         self.PopularityScorer.calculate_score(entity)
         self.ContextScorer.calculate_score(text, entity)

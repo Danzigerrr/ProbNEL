@@ -33,7 +33,7 @@ class NEDHandler:
         self.EntityCandidateScorer = EntityCandidateScorer()
         if candidate_selection_strategy not in self.ALLOWED_CANDIDATE_SELECTION_STRATEGIES:
             raise ValueError(f"Error: candidate_selection_strategy value must be on of the options: {self.ALLOWED_CANDIDATE_SELECTION_STRATEGIES}")
-        self.CandidateSelector = CandidateSelector(candidate_selection_strategy)
+        self.CandidateSelector = CandidateSelector(candidate_selection_strategy, use_types_score)
         self.candidate_selection_strategy = candidate_selection_strategy
         self.use_types_score = use_types_score
         self.ner_config = ner_config
@@ -61,10 +61,10 @@ class NEDHandler:
         """
         Chooses the best candidate for an entity based on the calculated scores.
         """
-        self.EntityCandidateScorer.calculate_scores_for_candidates(text, entity, self.ner_config)
+        self.EntityCandidateScorer.calculate_scores_for_candidates(text, entity, self.ner_config, self.use_types_score)
 
-        if not self.use_types_score:
-            for candidate in entity.candidates: candidate.score_types_embeddings_similarity = 0.0
+        # sort candidates in the candidates list
+        entity.candidates.sort(key=lambda x: x.score_final, reverse=True)
 
         if entity.candidates:
                 self.CandidateSelector.model.select_best_candidate_for_entity(entity=entity)

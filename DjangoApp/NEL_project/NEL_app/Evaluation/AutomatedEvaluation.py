@@ -92,17 +92,18 @@ class AutomatedEvaluation:
 if __name__ == "__main__":
     multiprocessing.set_start_method('spawn', force=True)
 
-    dataset_path = "./EvaluationDatasets/aida_test_100_texts.json"
+    dataset_path = "./EvaluationDatasets/ace2004_full.json"
     ner_models = [
         "tomaarsen/span-marker-xlm-roberta-large-conllpp-doc-context",
         "tomaarsen/span-marker-roberta-large-ontonotes5",
         "tomaarsen/span-marker-bert-base-fewnerd-fine-super"
     ]
     ned_knowledge_graph = "dbpedia"
-    # ned_candidate_selection_strategies = ["candidate_selector_neural_network", "sum_of_metrics", "candidate_selector_random_forest_classifier"]
-    ned_candidate_selection_strategies = ["candidate_selector_svm", "sum_of_metrics"]
+    # ned_candidate_selection_strategies = ["candidate_selector_svm", "sum_of_metrics", "candidate_selector_random_forest_classifier"]
+    ned_candidate_selection_strategies = ["sum_of_metrics", "candidate_selector_svm"]
     ned_use_ontology_mapping_scores = [True, False]
     # ned_use_ontology_mapping_scores = [True]
+    # ned_use_ontology_mapping_scores = [False]
 
     # Iterate over all possible combinations of parameters
     for ner_model, ned_candidate_selection_strategy, ned_use_ontology_mapping_score in itertools.product(
