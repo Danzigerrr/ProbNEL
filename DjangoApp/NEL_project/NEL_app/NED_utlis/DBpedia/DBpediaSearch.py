@@ -1,5 +1,5 @@
 import requests
-from DjangoApp.NEL_project.NEL_app.NED_utlis.Candidate.Candidate import Candidate
+from DjangoApp.NEL_project.NEL_app.model_components.Candidate import Candidate
 import threading
 import diskcache
 

@@ -1,9 +1,9 @@
 from .DBpedia.DBpediaSearch import DBpediaSearch
 from .Wikidata.WikidataSearch import WikidataSearch
-from ..Models.Entity import Entity
+from ..model_components.Entity import Entity
 from .Scores.EntityCandidateScorer import EntityCandidateScorer
 from .Candidate_Selector.CandidateSelector import CandidateSelector
-from ..Models.Text import Text
+from ..model_components.Text import Text
 from ..NER_utils.NERConfig import NERConfig
 
 import os

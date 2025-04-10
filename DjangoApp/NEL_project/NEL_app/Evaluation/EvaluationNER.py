@@ -1,6 +1,6 @@
 from typing import List
 import json
-from DjangoApp.NEL_project.NEL_app.Models.Entity import Entity
+from DjangoApp.NEL_project.NEL_app.model_components.Entity import Entity
 
 
 class EvaluationNER:

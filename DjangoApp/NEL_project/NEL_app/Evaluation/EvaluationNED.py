@@ -3,8 +3,8 @@ from typing import List
 
 from sklearn.metrics import precision_score, recall_score, f1_score, confusion_matrix
 
-from DjangoApp.NEL_project.NEL_app.Evaluation.TestEntity import TestEntity
-from DjangoApp.NEL_project.NEL_app.Models.Entity import Entity
+from DjangoApp.NEL_project.NEL_app.model_components.evaluation.TestEntity import TestEntity
+from DjangoApp.NEL_project.NEL_app.model_components.Entity import Entity
 
 
 class EvaluationNED:

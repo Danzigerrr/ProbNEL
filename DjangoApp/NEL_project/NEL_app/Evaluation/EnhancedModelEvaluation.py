@@ -7,9 +7,9 @@ from typing import List
 
 from tqdm import tqdm
 from DjangoApp.NEL_project.NEL_app.Evaluation.DatasetLoader import DatasetLoader
-from DjangoApp.NEL_project.NEL_app.Evaluation.TestDataset import TestDataset
-from DjangoApp.NEL_project.NEL_app.Models.Entity import Entity
-from DjangoApp.NEL_project.NEL_app.Models.Text import Text
+from DjangoApp.NEL_project.NEL_app.model_components.evaluation.TestDataset import TestDataset
+from DjangoApp.NEL_project.NEL_app.model_components.Entity import Entity
+from DjangoApp.NEL_project.NEL_app.model_components.Text import Text
 from DjangoApp.NEL_project.NEL_app.NED_utlis.DBpedia.DBpediaSearch import DBpediaSearch
 from concurrent.futures import ProcessPoolExecutor, as_completed
 

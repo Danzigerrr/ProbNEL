@@ -5,8 +5,8 @@ from typing import List
 from .EvaluationNED import EvaluationNED
 from .EvaluationLogs import EvaluationLogs
 from .EvaluationNER import EvaluationNER
-from ..Models.Text import Text
-from .TestDataset import TestDataset
+from ..model_components.Text import Text
+from DjangoApp.NEL_project.NEL_app.model_components.evaluation.TestDataset import TestDataset
 from ..NED_utlis.NEDHandler import NEDHandler
 from ..NER_utils.NERHandler import NERHandler
 

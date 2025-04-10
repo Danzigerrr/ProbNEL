@@ -1,7 +1,7 @@
 from DjangoApp.NEL_project.NEL_app.NED_utlis.Scores.TypesEmbeddingScorer import TypesEmbeddingScorer
 from DjangoApp.NEL_project.NEL_app.NED_utlis.Scores.ContextScorer import ContextScorer
-from DjangoApp.NEL_project.NEL_app.Models.Text import Text
-from DjangoApp.NEL_project.NEL_app.Models.Entity import Entity
+from DjangoApp.NEL_project.NEL_app.model_components.Text import Text
+from DjangoApp.NEL_project.NEL_app.model_components.Entity import Entity
 from DjangoApp.NEL_project.NEL_app.NER_utils.NERConfig import NERConfig
 
 

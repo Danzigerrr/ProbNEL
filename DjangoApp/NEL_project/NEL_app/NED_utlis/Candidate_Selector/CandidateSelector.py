@@ -3,7 +3,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 import joblib
-from DjangoApp.NEL_project.NEL_app.Models.Entity import Entity
+from DjangoApp.NEL_project.NEL_app.model_components.Entity import Entity
 
 class CandidateSelector:
     def __init__(self, candidate_selection_strategy, use_types_score):
@@ -52,7 +52,7 @@ class CandidateSelectorSVM:
         base_dir = os.path.dirname(__file__)
         self.model_4_features = joblib.load(os.path.join(base_dir, 'best_svm_model_4_features_v1.pkl'))
         self.model_3_features = joblib.load(os.path.join(base_dir, 'best_svm_model_3_features_only_v1.pkl'))
-        print("✅ Two SVM Models Loaded Successfully")
+        print("✅ Two SVM model_components Loaded Successfully")
         self.use_types_score = use_types_score
 
     def _extract_features(self, entity: Entity) -> np.ndarray:
@@ -85,7 +85,7 @@ class CandidateSelectorSVM:
         # Pad with zeros if fewer candidates were present
         if len(features) < expected_length:
             padding_size = expected_length - len(features)
-            print(f"⚠️ Padding feature vector with {padding_size} zero(s).")
+            # print(f"⚠️ Padding feature vector with {padding_size} zero(s).")
             features.extend([0.0] * padding_size)
 
         return np.array(features).reshape(1, -1)

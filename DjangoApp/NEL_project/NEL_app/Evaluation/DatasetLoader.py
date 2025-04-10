@@ -1,6 +1,6 @@
-from .TestDataset import TestDataset
-from .TestEntity import TestEntity
-from ..Models.Text import Text
+from DjangoApp.NEL_project.NEL_app.model_components.evaluation.TestDataset import TestDataset
+from DjangoApp.NEL_project.NEL_app.model_components.evaluation.TestEntity import TestEntity
+from ..model_components.Text import Text
 import json
 
 

@@ -1,5 +1,5 @@
-from ..Models.Text import Text
-from ..Models.Entity import Entity
+from ..model_components.Text import Text
+from ..model_components.Entity import Entity
 from .NERConfig import NERConfig
 from .NERHelperFunctions import *
 import nltk

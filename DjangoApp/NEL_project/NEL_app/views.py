@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse, HttpRequest, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from .Models.Text import Text
+from .model_components.Text import Text
 from .NED_utlis.NEDHandler import NEDHandler
 from .NER_utils.NERConfig import NERConfig
 from .NER_utils.NERHandler import NERHandler

@@ -3,8 +3,8 @@ import csv
 import json
 from datetime import datetime
 
-from DjangoApp.NEL_project.NEL_app.Evaluation.TestEntity import TestEntity
-from DjangoApp.NEL_project.NEL_app.Models.Entity import Entity
+from DjangoApp.NEL_project.NEL_app.model_components.evaluation.TestEntity import TestEntity
+from DjangoApp.NEL_project.NEL_app.model_components.Entity import Entity
 
 
 class EvaluationLogs:

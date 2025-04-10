@@ -1,6 +1,6 @@
 from sentence_transformers import SentenceTransformer, util
-from DjangoApp.NEL_project.NEL_app.Models.Text import Text
-from DjangoApp.NEL_project.NEL_app.Models.Entity import Entity
+from DjangoApp.NEL_project.NEL_app.model_components.Text import Text
+from DjangoApp.NEL_project.NEL_app.model_components.Entity import Entity
 
 
 class ContextScorer:

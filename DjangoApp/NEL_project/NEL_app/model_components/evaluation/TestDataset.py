@@ -1,4 +1,4 @@
-from ..Models.Text import Text
+from DjangoApp.NEL_project.NEL_app.model_components.Text import Text
 from typing import List
 
 class TestDataset:

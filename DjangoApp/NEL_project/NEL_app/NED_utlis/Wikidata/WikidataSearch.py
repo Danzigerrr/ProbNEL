@@ -1,6 +1,6 @@
 import requests
 from requests_cache import CachedSession
-from ..Candidate.Candidate import Candidate
+from DjangoApp.NEL_project.NEL_app.model_components.Candidate import Candidate
 
 WIKIDATA_SEARCH_ENDPOINT = "https://www.wikidata.org/w/api.php"
 WIKIDATA_GET_ENTITY_ENDPOINT = "https://www.wikidata.org/w/api.php"
