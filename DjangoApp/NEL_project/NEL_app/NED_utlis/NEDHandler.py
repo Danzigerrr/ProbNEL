@@ -19,7 +19,7 @@ class NEDHandler:
 
     def __init__(self,
                  ner_config: NERConfig,
-                 knowledge_base: str = ALLOWED_KNOWLEDGE_BASES[0],
+                 knowledge_base: str = "dbpedia",
                  candidate_selection_strategy: str = ALLOWED_CANDIDATE_SELECTION_STRATEGIES[0],
                  use_types_score: bool = True):
         """
@@ -49,11 +49,11 @@ class NEDHandler:
         for entity in text.entities:  # Iterate over found entities
             entity_label = entity.entity_label  # Use the FoundEntity object for labels
 
-            if self.knowledge_base == self.ALLOWED_KNOWLEDGE_BASES[0]:
+            if self.knowledge_base == "dbpedia":
                 entity.candidates = self.DBPediaSearch.search_by_entity_surface_form(entity_label, 10)
 
-
-            self.select_best_candidate_for_entity(text, entity)
+            if entity.candidates:
+                self.select_best_candidate_for_entity(text, entity)
 
         return text
 
@@ -64,10 +64,9 @@ class NEDHandler:
         self.EntityCandidateScorer.calculate_scores_for_candidates(text, entity, self.ner_config, self.use_types_score)
 
         # sort candidates in the candidates list
-        entity.candidates.sort(key=lambda x: x.score_final, reverse=True)
+        entity.candidates = sorted(entity.candidates, key=lambda c: c.final_score, reverse=True)
 
-        if entity.candidates:
-                self.CandidateSelector.model.select_best_candidate_for_entity(entity=entity)
+        self.CandidateSelector.model.select_best_candidate_for_entity(entity=entity)
 
     def print_top_candidates(self, entity: Entity, top_n_candidates_to_print = 3):
         print(f"\n### Best candidate(s) for entity '{entity.entity_label}'({entity.start_position}, {entity.end_position}):")

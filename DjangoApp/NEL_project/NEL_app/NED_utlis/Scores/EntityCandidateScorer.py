@@ -29,5 +29,6 @@ class EntityCandidateScorer:
         if entity.candidates:
             for candidate in entity.candidates:
                 candidate.score_final += candidate.score_types_embeddings_similarity
-                candidate.score_final += candidate.score_context
+                candidate.score_final += candidate.score_context_cosine
+                candidate.score_final += candidate.score_context_euclidean
                 candidate.score_final = round(number=candidate.score_final, ndigits=3)

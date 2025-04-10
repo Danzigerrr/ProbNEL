@@ -34,7 +34,7 @@ class CandidateSelectorRFC:
         features = [
             attr for candidate in entity.candidates for attr in [
                 candidate.score_types_embeddings_similarity,
-                candidate.score_context
+                candidate.score_context_cosine
             ]
         ]
 
@@ -70,14 +70,14 @@ class CandidateSelectorSVM:
             features = [
                 attr for candidate in entity.candidates for attr in [
                     candidate.score_types_embeddings_similarity,
-                    candidate.score_context
+                    candidate.score_context_cosine
                 ]
             ]
             expected_length = 40  # 10 candidates × 4 features
         else:
             features = [
                 attr for candidate in entity.candidates for attr in [
-                    candidate.score_context
+                    candidate.score_context_cosine
                 ]
             ]
             expected_length = 30  # 10 candidates × 3 features

@@ -3,7 +3,8 @@ from typing import List
 
 class Candidate:
     score_types_embeddings_similarity = 0.0
-    score_context = 0.0
+    score_context_cosine = 0.0
+    score_context_euclidean = 0.0
     score_final = 0.0
 
     def __init__(self,
@@ -27,5 +28,6 @@ class Candidate:
         print(f"Comment: {self.comment}")
         print(f"URI: {self.uri}")
         print(f"Score NER to Ontology: {self.score_types_embeddings_similarity}")
-        print(f"Score Context: {self.score_context}")
+        print(f"Score Context Cosine: {self.score_context_cosine}")
+        print(f"Score Context Euclidean: {self.score_context_euclidean}")
         print(f"Score final: {self.score_final}")

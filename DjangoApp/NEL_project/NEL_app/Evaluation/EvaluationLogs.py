@@ -44,7 +44,7 @@ class EvaluationLogs:
             "end_position": gt_entity.end_position,
             "correct_prediction": if_correct_prediction,
             "matching_candidate_index": matching_candidate_index,
-            "candidates": [(c.label, c.score_types_embeddings_similarity, c.score_context) for c in matched_pred_entity.candidates]
+            "candidates": [(c.label, c.score_types_embeddings_similarity, c.score_context_cosine, c.score_context_euclidean) for c in matched_pred_entity.candidates]
         }
         self.logs.append(log_entry)
         # print(f"Logs updated ({len(self.logs)})")

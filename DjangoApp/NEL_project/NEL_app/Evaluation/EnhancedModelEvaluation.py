@@ -7,6 +7,7 @@ from typing import List
 
 from tqdm import tqdm
 from DjangoApp.NEL_project.NEL_app.Evaluation.DatasetLoader import DatasetLoader
+from DjangoApp.NEL_project.NEL_app.Evaluation.EvaluationLogs import EvaluationLogs
 from DjangoApp.NEL_project.NEL_app.model_components.evaluation.TestDataset import TestDataset
 from DjangoApp.NEL_project.NEL_app.model_components.Entity import Entity
 from DjangoApp.NEL_project.NEL_app.model_components.Text import Text
@@ -23,6 +24,7 @@ class EnhancedModelEvaluation:
         self.dataset_name = os.path.splitext(os.path.basename(dataset_path))[0]
         self.ned_knowledge_graph = "dbpedia"
         self.DBPediaSearch = DBpediaSearch()
+        self.evaluation_logs = EvaluationLogs()
         self.ned_handler = ned_handler
         self.output_dir = output_dir
         os.makedirs(self.output_dir, exist_ok=True)
@@ -78,9 +80,9 @@ class EnhancedModelEvaluation:
                 else:
                     FN += 1
 
-        print(f"TP:{TP}")
-        print(f"FP:{FP}")
-        print(f"FN:{FN}")
+        print(f"TP:{TP} --> Number of correctly linked entities (the predicted URI matches the target URI).")
+        print(f"FP:{FP} --> Number of incorrect links made by the system (wrong URI predicted for an entity that had a gold URI).")
+        print(f"FN:{FN} --> Number of missed links (the gold entity had a URI, but the system failed to assign any link) -> probably empty results from dbpedia API query")
 
         accuracy = TP / (TP + FP + FN) if (TP + FP + FN) > 0 else 0
         precision = TP / (TP + FP) if (TP + FP) > 0 else 0
@@ -102,6 +104,11 @@ class EnhancedModelEvaluation:
         texts_with_predictions = self.perform_ned_on_texts(texts_with_golden_annotations)
 
         accuracy, precision, recall, f1_score = self.evaluate_linking(texts_with_predictions, dataset)
+
+        for text_to_analyse, text_ground_truth in zip(texts_with_predictions, dataset.texts):
+            self.evaluation_logs.create_logs(text_to_analyse.entities, text_ground_truth.entities)
+        self.evaluation_logs.save_logs_to_files()
+
         self.save_results([accuracy, precision, recall, f1_score], start_time, dataset_loader)
 
     def save_results(self, ned_results, start_time, dataset_loader):
@@ -137,7 +144,7 @@ if __name__ == "__main__":
     dataset_path = "./EvaluationDatasets/aida_test_full.json"
 
     ner_config_not_used = NERConfig("tomaarsen/span-marker-xlm-roberta-large-conllpp-doc-context")
-    ned_handler = NEDHandler(ner_config_not_used, "dbpedia", "candidate_selector_svm", False)
+    ned_handler = NEDHandler(ner_config_not_used, "dbpedia", "sum_of_metrics", False)
 
     print("Running enhanced model evaluation with golden annotations...")
     evaluation = EnhancedModelEvaluation(dataset_path, ned_handler)
