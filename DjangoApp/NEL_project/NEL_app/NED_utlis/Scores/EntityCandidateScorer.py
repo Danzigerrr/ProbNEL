@@ -1,6 +1,4 @@
 from DjangoApp.NEL_project.NEL_app.NED_utlis.Scores.TypesEmbeddingScorer import TypesEmbeddingScorer
-from DjangoApp.NEL_project.NEL_app.NED_utlis.Scores.LevenshteinDistanceScorer import LevenshteinDistanceScorer
-from DjangoApp.NEL_project.NEL_app.NED_utlis.Scores.PopularityScorer import PopularityScorer
 from DjangoApp.NEL_project.NEL_app.NED_utlis.Scores.ContextScorer import ContextScorer
 from DjangoApp.NEL_project.NEL_app.Models.Text import Text
 from DjangoApp.NEL_project.NEL_app.Models.Entity import Entity
@@ -14,16 +12,7 @@ class EntityCandidateScorer:
 
     def __init__(self):
         self.typesEmbeddingScorer = TypesEmbeddingScorer()
-        self.types_embedding_score_factor = 1
-
-        self.LevenshteinDistanceScorer = LevenshteinDistanceScorer()
-        self.levenshtein_distance_score_factor = 1
-
-        self.PopularityScorer = PopularityScorer()
-        self.popularity_score_factor = 1
-
         self.ContextScorer = ContextScorer()
-        self.context_score_factor = 1
 
     def calculate_scores_for_candidates(self, text: Text, entity: Entity, ner_config: NERConfig, use_score_types_embeddings_similarity = True):
         """
@@ -32,17 +21,13 @@ class EntityCandidateScorer:
         if use_score_types_embeddings_similarity:
             self.typesEmbeddingScorer.calculate_score(entity, ner_config)
 
-        self.LevenshteinDistanceScorer.calculate_score(entity)
-        self.PopularityScorer.calculate_score(entity)
         self.ContextScorer.calculate_score(text, entity)
 
         self.calculate_final_score(entity)
 
-    def calculate_final_score(self, entity):
+    def calculate_final_score(self, entity: Entity):
         if entity.candidates:
             for candidate in entity.candidates:
-                candidate.score_final += self.types_embedding_score_factor * candidate.score_types_embeddings_similarity
-                candidate.score_final += self.levenshtein_distance_score_factor * candidate.score_levenshtein_distance
-                candidate.score_final += self.popularity_score_factor * candidate.score_popularity
-                candidate.score_final += self.context_score_factor * candidate.score_context
+                candidate.score_final += candidate.score_types_embeddings_similarity
+                candidate.score_final += candidate.score_context
                 candidate.score_final = round(number=candidate.score_final, ndigits=3)

@@ -34,8 +34,6 @@ class CandidateSelectorRFC:
         features = [
             attr for candidate in entity.candidates for attr in [
                 candidate.score_types_embeddings_similarity,
-                candidate.score_levenshtein_distance,
-                candidate.score_popularity,
                 candidate.score_context
             ]
         ]
@@ -57,13 +55,12 @@ class CandidateSelectorSVM:
         print("✅ Two SVM Models Loaded Successfully")
         self.use_types_score = use_types_score
 
-    def _extract_features(self, entity) -> np.ndarray:
+    def _extract_features(self, entity: Entity) -> np.ndarray:
         """
         Extracts features for each candidate and flattens them into a single input vector.
 
         Args:
             entity: The entity object containing candidates with feature scores.
-            use_types_score (bool): If True, use 4 features per candidate; else, use only 3.
 
         Returns:
             A 1D numpy array of features, reshaped for model input.
@@ -73,8 +70,6 @@ class CandidateSelectorSVM:
             features = [
                 attr for candidate in entity.candidates for attr in [
                     candidate.score_types_embeddings_similarity,
-                    candidate.score_levenshtein_distance,
-                    candidate.score_popularity,
                     candidate.score_context
                 ]
             ]
@@ -82,8 +77,6 @@ class CandidateSelectorSVM:
         else:
             features = [
                 attr for candidate in entity.candidates for attr in [
-                    candidate.score_levenshtein_distance,
-                    candidate.score_popularity,
                     candidate.score_context
                 ]
             ]

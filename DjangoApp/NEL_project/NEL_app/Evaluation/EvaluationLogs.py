@@ -3,6 +3,9 @@ import csv
 import json
 from datetime import datetime
 
+from DjangoApp.NEL_project.NEL_app.Evaluation.TestEntity import TestEntity
+from DjangoApp.NEL_project.NEL_app.Models.Entity import Entity
+
 
 class EvaluationLogs:
     def __init__(self):
@@ -34,15 +37,14 @@ class EvaluationLogs:
                     self.create_log_entry(gt_entity, entity_with_cand, False, candidate_index)
 
 
-    def create_log_entry(self, gt_entity, matched_pred_entity, if_correct_prediction, matching_candidate_index):
+    def create_log_entry(self, gt_entity: TestEntity, matched_pred_entity: Entity, if_correct_prediction: bool, matching_candidate_index: int):
         log_entry = {
             "entity_label": gt_entity.entity_label,
             "start_position": gt_entity.start_position,
             "end_position": gt_entity.end_position,
             "correct_prediction": if_correct_prediction,
             "matching_candidate_index": matching_candidate_index,
-            "candidates": [(c.label, c.score_types_embeddings_similarity, c.score_levenshtein_distance,
-                            c.score_popularity, c.score_context) for c in matched_pred_entity.candidates]
+            "candidates": [(c.label, c.score_types_embeddings_similarity, c.score_context) for c in matched_pred_entity.candidates]
         }
         self.logs.append(log_entry)
         # print(f"Logs updated ({len(self.logs)})")
