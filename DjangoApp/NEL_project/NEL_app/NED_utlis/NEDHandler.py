@@ -12,7 +12,7 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 class NEDHandler:
     ALLOWED_KNOWLEDGE_BASES = ["dbpedia", "wikidata"]
     ALLOWED_CANDIDATE_SELECTION_STRATEGIES = ["sum_of_metrics",
-                                              "candidate_selector_neural_network",
+                                              "candidate_selector_nn_single",
                                               "candidate_selector_random_forest_classifier",
                                               "candidate_selector_svm"
                                               ]
