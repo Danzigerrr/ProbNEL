@@ -12,9 +12,6 @@ class DBpediaSearch:
     _cache = diskcache.Cache("dbpedia_cache")  # Use diskcache for persistent and thread-safe caching
     _lock = threading.Lock() #Add a class wide lock.
 
-    def __init__(self):
-        print("DBpediaSearch disk-based caching enabled.")
-
     def cached_request(self, entity_surface_form, max_results=3):
         key = f"{entity_surface_form[:25]}_{max_results}"
 
