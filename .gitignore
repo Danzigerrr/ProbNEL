@@ -167,3 +167,8 @@ DjangoApp/NEL_project/NEL_app/Evaluation/Evaluation_Logs
 DjangoApp/NEL_project/NEL_app/Evaluation/evaluation_results
 !DjangoApp/NEL_project/NEL_app/Evaluation/evaluation_results/important
 /DjangoApp/NEL_project/NEL_app/Evaluation/dbpedia_cache
+
+*.json
+*.csv
+*.pkl
+*.pth
