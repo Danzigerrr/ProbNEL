@@ -13,13 +13,15 @@ class Candidate:
                  ontology_types: List[str],
                  comment: str,
                  uri: str,
-                 ref_count: int
+                 ref_count: int,
+                 dbpedia_score: float
                  ):
         self.label = label
         self.ontology_types = ontology_types
         self.comment = comment
         self.uri = uri
         self.ref_count = ref_count
+        self.dbpedia_score = dbpedia_score
 
     def print_details(self):
         """Prints the details of the Candidate object."""
