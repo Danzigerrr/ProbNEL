@@ -24,7 +24,7 @@ from DjangoApp.NEL_project.NEL_app.NER_utils.NERConfig import NERConfig
 from DjangoApp.NEL_project.NEL_app.NER_utils.NERHandler import NERHandler
 
 class DataCollectorForCandidateSelectorModel:
-    def __init__(self, dataset_path: str, ner_model_name: str, output_dir="candidate_selection_data"):
+    def __init__(self, dataset_path: str, ner_model_name: Optional[str], output_dir="candidate_selection_data"):
         self.dataset_path = dataset_path
         # short dataset name
         self.dataset_name = os.path.splitext(os.path.basename(dataset_path))[0]
