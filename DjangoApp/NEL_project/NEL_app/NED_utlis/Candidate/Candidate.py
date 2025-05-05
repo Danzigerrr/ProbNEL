@@ -6,6 +6,7 @@ class Candidate:
     score_levenshtein_distance = 0.0
     score_popularity = 0.0
     score_context = 0.0
+    score_position = 0.0
     score_final = 0.0
 
     def __init__(self,
@@ -14,14 +15,14 @@ class Candidate:
                  comment: str,
                  uri: str,
                  ref_count: int,
-                 dbpedia_score: float
+                 position: int
                  ):
         self.label = label
         self.ontology_types = ontology_types
         self.comment = comment
         self.uri = uri
         self.ref_count = ref_count
-        self.dbpedia_score = dbpedia_score
+        self.position = position
 
     def print_details(self):
         """Prints the details of the Candidate object."""
@@ -35,4 +36,5 @@ class Candidate:
         print(f"Score Levenshtein: {self.score_levenshtein_distance}")
         print(f"Score Popularity: {self.score_popularity}")
         print(f"Score Context: {self.score_context}")
+        print(f"Score Position: {self.score_position}")
         print(f"Score final: {self.score_final}")

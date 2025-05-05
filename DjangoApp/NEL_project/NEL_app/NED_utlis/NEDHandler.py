@@ -30,12 +30,12 @@ class NEDHandler:
             raise ValueError(f"Error: knowledge_base value must be on of the options: {self.ALLOWED_KNOWLEDGE_BASES}")
         self.knowledge_base = knowledge_base.lower()
         self.DBPediaSearch = DBpediaSearch()
-        self.EntityCandidateScorer = EntityCandidateScorer()
+        self.use_types_score = use_types_score
+        self.EntityCandidateScorer = EntityCandidateScorer(use_types_score)
         if candidate_selection_strategy not in self.ALLOWED_CANDIDATE_SELECTION_STRATEGIES:
             raise ValueError(f"Error: candidate_selection_strategy value must be on of the options: {self.ALLOWED_CANDIDATE_SELECTION_STRATEGIES}")
         self.CandidateSelector = CandidateSelector(candidate_selection_strategy, use_types_score)
         self.candidate_selection_strategy = candidate_selection_strategy
-        self.use_types_score = use_types_score
         self.ner_config = ner_config
 
     def perform_ned(self, text: Text):

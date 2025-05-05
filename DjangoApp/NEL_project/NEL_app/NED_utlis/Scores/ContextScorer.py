@@ -1,7 +1,7 @@
 from sentence_transformers import SentenceTransformer, util
 from DjangoApp.NEL_project.NEL_app.Models.Entity import Entity
 
-class ContextScorerBi:
+class ContextScorer:
     """
     Calculates similarity between text and candidate comments using a bi-encoder SBERT model.
     """
