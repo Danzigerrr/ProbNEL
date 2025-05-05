@@ -8,12 +8,7 @@ from tqdm import tqdm
 import multiprocessing
 from pathlib import Path
 
-import json
-import os
-from datetime import datetime
-from typing import List
 from concurrent.futures import ProcessPoolExecutor
-from tqdm import tqdm
 
 from DjangoApp.NEL_project.NEL_app.Evaluation.DatasetLoader import DatasetLoader
 from DjangoApp.NEL_project.NEL_app.Evaluation.TestDataset import TestDataset
