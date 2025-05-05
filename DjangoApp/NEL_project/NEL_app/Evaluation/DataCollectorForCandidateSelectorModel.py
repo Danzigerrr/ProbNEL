@@ -1,28 +1,41 @@
 import json
-import multiprocessing
 import os
-from concurrent.futures import ProcessPoolExecutor
 
 from datetime import datetime
-from typing import List
+from typing import List, Dict, Tuple
 
 from tqdm import tqdm
+import multiprocessing
+from pathlib import Path
+
+from concurrent.futures import ProcessPoolExecutor
 
 from DjangoApp.NEL_project.NEL_app.Evaluation.DatasetLoader import DatasetLoader
 from DjangoApp.NEL_project.NEL_app.Evaluation.TestDataset import TestDataset
 from DjangoApp.NEL_project.NEL_app.Models.Entity import Entity
 from DjangoApp.NEL_project.NEL_app.Models.Text import Text
 from DjangoApp.NEL_project.NEL_app.NED_utlis.DBpedia.DBpediaSearch import DBpediaSearch
-
+from DjangoApp.NEL_project.NEL_app.NER_utils.NERConfig import NERConfig
+from DjangoApp.NEL_project.NEL_app.NER_utils.NERHandler import NERHandler
 
 class DataCollectorForCandidateSelectorModel:
-    def __init__(self, dataset_path, output_dir="candidate_selection_data"):
+    def __init__(self, dataset_path: str, ner_model_name: Optional[str], output_dir="candidate_selection_data"):
         self.dataset_path = dataset_path
+        # short dataset name
         self.dataset_name = os.path.splitext(os.path.basename(dataset_path))[0]
-        self.ned_knowledge_graph = "dbpedia"
         self.DBPediaSearch = DBpediaSearch()
         self.output_dir = output_dir
         os.makedirs(self.output_dir, exist_ok=True)
+
+        # Determine whether to use NER model or golden annotations
+        self.use_golden_annotations = ner_model_name is None
+        self.ner_model_name = ner_model_name
+        # short ner name if exists
+        self.ner_short = ner_model_name.split('/')[-1] if ner_model_name else 'golden'
+        if not self.use_golden_annotations:
+            self.ner_config = NERConfig(ner_model_name)
+            self.ner_handler = NERHandler(self.ner_config)
+            self.ner_accuracy = {"correct": 0, "total": 0}
 
     def load_evaluation_dataset_file(self):
         try:
@@ -32,118 +45,144 @@ class DataCollectorForCandidateSelectorModel:
             print(f"Error loading dataset: {e}")
             return None
 
-    def generate_list_of_texts_with_named_entities(self, dataset: TestDataset):
-        texts_with_golden_annotations = []
+    def perform_ner_on_texts(self, dataset: TestDataset) -> List[Text]:
+        self.ner_handler.ner_config.tagger_model.try_cuda()
+        texts_with_filtered = []
+        for gold_text in tqdm(dataset.texts, desc="Performing NER and filtering predictions"):
+            pred_text = self.ner_handler.perform_ner(Text(gold_text.content))
+            ground_keys = {(e.entity_label, e.start_position, e.end_position): e for e in gold_text.entities}
+            filtered = []
+            for e in pred_text.entities:
+                key = (e.entity_label, e.start_position, e.end_position)
+                self.ner_accuracy["total"] += 1
+                if key in ground_keys:
+                    # correct detection
+                    self.ner_accuracy["correct"] += 1
+                    # assign best candidate from gold
+                    e.best_candidate_uri = ground_keys[key].target_uri
+                    filtered.append(e)
+            pred_text.entities = filtered
+            texts_with_filtered.append(pred_text)
+        self.ner_handler.ner_config.tagger_model.cpu()
+        return texts_with_filtered
+
+    def generate_golden_texts(self, dataset: TestDataset) -> List[Text]:
+        texts = []
         for text in dataset.texts:
-            text_with_pred = Text(text.content)
-            for original_golden_entity in text.entities:
-                new_entity = Entity(
-                    entity_label=original_golden_entity.entity_label,
-                    entity_type="Undefined NER type",
-                    start_position=original_golden_entity.start_position,
-                    end_position=original_golden_entity.end_position,
-                    best_candidate_uri=original_golden_entity.target_uri,
+            t = Text(text.content)
+            for e in text.entities:
+                ent = Entity(
+                    entity_label=e.entity_label,
+                    entity_type=e.entity_type,
+                    start_position=e.start_position,
+                    end_position=e.end_position,
+                    best_candidate_uri=e.target_uri,
                     probabilities=[]
                 )
-                text_with_pred.entities.append(new_entity)
-            texts_with_golden_annotations.append(text_with_pred)
-        return texts_with_golden_annotations
+                t.entities.append(ent)
+            texts.append(t)
+        return texts
 
-    def fetch_candidates(self, entity_label, top_n):
-        return DBpediaSearch().search_by_entity_surface_form(entity_label, top_n)
+    def collect_candidates(self, texts: List[Text], top_n=10) -> List[Text]:
+        for t in tqdm(texts, desc="Fetching candidates"):
+            for e in t.entities:
+                e.candidates = self.DBPediaSearch.search_by_entity_surface_form(e.entity_label, top_n)
+        return texts
 
-    def collect_top_candidates_for_named_entities(self, texts_with_golden_annotations: List[Text], top_n_candidates=10) -> List[Text]:
-        with ProcessPoolExecutor() as executor:
-            futures = []
-            for text in texts_with_golden_annotations:
-                for entity in text.entities:
-                    futures.append((entity, executor.submit(self.fetch_candidates, entity.entity_label, top_n_candidates)))
-
-            for entity, future in tqdm(futures, desc="Collecting candidates"):
-                entity.candidates = future.result()
-
-        return texts_with_golden_annotations
-
-    def run_entity_linking_data_collection(self):
-        dataset_file = self.load_evaluation_dataset_file()
-        if not dataset_file:
-            return
-
-        dataset_loader = DatasetLoader()
-        dataset = dataset_loader.load_dataset_content(dataset_file, self.dataset_path)
-        dataset_loader.print_dataset_info(dataset)
-
-        texts_with_golden_annotations = self.generate_list_of_texts_with_named_entities(dataset)
-        texts_with_predictions = self.collect_top_candidates_for_named_entities(texts_with_golden_annotations)
-
-        self.save_results(dataset_loader, texts_with_golden_annotations, texts_with_predictions)
-
-    def save_results(self, dataset_loader, golden_texts, predicted_texts):
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        output_filename = f"{self.output_dir}/candidates_data_collector_{timestamp}.json"
-
-        golden_annotations = [
-            {
-                "content": text.content,
-                "entities": [
+    def save_results(self, dataset_loader, texts: List[Text]):
+        # Consolidate into single list of named_entities
+        records = []
+        for t in texts:
+            for e in t.entities:
+                rec = {
+                    "content": t.content,
+                    "entity_label": e.entity_label,
+                    "start_position": e.start_position,
+                    "end_position": e.end_position,
+                    "best_candidate_uri": e.best_candidate_uri,
+                }
+                if not self.use_golden_annotations:
+                    rec["probabilities"] = e.probabilities
+                # attach candidates
+                rec["candidates"] = [
                     {
-                        "entity_label": ent.entity_label,
-                        "start_position": ent.start_position,
-                        "end_position": ent.end_position,
-                        "best_candidate_uri": ent.best_candidate_uri
+                        "label": c.label,
+                        "ontology_types": c.ontology_types,
+                        "comment": c.comment,
+                        "uri": c.uri,
+                        "ref_count": c.ref_count,
+                        **({"dbpedia_score": getattr(c, 'dbpedia_score', None)} if hasattr(c, 'dbpedia_score') else {})
                     }
-                    for ent in text.entities
+                    for c in e.candidates
                 ]
-            }
-            for text in golden_texts
-        ]
+                records.append(rec)
 
-        predictions = [
-            {
-                "content": text.content,
-                "entities": [
-                    {
-                        "entity_label": ent.entity_label,
-                        "start_position": ent.start_position,
-                        "end_position": ent.end_position,
-                        "candidates": [
-                            {
-                                "label": c.label,
-                                "ontology_types": c.ontology_types,
-                                "comment": c.comment,
-                                "uri": c.uri,
-                                "ref_count": c.ref_count
-                            } for c in ent.candidates
-                        ]
-                    }
-                    for ent in text.entities
-                ]
-            }
-            for text in predicted_texts
-        ]
-
-        output_data = {
-            "name": "Enhanced system evaluation",
+        output = {
+            "name": "Data Collector for candidate selector model",
             "configuration": {
                 "dataset_path": self.dataset_path,
-                "dataset_total_texts": dataset_loader.total_texts,
-                "dataset_total_mentions": dataset_loader.total_mentions,
-                "ned_knowledge_graph": self.ned_knowledge_graph,
+                "use_golden_annotations": self.use_golden_annotations,
+                "ner_model_name": self.ner_model_name,
             },
-            "golden_annotations": golden_annotations,
-            "predictions": predictions
+            "named_entities": records
         }
+        # include dataset and ner short names in filename
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        fname = f"{self.dataset_name}_{self.ner_short}_{timestamp}.json"
+        out_path = os.path.join(self.output_dir, fname)
+        with open(out_path, 'w', encoding='utf-8') as f:
+            json.dump(output, f, indent=2)
+        print(f"Saved filtered results to {out_path}")
 
-        with open(output_filename, "w", encoding="utf-8") as file:
-            json.dump(output_data, file, indent=4)
+    def run_data_collection(self):
+        data = self.load_evaluation_dataset_file()
+        if not data:
+            return
+        loader = DatasetLoader()
+        ds = loader.load_dataset_content(data, self.dataset_path)
+        loader.print_dataset_info(ds)
 
-        print(f"Evaluation results saved to: {output_filename}")
+        if self.use_golden_annotations:
+            texts = self.generate_golden_texts(ds)
+        else:
+            # count total golden entities
+            total_golden = sum(len(text.entities) for text in ds.texts)
+            # perform NER and filter only correct ones
+            texts = self.perform_ner_on_texts(ds)
+            # calculate and display counts and accuracy
+            correct = self.ner_accuracy["correct"]
+            total_pred = self.ner_accuracy["total"]
+            acc = correct / total_pred if total_pred > 0 else 0
+            print(f"Total golden entities: {total_golden}")
+            print(f"Correctly identified: {correct} of {total_pred} preds, accuracy {acc:.4f}")
 
-
+        # fetch candidates for the filtered entities
+        texts = self.collect_candidates(texts)
+        self.save_results(loader, texts)
+import gc
 if __name__ == "__main__":
     multiprocessing.set_start_method('spawn', force=True)
-    dataset_path = "./EvaluationDatasets/ace2004_full.json"
 
-    print("Running data collector with golden annotations...")
-    data_collector = DataCollectorForCandidateSelectorModel(dataset_path)
-    data_collector.run_entity_linking_data_collection()
+    dataset_paths = [
+        # "./EvaluationDatasets/aida_train_converted.json",
+        "./EvaluationDatasets/aida_test_full.json",
+        "./EvaluationDatasets/ace2004_full.json"
+    ]
+
+    ner_models = [
+        "tomaarsen/span-marker-xlm-roberta-large-conllpp-doc-context",
+        "tomaarsen/span-marker-roberta-large-ontonotes5",
+        "tomaarsen/span-marker-bert-base-fewnerd-fine-super"
+    ]
+
+
+    for dp in dataset_paths:
+        for nm in ner_models:
+            print(f"Running for {Path(dp).stem} with {nm}")
+            dc = DataCollectorForCandidateSelectorModel(dp, nm)
+            dc.run_data_collection()
+
+            # flush large variables and force garbage collection
+            del dc
+            gc.collect()
+
