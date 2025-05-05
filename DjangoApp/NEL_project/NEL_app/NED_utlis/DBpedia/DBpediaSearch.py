@@ -69,13 +69,15 @@ def format_candidates_list(search_results):
             comment = doc.get("comment", [{}])[0].get("value", "")
             uri = doc.get("resource", [{}])[0].get("value", "")
             ref_count = int(doc.get("refCount", [{}])[0].get("value", "0"))
+            dbpedia_score = float(doc.get("score", ["0"])[0])
 
             candidate = Candidate(
                 label=label,
                 ontology_types=ontology_types,
                 comment=comment,
                 uri=uri,
-                ref_count=ref_count
+                ref_count=ref_count,
+                dbpedia_score=dbpedia_score
             )
             candidates.append(candidate)
     return candidates
