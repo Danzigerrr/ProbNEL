@@ -17,8 +17,7 @@ class NERConfig:
             "PER": "PER - Proper names of individuals, including first names, last names, fictional names, and unique nicknames.",
             "LOC": "LOC - Names of geographical locations such as cities, countries, states, provinces, and other physical locations.",
             "ORG": "ORG - Names of organizations including companies, government agencies, political parties, educational institutions, and sports teams.",
-            "MISC": "MISC - Other named entities that do not fit into PER, LOC, or ORG categories, such as nationalities, artistic works, events, and other miscellaneous proper nouns.",
-            "O": "O - Unknown"
+            "MISC": "MISC - Other named entities that do not fit into PER, LOC, or ORG categories, such as nationalities, artistic works, events, and other miscellaneous proper nouns."
         },
         "tomaarsen/span-marker-roberta-large-ontonotes5": {
             "PERSON": "PERSON - Proper names of people including first names, last names, individual or family names, fictional names and unique nicknames.",
@@ -38,8 +37,7 @@ class NERConfig:
             "MONEY": "MONEY - Monetary value.",
             "QUANTITY": "QUANTITY - Measurements including length, distance, area, weight, heat, velocity, temperature, byte size, etc.",
             "ORDINAL": "ORDINAL - Ordinal number.",
-            "CARDINAL": "CARDINAL - Cardinal number.",
-            "O": "O - Unknown"
+            "CARDINAL": "CARDINAL - Cardinal number."
         },
         "tomaarsen/span-marker-bert-base-fewnerd-fine-super": {
             "art-broadcastprogram": "art-broadcastprogram - Broadcast programs including TV and radio shows.",
@@ -107,8 +105,7 @@ class NERConfig:
             "product-ship": "product-ship - Ships and maritime vessels.",
             "product-software": "product-software - Software products or applications.",
             "product-train": "product-train - Trains and railway vehicles.",
-            "product-weapon": "product-weapon - Weapons and armaments.",
-            "O": "O - Unknown"
+            "product-weapon": "product-weapon - Weapons and armaments."
         }
     }
 

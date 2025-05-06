@@ -38,7 +38,7 @@ class CandidateSelectorXGBoost:
     use_types_score_trained = False  # Important: Should match if types score was used during training
 
     def __init__(self, max_number_of_features: int, use_types_score: bool):
-        self.load_model('best_xgb_model_1_acc_0.8527.pkl')
+        self.load_model('trained_xgb_model_1.pkl')
         self.max_number_of_features = max_number_of_features
         self.use_types_score = use_types_score
         if self.use_types_score and not self.use_types_score_trained:
@@ -50,10 +50,6 @@ class CandidateSelectorXGBoost:
         model_path = os.path.join(os.path.dirname(__file__), model_name)
         try:
             self.model = joblib.load(model_path)
-            # Infer the training configuration from the model (if possible)
-            if hasattr(self.model, 'feature_names_in_'):
-                if 'score_types' in self.model.feature_names_in_:
-                    self.use_types_score_trained = True
         except FileNotFoundError:
             print(f"Error: Candidate selector model file not found at {model_path}")
             self.model = None
