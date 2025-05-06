@@ -101,9 +101,7 @@ if __name__ == "__main__":
     ned_knowledge_graph = "dbpedia"
     # ned_candidate_selection_strategies = ["sum_of_metrics"]
     ned_candidate_selection_strategies = ["xgboost"]
-    # ned_use_ontology_mapping_scores = [True, False]
-    # ned_use_ontology_mapping_scores = [True]
-    ned_use_ontology_mapping_scores = [False]
+    ned_use_ontology_mapping_scores = [True]
 
     # Iterate over all possible combinations of parameters
     for ner_model, ned_candidate_selection_strategy, ned_use_ontology_mapping_score in itertools.product(

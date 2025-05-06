@@ -7,6 +7,9 @@ class Candidate:
     score_popularity = 0.0
     score_context = 0.0
     score_position = 0.0
+    score_basic_types_embedding = 0.0
+    score_topk_types_embedding = 0.0
+    score_maxner_types_embedding = 0.0
 
     def __init__(self,
                  label: str,
@@ -30,9 +33,4 @@ class Candidate:
         print(f"Ontology Types: {self.ontology_types}")
         print(f"Comment: {self.comment}")
         print(f"URI: {self.uri}")
-        # print(f"Ref count (popularity): {self.ref_count}")
-        print(f"Score NER to Ontology: {self.score_types_embeddings_similarity}")
-        print(f"Score Levenshtein: {self.score_levenshtein}")
-        print(f"Score Popularity: {self.score_popularity}")
-        print(f"Score Context: {self.score_context}")
-        print(f"Score Position: {self.score_position}")
+
