@@ -8,8 +8,14 @@
 /* Highlighting clickable entities */
 .entity {
     color: blue;
+    text-decoration: underline;
     cursor: pointer;
 }
+
+.card.border-success {
+    border-width: 2px !important;
+}
+
 
 #context-box {
     border: 1px solid #ccc;

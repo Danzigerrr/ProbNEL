@@ -8,21 +8,39 @@ from App.NEL_project.NEL_app.NER_utils.NERHandler import NERHandler
 app = Flask(__name__)
 
 def create_json_response(text_obj: Text):
-    entities = [
-        {
-            "entity_label": e.entity_label,
-            "entity_type": e.entity_type,
-            "start_position": e.start_position,
-            "end_position": e.end_position,
-            "best_candidate_uri": e.best_candidate_uri,
-            "probabilities": [(prob[0], float(prob[1])) for prob in e.probabilities], # Ensure probabilities are serializable
-        }
-        for e in text_obj.entities
-    ]
+    entities_data = []
+    for entity in text_obj.entities:
+        candidates_data = []
+        for candidate in entity.candidates:
+            candidates_data.append({
+                "label": candidate.label,
+                "ontology_types": candidate.ontology_types,
+                "comment": candidate.comment,
+                "uri": candidate.uri,
+                "ref_count": candidate.ref_count,
+                "position": candidate.position,
+                "score_types_embeddings_similarity": candidate.score_types_embeddings_similarity,
+                "score_levenshtein": candidate.score_levenshtein,
+                "score_popularity": candidate.score_popularity,
+                "score_context": candidate.score_context,
+                "score_position": candidate.score_position,
+                "score_basic_types_embedding": candidate.score_basic_types_embedding,
+                "score_topk_types_embedding": candidate.score_topk_types_embedding,
+                "score_maxner_types_embedding": candidate.score_maxner_types_embedding,
+            })
+        entities_data.append({
+            "entity_label": entity.entity_label,
+            "entity_type": entity.entity_type,
+            "start_position": entity.start_position,
+            "end_position": entity.end_position,
+            "best_candidate_uri": entity.best_candidate_uri,
+            "probabilities": [(prob[0], float(prob[1])) for prob in entity.probabilities],
+            "candidates": candidates_data,
+        })
 
     return jsonify({
         "text": text_obj.content,
-        "entities": entities
+        "entities": entities_data
     })
 
 # --- Flask App Routes ---
