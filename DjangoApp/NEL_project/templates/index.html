@@ -34,12 +34,10 @@
     <h2 class="text-center">Entity Linking System - Named Entity Recognition and Disambiguation</h2>
     <br>
     <form id="process-form" class="mb-4">
-        {% csrf_token %}
         <textarea id="user_input" name="user_input" class="form-control" rows="5" cols="40" placeholder="Enter text here"></textarea><br>
-
         <button type="button" class="btn btn-primary" onclick="submitInput(event, 'dbpedia')">Process with DBpedia</button>
-        <button type="button" class="btn btn-secondary" onclick="submitInput(event, 'wikidata')">Process with Wikidata</button>
     </form>
+
 
     <div id="loader-text-input" style="display: none; text-align: center; margin-top: 20px;">
         <div class="spinner-border" role="status">
@@ -101,25 +99,22 @@
     }
 
     function submitInput(event, knowledge_graph) {
-        event.preventDefault(); // Prevent form submission
+        event.preventDefault();
 
-        const userInput = document.getElementById("user_input").value; // Get user input
-        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value; // Get CSRF token
+        const userInput = document.getElementById("user_input").value;
+
         const loader = document.getElementById("loader-text-input");
-
-        // Show the loader
         loader.style.display = "block";
 
-        fetch("", {
+        fetch("/NEL_app", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
                 "X-Requested-With": "XMLHttpRequest",
-                "X-CSRFToken": csrfToken
             },
             body: new URLSearchParams({
                 user_input: userInput,
-                knowledge_graph: knowledge_graph // Pass the process type to the backend
+                knowledge_graph: knowledge_graph
             })
         })
             .then(response => response.json())
