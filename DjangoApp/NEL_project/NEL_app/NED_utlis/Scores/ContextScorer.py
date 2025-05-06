@@ -18,4 +18,4 @@ class ContextScorer:
         for candidate in entity.candidates:
             candidate_embedding = self.model.encode(candidate.comment, convert_to_tensor=True)
             score = util.pytorch_cos_sim(entity_embedding, candidate_embedding).item()
-            candidate.score_context_bi = round(score, self.round_to_decimal_places)
+            candidate.score_context = round(score, self.round_to_decimal_places)

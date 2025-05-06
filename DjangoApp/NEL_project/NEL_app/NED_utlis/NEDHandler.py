@@ -12,10 +12,7 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 class NEDHandler:
     ALLOWED_KNOWLEDGE_BASES = ["dbpedia", "wikidata"]
     ALLOWED_CANDIDATE_SELECTION_STRATEGIES = ["sum_of_metrics",
-                                              "candidate_selector_nn_single",
-                                              "candidate_selector_random_forest_classifier",
-                                              "candidate_selector_svm"
-                                              ]
+                                              "xgboost"]
 
     def __init__(self,
                  ner_config: NERConfig,
@@ -62,9 +59,6 @@ class NEDHandler:
         Chooses the best candidate for an entity based on the calculated scores.
         """
         self.EntityCandidateScorer.calculate_scores_for_candidates(text, entity, self.ner_config, self.use_types_score)
-
-        # sort candidates in the candidates list
-        entity.candidates.sort(key=lambda x: x.score_final, reverse=True)
 
         if entity.candidates:
                 self.CandidateSelector.model.select_best_candidate_for_entity(entity=entity)

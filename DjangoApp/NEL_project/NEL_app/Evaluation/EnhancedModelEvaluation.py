@@ -37,15 +37,15 @@ class EnhancedModelEvaluation:
 
     def generate_list_of_texts_with_named_entities(self, dataset: TestDataset):
         texts_with_golden_annotations = []
-        for text in dataset.texts:
+        for text in tqdm(dataset.texts, desc="NER: Performing NER using golden annotations"):
             text_with_pred = Text(text.content)
             for original_golden_entity in text.entities:
                 new_entity = Entity(
                     entity_label=original_golden_entity.entity_label,
-                    entity_type="Undefined NER type",
+                    entity_type="Undefined NER type - no NER model used in this configuration",
                     start_position=original_golden_entity.start_position,
                     end_position=original_golden_entity.end_position,
-                    best_candidate_uri="Undefined best candidate URI",
+                    best_candidate_uri="It will be set during NED and evaluated during evaluation process",
                     probabilities=[]
                 )
                 text_with_pred.entities.append(new_entity)
@@ -53,11 +53,13 @@ class EnhancedModelEvaluation:
         return texts_with_golden_annotations
 
     def perform_ned_on_texts(self, texts_with_pred: List[Text]) -> List[Text]:
+        use_first_n = 1
+
         texts_with_ned = []
         with ProcessPoolExecutor(max_workers=4) as executor:
             futures = {executor.submit(self.ned_handler.perform_ned, text): idx for idx, text in enumerate(texts_with_pred)}
             results = {}
-            with tqdm(total=len(texts_with_pred), desc="Processing texts") as pbar:
+            with tqdm(total=len(texts_with_pred), desc="NED: Processing texts") as pbar:
                 for future in as_completed(futures):
                     idx = futures[future]
                     results[idx] = future.result()
@@ -134,10 +136,10 @@ class EnhancedModelEvaluation:
 
 if __name__ == "__main__":
     multiprocessing.set_start_method('spawn', force=True)
-    dataset_path = "./EvaluationDatasets/aida_test_full.json"
+    dataset_path = "./EvaluationDatasets/ace2004_full.json"
 
     ner_config_not_used = NERConfig("tomaarsen/span-marker-xlm-roberta-large-conllpp-doc-context")
-    ned_handler = NEDHandler(ner_config_not_used, "dbpedia", "candidate_selector_svm", False)
+    ned_handler = NEDHandler(ner_config_not_used, "dbpedia", "xgboost", False)
 
     print("Running enhanced model evaluation with golden annotations...")
     evaluation = EnhancedModelEvaluation(dataset_path, ned_handler)

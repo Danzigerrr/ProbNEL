@@ -99,11 +99,11 @@ if __name__ == "__main__":
         # "tomaarsen/span-marker-bert-base-fewnerd-fine-super"
     ]
     ned_knowledge_graph = "dbpedia"
-    # ned_candidate_selection_strategies = ["candidate_selector_svm", "sum_of_metrics", "candidate_selector_random_forest_classifier"]
-    ned_candidate_selection_strategies = ["sum_of_metrics"]
+    # ned_candidate_selection_strategies = ["sum_of_metrics"]
+    ned_candidate_selection_strategies = ["xgboost"]
     # ned_use_ontology_mapping_scores = [True, False]
-    ned_use_ontology_mapping_scores = [True]
-    # ned_use_ontology_mapping_scores = [False]
+    # ned_use_ontology_mapping_scores = [True]
+    ned_use_ontology_mapping_scores = [False]
 
     # Iterate over all possible combinations of parameters
     for ner_model, ned_candidate_selection_strategy, ned_use_ontology_mapping_score in itertools.product(

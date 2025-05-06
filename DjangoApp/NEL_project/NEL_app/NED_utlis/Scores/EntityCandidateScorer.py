@@ -33,15 +33,3 @@ class EntityCandidateScorer:
         self.PopularityScorer.calculate_score(entity)
         self.ContextScorer.calculate_score(text, entity)
         self.PositionScorer.calculate_score(entity)
-
-        self.calculate_final_score(entity)
-
-    def calculate_final_score(self, entity):
-        if entity.candidates:
-            for candidate in entity.candidates:
-                candidate.score_final += candidate.score_types_embeddings_similarity
-                candidate.score_final += candidate.score_levenshtein_distance
-                candidate.score_final += candidate.score_popularity
-                candidate.score_final += candidate.score_context
-                candidate.score_final += candidate.score_position
-                candidate.score_final = round(number=candidate.score_final, ndigits=3)

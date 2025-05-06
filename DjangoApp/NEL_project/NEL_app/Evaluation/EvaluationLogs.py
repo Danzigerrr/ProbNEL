@@ -41,7 +41,7 @@ class EvaluationLogs:
             "end_position": gt_entity.end_position,
             "correct_prediction": if_correct_prediction,
             "matching_candidate_index": matching_candidate_index,
-            "candidates": [(c.label, c.score_types_embeddings_similarity, c.score_levenshtein_distance,
+            "candidates": [(c.label, c.score_types_embeddings_similarity, c.score_levenshtein,
                             c.score_popularity, c.score_context) for c in matched_pred_entity.candidates]
         }
         self.logs.append(log_entry)
