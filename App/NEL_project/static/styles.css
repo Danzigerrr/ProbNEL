@@ -1,0 +1,19 @@
+/* Basic styling for the page */
+.result {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+/* Highlighting clickable entities */
+.entity {
+    color: blue;
+    cursor: pointer;
+}
+
+#context-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 20px;
+    width: 100%;
+}
