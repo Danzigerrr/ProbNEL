@@ -136,7 +136,7 @@ class EnhancedModelEvaluation:
 
 if __name__ == "__main__":
     multiprocessing.set_start_method('spawn', force=True)
-    dataset_path = "./EvaluationDatasets/ace2004_full.json"
+    dataset_path = "./EvaluationDatasets/ace2004_short.json"
 
     ner_config_not_used = NERConfig("tomaarsen/span-marker-xlm-roberta-large-conllpp-doc-context")
     ned_handler = NEDHandler(ner_config_not_used, "dbpedia", "xgboost", False)
