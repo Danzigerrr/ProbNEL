@@ -172,3 +172,6 @@ DjangoApp/NEL_project/NEL_app/Evaluation/evaluation_results
 *.csv
 *.pkl
 *.pth
+!DjangoApp/NEL_project/NEL_app/NED_utlis/Candidate_Selector/xgb_model_enhanced_4_features.pkl
+!DjangoApp/NEL_project/NEL_app/NED_utlis/Candidate_Selector/xgb_model_final_6_features.pkl
+
