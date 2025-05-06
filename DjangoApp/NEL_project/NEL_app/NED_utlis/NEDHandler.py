@@ -12,10 +12,7 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 class NEDHandler:
     ALLOWED_KNOWLEDGE_BASES = ["dbpedia", "wikidata"]
     ALLOWED_CANDIDATE_SELECTION_STRATEGIES = ["sum_of_metrics",
-                                              "candidate_selector_nn_single",
-                                              "candidate_selector_random_forest_classifier",
-                                              "candidate_selector_svm"
-                                              ]
+                                              "xgboost"]
 
     def __init__(self,
                  ner_config: NERConfig,
@@ -30,12 +27,12 @@ class NEDHandler:
             raise ValueError(f"Error: knowledge_base value must be on of the options: {self.ALLOWED_KNOWLEDGE_BASES}")
         self.knowledge_base = knowledge_base.lower()
         self.DBPediaSearch = DBpediaSearch()
-        self.EntityCandidateScorer = EntityCandidateScorer()
+        self.use_types_score = use_types_score
+        self.EntityCandidateScorer = EntityCandidateScorer(use_types_score)
         if candidate_selection_strategy not in self.ALLOWED_CANDIDATE_SELECTION_STRATEGIES:
             raise ValueError(f"Error: candidate_selection_strategy value must be on of the options: {self.ALLOWED_CANDIDATE_SELECTION_STRATEGIES}")
         self.CandidateSelector = CandidateSelector(candidate_selection_strategy, use_types_score)
         self.candidate_selection_strategy = candidate_selection_strategy
-        self.use_types_score = use_types_score
         self.ner_config = ner_config
 
     def perform_ned(self, text: Text):
@@ -62,9 +59,6 @@ class NEDHandler:
         Chooses the best candidate for an entity based on the calculated scores.
         """
         self.EntityCandidateScorer.calculate_scores_for_candidates(text, entity, self.ner_config, self.use_types_score)
-
-        # sort candidates in the candidates list
-        entity.candidates.sort(key=lambda x: x.score_final, reverse=True)
 
         if entity.candidates:
                 self.CandidateSelector.model.select_best_candidate_for_entity(entity=entity)

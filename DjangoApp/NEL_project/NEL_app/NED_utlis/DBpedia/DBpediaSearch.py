@@ -53,7 +53,6 @@ def print_cache_hit_or_miss_info(entity_surface_form, response):
     from_cache = "hit" if getattr(response, "from_cache", False) else "miss"
     print(f"Request for '{entity_surface_form[:25]}' {from_cache} (cached: {response.from_cache})")
 
-
 def format_candidates_list(search_results):
     """
     Extract the best result from the DBpedia Lookup API response, removing HTML tags.
@@ -63,13 +62,12 @@ def format_candidates_list(search_results):
     """
     candidates = []
     if search_results and search_results.get("docs"):
-        for doc in search_results["docs"]:
+        for index, doc in enumerate(search_results["docs"]):
             label = doc.get("label", [{}])[0].get("value", "")
             ontology_types = [item.get("value", "") for item in doc.get("typeName", [])]
             comment = doc.get("comment", [{}])[0].get("value", "")
             uri = doc.get("resource", [{}])[0].get("value", "")
             ref_count = int(doc.get("refCount", [{}])[0].get("value", "0"))
-            dbpedia_score = float(doc.get("score", ["0"])[0])
 
             candidate = Candidate(
                 label=label,
@@ -77,8 +75,7 @@ def format_candidates_list(search_results):
                 comment=comment,
                 uri=uri,
                 ref_count=ref_count,
-                dbpedia_score=dbpedia_score
+                position=index + 1
             )
             candidates.append(candidate)
     return candidates
-
