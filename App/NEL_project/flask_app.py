@@ -53,22 +53,22 @@ def redirect_root():
 def nel_app():
     if request.method == "POST":
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            user_input = request.form.get("user_input", "")
+            user_input      = request.form.get("user_input", "")
             knowledge_graph = request.form.get("knowledge_graph", "")
+            ner_model        = request.form.get("ner_model")
+            use_types_score  = request.form.get("use_types_score") == '1'
 
             if not user_input:
                 return jsonify({"error": "Input text is required."}), 400
 
             try:
                 text_obj = Text(user_input)
-
-                ner_tagger_name = "tomaarsen/span-marker-xlm-roberta-large-conllpp-doc-context"  # Replace with your actual model name
-                ner_config = NERConfig(ner_tagger_name)
+                ner_config = NERConfig(ner_model)
                 ner = NERHandler(ner_config)
                 text_obj = ner.perform_ner(text_obj)
 
                 if knowledge_graph in ["dbpedia", "wikidata"]:
-                    ned = NEDHandler(ner_config, knowledge_graph)
+                    ned = NEDHandler(ner_config, knowledge_graph, "xgboost", use_types_score)
                     text_obj = ned.perform_ned(text_obj)
                     return create_json_response(text_obj)
                 else:

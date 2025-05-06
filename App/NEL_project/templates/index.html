@@ -14,8 +14,30 @@
     <h2 class="text-center">Entity Linking System - Named Entity Recognition and Disambiguation</h2>
     <br>
     <form id="process-form" class="mb-4">
-        <textarea id="user_input" name="user_input" class="form-control" rows="5" cols="40" placeholder="Enter text here"></textarea><br>
-        <button type="button" class="btn btn-primary" onclick="submitInput(event, 'dbpedia')">Process with DBpedia</button>
+        <h3>Input text:</h3>
+        <textarea id="user_input" name="user_input" class="form-control" rows="5" placeholder="Enter text here"></textarea>
+        <div class="row mt-3">
+            <h3>Configuration:</h3>
+            <div class="col-md-3">
+                <label for="ner_model" class="form-label">Select NER model</label>
+                <select id="ner_model" name="ner_model" class="form-select">
+                    <option value="conllpp">CoNLL++</option>
+                    <option value="ontonotes5">OntoNotes&nbsp;5.0</option>
+                    <option value="fewnerd">Few-NERD</option>
+                </select>
+            </div>
+            <div class="col-md-6 d-flex align-items-end">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="use_types_score" name="use_types_score">
+                    <label class="form-check-label" for="use_types_score">
+                        Use NER types to ontology type mapping scores
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="mt-3">
+            <button type="button" class="btn btn-primary" onclick="submitInput(event, 'dbpedia')">Process text with DBpedia</button>
+        </div>
     </form>
 
 
@@ -26,9 +48,10 @@
         <p>Please wait, processing the text...</p>
     </div>
 
+    <h3>Results:</h3>
 
     <div id="result" class="result">
-        <h3>Processed Text:</h3>
+        <h4>Processed Text:</h4>
         <p id="text-with-entities"></p>
     </div>
 
