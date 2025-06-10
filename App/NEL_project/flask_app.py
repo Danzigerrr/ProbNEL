@@ -1,9 +1,9 @@
 from flask import Flask, render_template, request, jsonify, redirect
 
-from App.NEL_project.NEL_app.Models.Text import Text
-from App.NEL_project.NEL_app.NED_utlis.NEDHandler import NEDHandler
-from App.NEL_project.NEL_app.NER_utils.NERConfig import NERConfig
-from App.NEL_project.NEL_app.NER_utils.NERHandler import NERHandler
+from App.NEL_project.nel_app.models.text import Text
+from App.NEL_project.nel_app.ned_utlis.ned_handler import NEDHandler
+from App.NEL_project.nel_app.ner_utils.ner_config import NERConfig
+from App.NEL_project.nel_app.ner_utils.ner_handler import NERHandler
 
 app = Flask(__name__)
 
@@ -47,7 +47,7 @@ def create_json_response(text_obj: Text):
 
 @app.route("/")
 def redirect_root():
-    return redirect("/NEL_app")
+    return redirect("/nel_app")
 
 @app.route("/NEL_app", methods=["GET", "POST"])
 def nel_app():
@@ -77,7 +77,7 @@ def nel_app():
             except Exception as e:
                 return jsonify({"error": f"Error processing input: {str(e)}"}), 500
 
-        return redirect("/NEL_app")  # Non-AJAX POST
+        return redirect("/nel_app")  # Non-AJAX POST
 
     # GET request
     return render_template("index.html")
