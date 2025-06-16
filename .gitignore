@@ -172,7 +172,7 @@ App/NEL_project/nel_app/evaluation/evaluation_results
 *.csv
 *.pkl
 *.pth
-!App/NEL_project/nel_app/ned_utlis/candidate_selector/xgb_model_enhanced_4_features.pkl
-!App/NEL_project/nel_app/ned_utlis/candidate_selector/xgb_model_final_6_features.pkl
+!App/NEL_project/nel_app/ned_utlis/candidate_selector/xgb_model_4_features.pkl
+!App/NEL_project/nel_app/ned_utlis/candidate_selector/xgb_model_6_features.pkl
 
 Jupyter_Notebooks/cached_calculations.zip

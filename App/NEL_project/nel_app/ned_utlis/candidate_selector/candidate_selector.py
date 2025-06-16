@@ -79,9 +79,9 @@ class CandidateSelectorXGBoost:
 
         # Load the appropriate XGBoost model based on the number of features
         if not self.use_types_score:
-            self._load_model('xgb_model_enhanced_4_features.pkl')
+            self._load_model('xgb_model_4_features.pkl')
         else:
-            self._load_model('xgb_model_final_6_features.pkl')
+            self._load_model('xgb_model_6_features.pkl')
 
     def _load_model(self, model_name: str):
         """
