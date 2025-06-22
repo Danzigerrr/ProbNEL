@@ -21,7 +21,6 @@ contextual embeddings, and DBpedia knowledge‑graph features to disambiguate an
    - [API](#api)  
 6. [Candidate Selector trainig and selection](#candidate-selector-trainig-and-selection)
 7. [License](#license)  
-8. [Acknowledgements](#acknowledgements)  
 
 ---
 
@@ -127,10 +126,8 @@ Response is JSON with `text`, `entities`, `probabilities`, and `candidates`.
 Candidate selector is an XGboost model which select the best candidate among the 10 candidates fetched from DBpedia for a recognized named entity in text.
 The code used for trainig and evaluation of differnt configurations of candidate selector model is presented in [Candidate_selector.ipynb](./Jupyter_Notebooks/Candidate_selector.ipynb). 
 
-In order to reuse the feature scores calcualted for each candidate in trainig and test datasets a zip file containig the calculted stores was created.
-It is avaialbe for downloads using [the following link](https://drive.google.com/file/d/1ghbJGd47i735rAt7dE8jCuyQ_BsxJK_9/view?usp=sharing).
-
-If you want to reruse these scores, download this zip file and place it insdie the `Jupyter_Notebooks` directory. Code for downloading and unzipping the zip file is already included in [Candidate_selector.ipynb](./Jupyter_Notebooks/Candidate_selector.ipynb).
+In order to reuse the feature scores calcualted for each candidate in trainig and test datasets two zip files containig the calculted scores was created.
+Code for downloading and unzipping these zip files is included in [Candidate_selector.ipynb](./Jupyter_Notebooks/Candidate_selector.ipynb) in the `Download and extract cached calculations and requests from zip files` section.
 
 ---
 
