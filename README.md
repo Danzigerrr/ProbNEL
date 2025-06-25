@@ -9,8 +9,8 @@ contextual embeddings, and DBpedia knowledge‑graph features to disambiguate an
 
 ## Table of Contents
 
-1. [Features](#features)  
-2. [Short Demo](#short-demo)
+1. [Short Demo](#short-demo)  
+2. [Key Features](#key-features)
 3. [How It Works](#how-it-works)  
 4. [Getting Started](#getting-started)  
    - [Prerequisites](#prerequisites)  
@@ -31,7 +31,7 @@ contextual embeddings, and DBpedia knowledge‑graph features to disambiguate an
 
 ---
 
-## Features
+## Key Features
 
 - **Multiple NER Models**: Choose from three NER models trained using [SpanMaker framework](https://github.com/tomaarsen/SpanMarkerNER):
   - [CoNLL++](https://huggingface.co/tomaarsen/span-marker-xlm-roberta-large-conll03-doc-context)
